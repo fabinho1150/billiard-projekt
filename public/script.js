@@ -44,6 +44,19 @@
     }).format(new Date()).toUpperCase();
   }
 
+
+  function configureDisplayMode() {
+    if (page !== "display") return;
+
+    const params = new URLSearchParams(window.location.search);
+    const forcedTvMode = params.get("tv") === "1";
+    const userAgent = navigator.userAgent || "";
+    const smartTvPattern = /smart-tv|smarttv|googletv|appletv|hbbtv|netcast|viera|tizen|web0s|webos|roku|aft|bravia/i;
+    const largeTvViewport = window.innerWidth >= 2500 && window.innerHeight >= 1300;
+    const autoTvMode = smartTvPattern.test(userAgent) || largeTvViewport;
+
+    document.body.classList.toggle("tv-mode", forcedTvMode || autoTvMode);
+  }
   function showMessage(text, error = false) {
     const node = document.getElementById("controller-message");
     if (!node) return;
@@ -469,8 +482,10 @@
     if (page === "controller") {
       wireController();
     } else {
+      configureDisplayMode();
       updateClock();
       setInterval(updateClock, 1000);
+      window.addEventListener("resize", configureDisplayMode);
     }
 
     setInterval(() => {
@@ -484,6 +499,8 @@
     }
   });
 })();
+
+
 
 
 

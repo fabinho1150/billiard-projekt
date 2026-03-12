@@ -2487,3 +2487,77 @@ p {
 }
 
 
+
+.tv-mode .display-shell {
+  padding: 30px 34px 28px;
+}
+
+.tv-mode .display-brand h1 {
+  font-size: clamp(3.2rem, 5.4vw, 5.4rem);
+}
+
+.tv-mode .display-clock {
+  min-width: 440px;
+  padding: 20px 28px;
+  font-size: clamp(1.8rem, 2.6vw, 2.6rem);
+}
+
+.tv-mode .display-hero {
+  padding: 34px;
+  grid-template-columns: 1.22fr 0.58fr;
+  gap: 22px;
+}
+
+.tv-mode .display-hero h2 {
+  font-size: clamp(4.4rem, 7vw, 6.8rem);
+}
+
+.tv-mode .display-banner {
+  font-size: clamp(2rem, 3vw, 3rem);
+  padding: 18px 28px;
+}
+
+.tv-mode .display-note {
+  font-size: clamp(1.5rem, 2vw, 2rem);
+}
+
+.tv-mode .display-stat {
+  padding: 22px 24px;
+}
+
+.tv-mode .display-stat strong {
+  font-size: clamp(3rem, 5vw, 5rem);
+}
+
+.tv-mode .display-stat span,
+.tv-mode .display-meta,
+.tv-mode .display-waiting-cell,
+.tv-mode .display-footer-banner,
+.tv-mode .display-footer-note,
+.tv-mode .side-card p {
+  font-size: clamp(1.45rem, 1.9vw, 1.9rem);
+}
+
+.tv-mode .display-waiting-head h3 {
+  font-size: clamp(2.6rem, 3.8vw, 3.8rem);
+}
+
+.tv-mode .priority-label {
+  font-size: 1.15rem;
+}
+
+.tv-mode .priority-primary {
+  font-size: clamp(2rem, 2.8vw, 3rem);
+}
+
+.tv-mode .priority-time {
+  font-size: clamp(1.4rem, 1.9vw, 1.9rem);
+}
+
+.tv-mode .display-waiting-cell {
+  min-height: 92px;
+}
+
+.tv-mode .side-card h4 {
+  font-size: 2.3rem;
+}
