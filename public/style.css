@@ -4866,17 +4866,13 @@ input:focus {
 }
 
 /* Add brand logo to right hero stage */
-.display-hero-stage::before {
-  content: "";
-  display: block !important;
-  position: absolute;
-  inset: 11% 10% 11% 10%;
-  background: url('/assets/logo.png') center center / 72% auto no-repeat;
-  opacity: 1;
-  filter: drop-shadow(0 12px 24px rgba(4, 12, 20, 0.18));
-  z-index: 3;
+.display-hero-stage {
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
+.display-hero-stage::before,
 .display-hero-stage::after {
   content: none;
 }
@@ -4886,8 +4882,17 @@ input:focus {
   opacity: 0;
 }
 
-.tv-mode .display-hero-stage::before {
-  inset: 10% 9% 10% 9%;
-  background-size: 76% auto;
-  opacity: 1;
+.hero-stage-logo {
+  position: relative;
+  z-index: 3;
+  display: block;
+  width: 72%;
+  max-width: 360px;
+  height: auto;
+  object-fit: contain;
+  filter: drop-shadow(0 12px 24px rgba(4, 12, 20, 0.18));
+}
+
+.tv-mode .hero-stage-logo {
+  width: 76%;
 }
