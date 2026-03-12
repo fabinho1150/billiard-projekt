@@ -1,4 +1,4 @@
-﻿(() => {
+(() => {
   const page = document.body.dataset.page;
   const pollMs = page === "display" ? 1200 : 1500;
   let state = null;
@@ -117,8 +117,8 @@
     ].join("");
 
     document.getElementById("occupied-count").textContent = state.occupiedTables;
-    document.getElementById("occupancy-label").textContent = state.freeTables > 0 ? "Billardtische sind verfÃ¼gbar" : "Aktuell sind alle Tische belegt";
-    document.getElementById("free-count-label").textContent = `${state.freeTables} Tische verfÃ¼gbar`;
+    document.getElementById("occupancy-label").textContent = state.freeTables > 0 ? "Billardtische sind verf\u00fcgbar" : "Aktuell sind alle Tische belegt";
+    document.getElementById("free-count-label").textContent = `${state.freeTables} Tische verf\u00fcgbar`;
   }
 
   function renderWaitingListController() {
@@ -127,7 +127,7 @@
 
     const list = waitingList();
     if (!list.length) {
-      host.innerHTML = '<div class="waiting-empty">Derzeit befinden sich keine GÃ¤ste auf der Warteliste</div>';
+      host.innerHTML = '<div class="waiting-empty">Derzeit befinden sich keine G\u00e4ste auf der Warteliste</div>';
       return;
     }
 
@@ -195,18 +195,18 @@
 
     document.getElementById("display-headline").textContent = isFull
       ? "ALLE TISCHE BELEGT"
-      : "BILLARDTISCHE SIND VERFÃœGBAR";
+      : "BILLARDTISCHE SIND VERF\u00dcGBAR";
     document.getElementById("display-subline").textContent = isFull
-      ? "Bitte an der Rezeption fÃ¼r die Warteliste anmelden"
+      ? "Bitte an der Rezeption f\u00fcr die Warteliste anmelden"
       : "Bitte an der Rezeption melden";
     document.getElementById("display-note").textContent = isFull
-      ? "Sobald ein Tisch frei wird, ruft das Personal die nÃ¤chste Wartenummer manuell auf."
-      : "Freie Tische sind verfÃ¼gbar. Die nÃ¤chste Gruppe kann sich direkt an der Rezeption melden.";
+      ? "Sobald ein Tisch frei wird, ruft das Personal die n\u00e4chste Wartenummer manuell auf."
+      : "Freie Tische sind verf\u00fcgbar. Die n\u00e4chste Gruppe kann sich direkt an der Rezeption melden.";
 
-    document.getElementById("side-status-title").textContent = isFull ? "Alle Tische belegt" : "Tische verfÃ¼gbar";
+    document.getElementById("side-status-title").textContent = isFull ? "Alle Tische belegt" : "Tische verf\u00fcgbar";
     document.getElementById("side-status-copy").textContent = isFull
       ? "Anmeldung und Ausgabe der Wartenummer erfolgen an der Rezeption."
-      : `${state.freeTables} freie Tische stehen aktuell zur VerfÃ¼gung.`;
+      : `${state.freeTables} freie Tische stehen aktuell zur Verf\u00fcgung.`;
   }
 
   function renderDisplayStats() {
@@ -231,7 +231,7 @@
     if (!next) {
       host.innerHTML = `
         <div class="priority-card">
-          <div class="priority-label">NÃ¤chster Aufruf</div>
+          <div class="priority-label">N\u00e4chster Aufruf</div>
           <div class="priority-main">
             <div class="priority-left">
               <span class="priority-chip">Position 1</span>
@@ -246,7 +246,7 @@
 
     host.innerHTML = `
       <div class="priority-card">
-        <div class="priority-label">NÃ¤chster Aufruf</div>
+        <div class="priority-label">N\u00e4chster Aufruf</div>
         <div class="priority-main">
           <div class="priority-left">
             <span class="priority-chip">Position 1</span>
@@ -267,7 +267,7 @@
     if (!list.length) {
       host.innerHTML = `
         <div class="display-waiting-row">
-          <div class="display-waiting-cell">Zurzeit keine wartenden GÃ¤ste</div>
+          <div class="display-waiting-cell">Zurzeit keine wartenden G\u00e4ste</div>
           <div class="display-waiting-cell">-</div>
           <div class="display-waiting-cell">-</div>
         </div>
@@ -447,7 +447,7 @@
       commitState(await api("/api/waiting/add", "POST", { guestName, waitNo }));
       document.getElementById("guest-name").value = "";
       document.getElementById("wait-no").value = "";
-      showMessage("Gast erfolgreich zur Warteliste hinzugefÃ¼gt.");
+      showMessage("Gast erfolgreich zur Warteliste hinzugef\u00fcgt.");
       document.getElementById("guest-name").focus();
     } catch (error) {
       showMessage(error.message, true);
@@ -491,7 +491,7 @@
   async function handleConfirmCall() {
     try {
       commitState(await api("/api/call/confirm", "POST"));
-      showMessage("Aufruf bestÃ¤tigt.");
+      showMessage("Aufruf best\u00e4tigt.");
     } catch (error) {
       showMessage(error.message, true);
     }
