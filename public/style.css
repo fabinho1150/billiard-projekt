@@ -2974,3 +2974,214 @@ p {
 .tv-mode .side-card h4 {
   font-size: clamp(2.7rem, 3.8vw, 4rem);
 }
+
+/* Display redesign refinement: elegant hotel lounge look */
+.display-body {
+  background:
+    radial-gradient(circle at 14% 16%, rgba(173, 132, 87, 0.16), transparent 22%),
+    radial-gradient(circle at 86% 10%, rgba(112, 76, 48, 0.16), transparent 20%),
+    linear-gradient(135deg, #140f0c 0%, #1a1410 36%, #090d11 100%);
+}
+
+.display-shell {
+  border-color: rgba(214, 187, 142, 0.16);
+  box-shadow:
+    0 32px 90px rgba(0, 0, 0, 0.5),
+    inset 0 1px 0 rgba(255, 255, 255, 0.05),
+    inset 0 0 0 1px rgba(212, 194, 164, 0.04);
+  background:
+    radial-gradient(circle at top right, rgba(199, 168, 124, 0.1), transparent 22%),
+    radial-gradient(circle at left center, rgba(104, 86, 66, 0.08), transparent 18%),
+    linear-gradient(180deg, rgba(18, 14, 11, 0.97), rgba(11, 14, 17, 0.95));
+}
+
+.display-topbar {
+  border-bottom-color: rgba(212, 194, 164, 0.08);
+}
+
+.eyebrow {
+  color: #d5b58c;
+}
+
+.display-brand h1 {
+  color: #f4ede0;
+}
+
+.display-brand h1 span {
+  color: #d9bf95;
+}
+
+.display-clock {
+  border-color: rgba(214, 187, 142, 0.14);
+  background: linear-gradient(135deg, rgba(34, 26, 22, 0.9), rgba(15, 18, 23, 0.76));
+  color: #f3e7d2;
+  box-shadow: inset 0 0 24px rgba(214, 187, 142, 0.05);
+}
+
+.display-hero {
+  border-color: rgba(214, 187, 142, 0.12);
+  background:
+    linear-gradient(115deg, rgba(18, 13, 10, 0.84) 0%, rgba(18, 13, 10, 0.56) 54%, rgba(16, 18, 22, 0.3) 100%),
+    radial-gradient(circle at 78% 32%, rgba(169, 132, 88, 0.12), transparent 20%),
+    linear-gradient(135deg, rgba(57, 37, 24, 0.22), rgba(14, 16, 19, 0.12));
+}
+
+.display-banner {
+  background: linear-gradient(90deg, rgba(214, 187, 142, 0.16), rgba(98, 74, 52, 0.16));
+  border-color: rgba(214, 187, 142, 0.14);
+  color: #f5ebdd;
+  font-weight: 600;
+}
+
+.display-note {
+  color: #b8aea1;
+}
+
+.display-hero-stage {
+  background:
+    radial-gradient(circle at 50% 50%, rgba(151, 117, 84, 0.16), transparent 44%),
+    linear-gradient(145deg, rgba(29, 21, 17, 0.88), rgba(12, 14, 18, 0.42));
+}
+
+.stage-table-glow {
+  background:
+    radial-gradient(circle at 30% 36%, rgba(197, 161, 114, 0.2), transparent 28%),
+    linear-gradient(145deg, rgba(58, 73, 58, 0.94), rgba(24, 28, 25, 0.98));
+  border-color: rgba(214, 187, 142, 0.18);
+}
+
+.stage-ring-a,
+.stage-ring-b {
+  border-color: rgba(214, 187, 142, 0.12);
+}
+
+.display-stat {
+  background: linear-gradient(180deg, rgba(24, 18, 14, 0.96), rgba(11, 14, 18, 0.8));
+}
+
+.display-stat::before {
+  background: linear-gradient(90deg, rgba(214, 187, 142, 0), rgba(214, 187, 142, 0.78), rgba(122, 88, 56, 0.8));
+}
+
+.display-stat strong {
+  color: #f5eee2;
+}
+
+.display-stat span {
+  color: #ab9e90;
+}
+
+.free-stat strong,
+.queue-stat strong,
+.estimate-badge,
+.priority-chip,
+.priority-primary,
+.display-footer-banner strong,
+.side-card-accent h4 {
+  color: #d9bf95;
+}
+
+.display-waiting-panel,
+.side-card {
+  background: linear-gradient(180deg, rgba(23, 18, 14, 0.92), rgba(10, 13, 17, 0.84));
+  border-color: rgba(214, 187, 142, 0.1);
+}
+
+.display-meta {
+  color: #cab59a;
+}
+
+.estimate-badge {
+  background: rgba(214, 187, 142, 0.12);
+  border-color: rgba(214, 187, 142, 0.12);
+}
+
+.priority-card {
+  background:
+    linear-gradient(135deg, rgba(214, 187, 142, 0.08), rgba(103, 78, 55, 0.06)),
+    rgba(17, 15, 14, 0.84);
+  border-color: rgba(214, 187, 142, 0.12);
+}
+
+.priority-label {
+  color: #c6a274;
+}
+
+.priority-chip {
+  background: rgba(214, 187, 142, 0.1);
+  color: #ead9bd;
+}
+
+.priority-primary {
+  color: #f4ede1;
+}
+
+.priority-time {
+  color: #cfb289;
+}
+
+.display-waiting-cell {
+  background: linear-gradient(180deg, rgba(27, 21, 17, 0.96), rgba(12, 15, 19, 0.74));
+  color: #f1ece4;
+}
+
+.side-card h4 {
+  color: #f2e9db;
+}
+
+.side-card p {
+  color: #a99b8d;
+}
+
+.display-footer-banner,
+.display-footer-note {
+  background: linear-gradient(180deg, rgba(24, 19, 15, 0.95), rgba(11, 14, 18, 0.78));
+  border-color: rgba(214, 187, 142, 0.1);
+}
+
+.display-footer-banner {
+  color: #f1e7d8;
+}
+
+.display-footer-note {
+  color: #d6c0a0;
+}
+
+.call-overlay {
+  background: rgba(7, 6, 5, 0.76);
+}
+
+.call-overlay-video-card {
+  border-color: rgba(214, 187, 142, 0.16);
+}
+
+.call-video {
+  filter: saturate(0.9) contrast(1.04) brightness(0.52) sepia(0.12);
+}
+
+.call-content-video .call-chip {
+  background: rgba(21, 17, 14, 0.62);
+  color: #e9d3b0;
+  border-color: rgba(214, 187, 142, 0.18);
+}
+
+.call-content-video .call-name,
+.call-content-video .call-number {
+  color: #f7f0e5;
+}
+
+.call-content-video .call-copy {
+  color: #dfcfb6;
+}
+
+.call-video-cover-brand {
+  background: linear-gradient(135deg, rgba(18, 13, 10, 0.96), rgba(15, 17, 20, 0.92));
+}
+
+.cover-brand-title {
+  color: #f28abc;
+}
+
+.cover-brand-sub {
+  color: #f1e6d4;
+}
