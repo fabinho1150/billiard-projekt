@@ -4814,3 +4814,53 @@ input:focus {
   width: 140px;
   height: 140px;
 }
+
+/* Wider hero copy for cleaner headline breaks */
+.display-hero {
+  grid-template-columns: minmax(0, 1.42fr) minmax(180px, 0.38fr);
+  gap: 18px;
+}
+
+.display-hero-copy {
+  max-width: 100%;
+}
+
+.display-hero h2 {
+  max-width: 14.5ch;
+  font-size: clamp(3.3rem, 5vw, 5.8rem);
+  line-height: 0.93;
+  text-wrap: balance;
+}
+
+.display-banner {
+  width: fit-content;
+  max-width: min(100%, 980px);
+  padding-inline: 26px;
+}
+
+.display-note {
+  max-width: 920px;
+}
+
+.display-stats-grid {
+  margin-top: 10px;
+}
+
+.tv-mode .display-hero {
+  grid-template-columns: minmax(0, 1.56fr) minmax(140px, 0.3fr);
+  gap: 16px;
+}
+
+.tv-mode .display-hero h2 {
+  max-width: 16ch;
+  font-size: clamp(4.1rem, 5.1vw, 6.4rem);
+}
+
+.tv-mode .display-banner {
+  max-width: min(100%, 1100px);
+  font-size: clamp(1.32rem, 1.6vw, 1.9rem);
+}
+
+.tv-mode .display-note {
+  max-width: 980px;
+}
