@@ -118,7 +118,7 @@
 
     document.getElementById("occupied-count").textContent = state.occupiedTables;
     document.getElementById("occupancy-label").textContent = state.freeTables > 0 ? "Billardtische sind verfuegbar" : "Aktuell sind alle Tische belegt";
-    document.getElementById("free-count-label").textContent = `${state.freeTables} Tische frei`;
+    document.getElementById("free-count-label").textContent = `${state.freeTables} Tische verfuegbar`;
   }
 
   function renderWaitingListController() {
@@ -127,7 +127,7 @@
 
     const list = waitingList();
     if (!list.length) {
-      host.innerHTML = '<div class="waiting-empty">Noch keine Gaeste in der Warteliste</div>';
+      host.innerHTML = '<div class="waiting-empty">Derzeit befinden sich keine Gaeste auf der Warteliste</div>';
       return;
     }
 
@@ -166,7 +166,7 @@
 
     if (!state.activeCall) {
       card.className = "active-call-card empty-card";
-      card.textContent = "Kein aktiver Aufruf";
+      card.textContent = "Derzeit kein aktiver Aufruf";
       repeatBtn.disabled = true;
       confirmBtn.disabled = true;
       clearBtn.disabled = true;
@@ -194,18 +194,18 @@
     const isFull = state.occupiedTables === state.totalTables;
 
     document.getElementById("display-headline").textContent = isFull
-      ? "AKTUELL ALLE BILLARDTISCHE BESETZT"
-      : "ES SIND BILLARDTISCHE FREI";
+      ? "DERZEIT SIND ALLE BILLARDTISCHE BESETZT"
+      : "BILLARDTISCHE SIND VERFUEGBAR";
     document.getElementById("display-subline").textContent = isFull
-      ? "Bitte vorne zur Rezeption kommen, um sich fuer die Warteliste anzumelden"
-      : "Bitte vorne zur Rezeption kommen";
+      ? "Bitte an der Rezeption fuer die Warteliste anmelden"
+      : "Bitte an der Rezeption melden";
     document.getElementById("display-note").textContent = isFull
-      ? "Sobald ein Tisch frei wird, wird die naechste Wartenummer manuell aufgerufen."
-      : "Freie Tische sind verfuegbar. Die naechste Gruppe kann direkt zur Rezeption kommen.";
+      ? "Sobald ein Tisch frei wird, ruft das Personal die naechste Wartenummer manuell auf."
+      : "Freie Tische sind verfuegbar. Die naechste Gruppe kann sich direkt an der Rezeption melden.";
 
     document.getElementById("side-status-title").textContent = isFull ? "Alle Tische belegt" : "Tische verfuegbar";
     document.getElementById("side-status-copy").textContent = isFull
-      ? "Anmeldung und Ausgabe der Wartenummer an der Rezeption."
+      ? "Anmeldung und Ausgabe der Wartenummer erfolgen an der Rezeption."
       : `${state.freeTables} freie Tische stehen aktuell zur Verfuegung.`;
   }
 
@@ -235,7 +235,7 @@
           <div class="priority-main">
             <div class="priority-left">
               <span class="priority-chip">Position 1</span>
-              <span class="priority-primary">Zurzeit keine Warteliste</span>
+              <span class="priority-primary">Zurzeit liegt keine Warteliste vor</span>
             </div>
             <div class="priority-time">-</div>
           </div>
@@ -267,7 +267,7 @@
     if (!list.length) {
       host.innerHTML = `
         <div class="display-waiting-row">
-          <div class="display-waiting-cell">Keine wartenden Gaeste</div>
+          <div class="display-waiting-cell">Zurzeit keine wartenden Gaeste</div>
           <div class="display-waiting-cell">-</div>
           <div class="display-waiting-cell">-</div>
         </div>
@@ -368,7 +368,7 @@
 
     document.getElementById("call-name").textContent = state.activeCall.guestName;
     document.getElementById("call-number").textContent = state.activeCall.waitNo;
-    document.getElementById("call-copy").textContent = "Bitte vorkommen zur Rezeption";
+    document.getElementById("call-copy").textContent = "Bitte zur Rezeption kommen";
     overlay.classList.remove("hidden");
 
     const card = overlay.querySelector(".call-overlay-card");
@@ -423,7 +423,7 @@
       commitState(await api("/api/waiting/add", "POST", { guestName, waitNo }));
       document.getElementById("guest-name").value = "";
       document.getElementById("wait-no").value = "";
-      showMessage("Gast zur Warteliste hinzugefuegt.");
+      showMessage("Gast erfolgreich zur Warteliste hinzugefuegt.");
       document.getElementById("guest-name").focus();
     } catch (error) {
       showMessage(error.message, true);
@@ -476,7 +476,7 @@
   async function handleClearCall() {
     try {
       commitState(await api("/api/call/clear", "POST"));
-      showMessage("Aufruf geloescht.");
+      showMessage("Aufruf beendet.");
     } catch (error) {
       showMessage(error.message, true);
     }
@@ -528,3 +528,5 @@
     }
   });
 })();
+
+

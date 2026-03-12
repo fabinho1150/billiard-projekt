@@ -12,9 +12,9 @@
         <div class="brand-mark brand-mark-controller">
           <img class="brand-logo-image" src="/assets/logo.png" alt="KOO Billardcafe Logo" />
           <div class="brand-copy">
-            <p class="eyebrow">Front Desk Control</p>
-            <h1>K&Ouml;&Ouml; Billardcafe Reception</h1>
-            <p class="lead">Uebersichtlich, modern und nur manuell steuerbar. Aenderungen passieren ausschliesslich ueber deine Buttons.</p>
+            <p class="eyebrow">Empfangssteuerung</p>
+            <h1>K&Ouml;&Ouml; Billardcafe Empfang</h1>
+            <p class="lead">Uebersichtlich, modern und vollstaendig manuell steuerbar. Aenderungen erfolgen ausschliesslich ueber die Bedienflaechen.</p>
           </div>
         </div>
         <div id="controller-stats" class="controller-stats"></div>
@@ -23,11 +23,11 @@
       <section class="controller-grid">
         <section class="glass-card add-card">
           <div class="section-head">
-            <p class="eyebrow">Check-in</p>
-            <h2>Gast zur Warteliste aufnehmen</h2>
+            <p class="eyebrow">Anmeldung</p>
+            <h2>Gast zur Warteliste hinzufuegen</h2>
           </div>
           <form id="add-form" class="add-form">
-            <input id="guest-name" type="text" placeholder="Name" maxlength="40" required />
+            <input id="guest-name" type="text" placeholder="Gastname" maxlength="40" required />
             <div class="add-form-row">
               <input id="wait-no" type="text" placeholder="Wartenummer" maxlength="20" required />
               <button type="submit" class="btn btn-primary">Gast aufnehmen</button>
@@ -42,9 +42,9 @@
             <h2>Tischbelegung manuell steuern</h2>
           </div>
           <div class="occupancy-hero">
-            <div class="occupancy-count"><span id="occupied-count">17</span><small>/ 17 besetzt</small></div>
+            <div class="occupancy-count"><span id="occupied-count">17</span><small>/ 17 belegt</small></div>
             <div class="occupancy-copy">
-              <strong id="occupancy-label">Aktuell alle Tische besetzt</strong>
+              <strong id="occupancy-label">Derzeit sind alle Tische belegt</strong>
               <span id="free-count-label">0 Tische frei</span>
             </div>
           </div>
@@ -62,7 +62,7 @@
         <section class="glass-card waiting-card">
           <div class="section-head waiting-head">
             <div>
-              <p class="eyebrow">Queue</p>
+              <p class="eyebrow">Warteliste</p>
               <h2>Warteliste</h2>
             </div>
             <div class="waiting-columns">
@@ -83,8 +83,8 @@
           <div id="active-call-card" class="active-call-card empty-card">Kein aktiver Aufruf</div>
           <div class="call-panel-actions">
             <button id="btn-repeat-call" type="button" class="btn btn-secondary" disabled>Aufruf wiederholen</button>
-            <button id="btn-confirm-call" type="button" class="btn btn-success" disabled>Bestaetigt</button>
-            <button id="btn-clear-call" type="button" class="btn btn-danger" disabled>Aufruf loeschen</button>
+            <button id="btn-confirm-call" type="button" class="btn btn-success" disabled>Aufruf bestaetigen</button>
+            <button id="btn-clear-call" type="button" class="btn btn-danger" disabled>Aufruf abbrechen</button>
           </div>
         </section>
       </section>
@@ -93,5 +93,7 @@
     <script src="/script.js"></script>
   </body>
 </html>
+
+
 
 
