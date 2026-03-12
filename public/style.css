@@ -3491,3 +3491,140 @@ p {
     padding: 24px 22px;
   }
 }
+
+/* Brand and typography refinement */
+:root {
+  --brand-rose: #f42d97;
+  --brand-aqua: #73d2c9;
+  --brand-champagne: #d9bf95;
+  --brand-ivory: #f6efe4;
+}
+
+html, body {
+  font-family: "Aptos", "Segoe UI Variable Text", "Segoe UI", sans-serif;
+}
+
+h1, h2, h3, h4,
+.display-headline,
+.priority-primary,
+.call-name,
+.call-number,
+.call-copy,
+.active-call-card .call-main-name {
+  font-family: "Aptos Display", "Segoe UI Variable Display", "Bahnschrift", sans-serif;
+}
+
+.brand-mark {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.brand-logo-image {
+  width: 118px;
+  height: 118px;
+  object-fit: contain;
+  flex: 0 0 auto;
+  filter: drop-shadow(0 10px 24px rgba(0, 0, 0, 0.28));
+}
+
+.brand-copy {
+  display: grid;
+  gap: 6px;
+}
+
+.brand-copy h1 {
+  margin: 0;
+  font-size: clamp(2.5rem, 4.2vw, 4.8rem);
+  line-height: 0.96;
+  letter-spacing: -0.05em;
+  color: var(--brand-ivory);
+}
+
+.brand-copy h1 span {
+  color: var(--brand-champagne);
+}
+
+.brand-subtitle {
+  margin: 0;
+  color: #aa9d91;
+  font-size: 0.98rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.brand-mark-controller .brand-logo-image {
+  width: 128px;
+  height: 128px;
+}
+
+.brand-mark-display .brand-logo-image {
+  width: 112px;
+  height: 112px;
+}
+
+.controller-header h1,
+.display-brand h1,
+.display-hero h2,
+.display-waiting-head h3,
+.side-card h4,
+.section-head h2,
+.waiting-head h2 {
+  font-variation-settings: "wght" 700;
+}
+
+.display-hero h2 {
+  max-width: 11ch;
+}
+
+.display-banner,
+.btn,
+.call-chip,
+.estimate-badge,
+.priority-chip {
+  letter-spacing: 0.04em;
+}
+
+.display-clock,
+.stat-box span,
+.display-stat span,
+.priority-label,
+.eyebrow,
+.brand-subtitle {
+  font-variation-settings: "wght" 550;
+}
+
+.tv-mode .brand-logo-image {
+  width: 144px;
+  height: 144px;
+}
+
+.tv-mode .brand-copy h1 {
+  font-size: clamp(3.2rem, 5vw, 5.4rem);
+}
+
+.tv-mode .brand-subtitle {
+  font-size: 1.08rem;
+}
+
+@media (max-width: 1220px) {
+  .brand-mark {
+    align-items: flex-start;
+  }
+
+  .brand-logo-image,
+  .brand-mark-controller .brand-logo-image,
+  .brand-mark-display .brand-logo-image {
+    width: 84px;
+    height: 84px;
+  }
+
+  .brand-copy h1 {
+    font-size: clamp(2rem, 6vw, 3rem);
+  }
+
+  .brand-subtitle {
+    font-size: 0.82rem;
+    letter-spacing: 0.06em;
+  }
+}
