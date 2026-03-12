@@ -4455,3 +4455,91 @@ input:focus {
 .tv-mode .display-footer-banner {
   font-size: clamp(1.18rem, 1.38vw, 1.52rem);
 }
+
+/* Stability and centering refinements */
+.display-topbar,
+.display-stats-grid,
+.display-board,
+.display-footer {
+  width: 100%;
+  margin-inline: auto;
+}
+
+.display-topbar,
+.display-hero,
+.display-footer,
+.display-waiting-head,
+.priority-main,
+.display-stat,
+.side-card,
+.waiting-row,
+.display-waiting-row {
+  align-items: center;
+}
+
+.display-footer,
+.display-footer-banner,
+.display-footer-note,
+.display-waiting-head,
+.display-meta,
+.priority-main,
+.controller-stats,
+.waiting-columns {
+  justify-content: center;
+}
+
+.display-footer,
+.display-footer-banner,
+.display-footer-note,
+.display-stat,
+.side-card,
+.priority-card {
+  text-align: center;
+}
+
+.display-waiting-list,
+.waiting-list {
+  width: 100%;
+}
+
+.display-waiting-row,
+.waiting-row {
+  display: grid;
+}
+
+.display-waiting-cell,
+.waiting-row-cell {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+
+.display-waiting-cell:first-child,
+.waiting-row-name,
+.priority-left,
+.display-hero-copy,
+.brand-copy {
+  text-align: left;
+}
+
+.display-waiting-head {
+  gap: 14px;
+}
+
+.priority-main {
+  gap: 18px;
+}
+
+.priority-left {
+  display: grid;
+  gap: 8px;
+}
+
+.tv-mode .display-topbar,
+.tv-mode .display-stats-grid,
+.tv-mode .display-board,
+.tv-mode .display-footer {
+  width: 100%;
+  margin-inline: auto;
+}

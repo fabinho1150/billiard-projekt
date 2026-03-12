@@ -32,6 +32,25 @@
     }).format(new Date(timestamp));
   }
 
+  function formatWaitDuration(timestamp) {
+    const elapsedMinutes = Math.max(0, Math.floor((Date.now() - timestamp) / 60000));
+
+    if (elapsedMinutes < 1) {
+      return "unter 1 min";
+    }
+    if (elapsedMinutes < 60) {
+      return `${elapsedMinutes} min`;
+    }
+
+    const hours = Math.floor(elapsedMinutes / 60);
+    const minutes = elapsedMinutes % 60;
+    if (minutes === 0) {
+      return `${hours} h`;
+    }
+
+    return `${hours} h ${minutes} min`;
+  }
+
   function updateClock() {
     const node = document.getElementById("display-clock");
     if (!node) return;
@@ -119,7 +138,7 @@
       row.innerHTML = `
         <div class="waiting-row-cell waiting-row-name">${item.guestName}</div>
         <div class="waiting-row-cell">${item.waitNo}</div>
-        <div class="waiting-row-cell">${formatCheckIn(item.createdAt)}</div>
+        <div class="waiting-row-cell">${formatWaitDuration(item.createdAt)}</div>
         <button class="waiting-row-remove" data-id="${item.id}">Entfernen</button>
       `;
       host.appendChild(row);
@@ -158,7 +177,7 @@
     card.innerHTML = `
       <span class="call-waitno">${state.activeCall.waitNo}</span>
       <div class="call-main-name">${state.activeCall.guestName}</div>
-      <div class="lead">Aufgerufen um ${formatCheckIn(state.activeCall.createdAt)} | Wiederholt ${state.activeCall.repeatCount}x</div>
+      <div class="lead">Wartet seit ${formatWaitDuration(state.activeCall.createdAt)} | Wiederholt ${state.activeCall.repeatCount}x</div>
     `;
     repeatBtn.disabled = false;
     confirmBtn.disabled = false;
@@ -234,7 +253,7 @@
             <span class="priority-primary">${next.guestName}</span>
             <span class="priority-primary">${next.waitNo}</span>
           </div>
-          <div class="priority-time">Angemeldet ${formatCheckIn(next.createdAt)}</div>
+          <div class="priority-time">Wartet seit ${formatWaitDuration(next.createdAt)}</div>
         </div>
       </div>
     `;
@@ -265,7 +284,7 @@
       row.innerHTML = `
         <div class="display-waiting-cell">${item.guestName}</div>
         <div class="display-waiting-cell">${item.waitNo}</div>
-        <div class="display-waiting-cell">${formatCheckIn(item.createdAt)}</div>
+        <div class="display-waiting-cell">${formatWaitDuration(item.createdAt)}</div>
       `;
       host.appendChild(row);
     });
@@ -390,7 +409,7 @@
 
   async function refreshState(force = false) {
     const nextState = await api("/api/state");
-    if (force || nextState.version !== lastVersion) {
+    if (force || nextState.version > lastVersion) {
       commitState(nextState);
     }
   }
@@ -473,6 +492,17 @@
     document.getElementById("btn-clear-call").addEventListener("click", handleClearCall);
   }
 
+  function refreshRelativeTimes() {
+    if (!state) return;
+
+    if (page === "controller") {
+      renderController();
+      return;
+    }
+
+    renderDisplay();
+  }
+
   async function start() {
     await refreshState(true);
 
@@ -485,6 +515,8 @@
       window.addEventListener("resize", configureDisplayMode);
     }
 
+    setInterval(refreshRelativeTimes, 30000);
+
     setInterval(() => {
       refreshState().catch(() => {});
     }, pollMs);
@@ -496,5 +528,3 @@
     }
   });
 })();
-
-
