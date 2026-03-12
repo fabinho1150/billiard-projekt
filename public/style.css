@@ -4870,13 +4870,13 @@ input:focus {
   content: "";
   display: block !important;
   position: absolute;
-  inset: 9% 8% 9% 12%;
+  inset: 10% 9% 10% 11%;
   background:
-    radial-gradient(circle at 52% 50%, rgba(115, 210, 201, 0.18), transparent 30%),
-    radial-gradient(circle at 34% 62%, rgba(244, 45, 151, 0.12), transparent 20%),
-    url('/assets/logo.png') center / contain no-repeat;
-  opacity: 0.92;
-  filter: drop-shadow(0 22px 44px rgba(4, 12, 20, 0.42));
+    radial-gradient(circle at 50% 48%, rgba(115, 210, 201, 0.14), transparent 31%),
+    radial-gradient(circle at 42% 66%, rgba(244, 45, 151, 0.08), transparent 19%),
+    url('/assets/logo.png') center center / 82% auto no-repeat;
+  opacity: 0.94;
+  filter: drop-shadow(0 26px 46px rgba(4, 12, 20, 0.46));
   z-index: 3;
 }
 
@@ -4884,22 +4884,26 @@ input:focus {
   content: "";
   display: block !important;
   position: absolute;
-  inset: 14% 12%;
-  border-radius: 36px;
+  inset: 16% 14%;
+  border-radius: 32px;
   background:
-    linear-gradient(140deg, rgba(255, 255, 255, 0.04), rgba(255, 255, 255, 0.01)),
-    radial-gradient(circle at 48% 48%, rgba(115, 210, 201, 0.14), transparent 38%);
-  border: 1px solid rgba(255, 255, 255, 0.06);
-  filter: blur(16px);
+    linear-gradient(145deg, rgba(255, 255, 255, 0.045), rgba(255, 255, 255, 0.015)),
+    radial-gradient(circle at 50% 46%, rgba(115, 210, 201, 0.1), transparent 40%);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.05),
+    0 18px 48px rgba(1, 10, 18, 0.32);
+  filter: blur(10px);
   z-index: 1;
 }
 
 .hero-surface {
   z-index: 2;
-  opacity: 0.45;
+  opacity: 0.22;
 }
 
 .tv-mode .display-hero-stage::before {
-  inset: 8% 6% 8% 10%;
+  inset: 9% 7% 9% 9%;
+  background-size: 86% auto;
   opacity: 0.96;
 }
