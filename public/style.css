@@ -4150,3 +4150,51 @@ input:focus {
 .tv-mode .display-waiting-panel {
   border-radius: 24px;
 }
+
+/* Logo visibility safeguards */
+.brand-mark {
+  min-width: 0;
+}
+
+.brand-logo-image,
+.cover-brand-logo {
+  display: block;
+  max-width: 100%;
+  max-height: 100%;
+  aspect-ratio: 1;
+  object-fit: contain;
+  object-position: center;
+  background: transparent;
+}
+
+.brand-logo-image {
+  padding: 6px;
+  overflow: visible;
+}
+
+.brand-mark-display .brand-logo-image,
+.brand-mark-controller .brand-logo-image {
+  flex: 0 0 auto;
+}
+
+.call-video-cover-brand {
+  width: clamp(120px, 10vw, 180px);
+  height: clamp(120px, 10vw, 180px);
+  padding: 10px;
+  border-radius: 28px;
+  background: rgba(5, 14, 24, 0.48);
+  border: 1px solid rgba(115, 210, 201, 0.12);
+  backdrop-filter: blur(12px);
+}
+
+.cover-brand-logo {
+  width: 100%;
+  height: 100%;
+  filter: drop-shadow(0 12px 24px rgba(0, 0, 0, 0.28));
+}
+
+.tv-mode .call-video-cover-brand {
+  width: clamp(108px, 8vw, 150px);
+  height: clamp(108px, 8vw, 150px);
+  padding: 8px;
+}
