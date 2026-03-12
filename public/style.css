@@ -686,6 +686,87 @@ p {
   color: #fff3bc;
 }
 
+@media (min-width: 1280px) and (orientation: landscape) {
+  .display-body {
+    padding: 10px;
+  }
+
+  .display-shell {
+    min-height: calc(100vh - 20px);
+    padding: 16px 18px 14px;
+  }
+
+  .display-topbar,
+  .display-stats-grid,
+  .display-board,
+  .display-footer {
+    margin-top: 10px;
+  }
+
+  .display-hero {
+    margin-top: 10px;
+    padding: 16px 18px;
+    gap: 12px;
+    grid-template-columns: minmax(0, 1.1fr) minmax(260px, 0.45fr);
+  }
+
+  .display-hero-stage {
+    min-height: 190px;
+  }
+
+  .display-hero h2 {
+    font-size: clamp(1.8rem, 3.4vw, 3.4rem);
+  }
+
+  .display-banner {
+    font-size: clamp(0.95rem, 1.4vw, 1.35rem);
+    padding: 10px 14px;
+  }
+
+  .display-note {
+    font-size: clamp(0.82rem, 1vw, 1rem);
+  }
+
+  .display-stat {
+    padding: 12px 14px;
+  }
+
+  .display-stat strong {
+    font-size: clamp(1.5rem, 2.4vw, 2.6rem);
+  }
+
+  .display-stat span,
+  .display-meta,
+  .display-waiting-cell,
+  .display-footer-banner,
+  .display-footer-note {
+    font-size: clamp(0.88rem, 1vw, 1.05rem);
+  }
+
+  .display-waiting-head h3 {
+    font-size: clamp(1.3rem, 1.8vw, 2rem);
+  }
+
+  .display-waiting-panel,
+  .side-card {
+    padding: 16px;
+  }
+
+  .display-waiting-list {
+    max-height: min(30vh, 320px);
+  }
+
+  .display-waiting-cell {
+    min-height: 48px;
+  }
+
+  .display-clock {
+    min-width: 240px;
+    padding: 12px 16px;
+    font-size: clamp(1rem, 1.3vw, 1.35rem);
+  }
+}
+
 .call-overlay {
   position: fixed;
   inset: 0;
@@ -1750,7 +1831,8 @@ p {
 }
 
 .display-shell {
-  height: calc(100vh - 28px);
+  min-height: calc(100vh - 28px);
+  height: auto;
 }
 
 .display-hero {
@@ -1786,6 +1868,7 @@ p {
 .display-board {
   min-height: 0;
   align-items: stretch;
+  grid-template-columns: minmax(0, 1.35fr) minmax(280px, 0.5fr);
 }
 
 .display-waiting-panel {
@@ -1796,7 +1879,7 @@ p {
 
 .display-waiting-list {
   flex: 1 1 auto;
-  max-height: clamp(220px, 34vh, 420px);
+  max-height: clamp(220px, 36vh, 460px);
   overflow: auto;
   padding-right: 6px;
 }
@@ -1917,6 +2000,7 @@ p {
 @media (max-height: 980px) {
   .display-shell {
     padding: 18px 20px 16px;
+    min-height: calc(100vh - 28px);
   }
 
   .display-topbar {
@@ -1947,16 +2031,20 @@ p {
 }
 
 @media (max-height: 860px) {
+  .display-shell {
+    padding: 14px 16px 14px;
+  }
+
   .display-hero {
-    padding: 16px;
+    padding: 14px;
   }
 
   .display-hero-stage {
-    min-height: 210px;
+    min-height: 180px;
   }
 
   .display-waiting-list {
-    max-height: 250px;
+    max-height: min(28vh, 240px);
   }
 
   .display-footer-banner,
@@ -2478,3 +2566,4 @@ p {
     font-size: 0.6rem;
   }
 }
+
