@@ -3628,3 +3628,272 @@ h1, h2, h3, h4,
     letter-spacing: 0.06em;
   }
 }
+
+/* Final display fit and logo polish */
+.brand-logo-image {
+  background: transparent;
+}
+
+.display-body {
+  min-height: 100dvh;
+  overflow-x: hidden;
+  overflow-y: auto;
+}
+
+.display-shell {
+  width: min(100%, 1880px);
+  min-height: auto;
+  padding: clamp(18px, 1.45vw, 30px);
+  gap: clamp(14px, 1vw, 22px);
+  overflow: visible;
+}
+
+.display-topbar {
+  align-items: start;
+  gap: clamp(16px, 1.1vw, 24px);
+}
+
+.brand-mark-display {
+  align-items: center;
+  gap: clamp(14px, 1.2vw, 22px);
+}
+
+.brand-mark-display .brand-logo-image {
+  width: clamp(82px, 5.8vw, 116px);
+  height: clamp(82px, 5.8vw, 116px);
+}
+
+.brand-copy {
+  min-width: 0;
+}
+
+.brand-copy h1 {
+  font-size: clamp(2.3rem, 3.8vw, 4.6rem);
+}
+
+.display-clock {
+  white-space: nowrap;
+  align-self: center;
+}
+
+.display-hero {
+  grid-template-columns: minmax(0, 1.2fr) minmax(250px, 0.8fr);
+  align-items: center;
+  padding: clamp(22px, 2vw, 34px);
+  gap: clamp(18px, 1.4vw, 28px);
+}
+
+.display-hero h2 {
+  max-width: 10.5ch;
+  font-size: clamp(3rem, 5vw, 5.8rem);
+}
+
+.display-banner {
+  font-size: clamp(1.05rem, 1.5vw, 1.75rem);
+  line-height: 1.2;
+}
+
+.display-note {
+  font-size: clamp(0.98rem, 1.12vw, 1.22rem);
+}
+
+.display-hero-stage {
+  min-height: clamp(220px, 22vw, 330px);
+}
+
+.display-stats-grid {
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: clamp(12px, 1vw, 20px);
+}
+
+.display-stat {
+  min-height: 0;
+  padding: clamp(20px, 1.4vw, 26px);
+}
+
+.display-stat strong {
+  font-size: clamp(2.8rem, 3.6vw, 4.6rem);
+}
+
+.display-board {
+  grid-template-columns: minmax(0, 1.45fr) minmax(260px, 0.55fr);
+  align-items: start;
+  gap: clamp(14px, 1vw, 20px);
+}
+
+.display-waiting-panel,
+.display-side-panel,
+.side-card,
+.priority-card,
+.display-waiting-row {
+  min-height: 0;
+}
+
+.display-waiting-panel,
+.side-card {
+  padding: clamp(18px, 1.3vw, 24px);
+}
+
+.display-waiting-list {
+  gap: 10px;
+}
+
+.display-waiting-row {
+  min-height: 68px;
+}
+
+.display-waiting-cell {
+  min-height: 68px;
+  padding: 18px 20px;
+}
+
+.display-footer {
+  gap: 10px;
+  padding-top: 2px;
+}
+
+.display-footer-banner {
+  font-size: clamp(1rem, 1.25vw, 1.36rem);
+}
+
+.display-footer-note {
+  font-size: clamp(0.92rem, 1vw, 1.02rem);
+}
+
+.tv-mode .display-body {
+  overflow: hidden;
+}
+
+.tv-mode .display-shell {
+  width: min(100%, 96vw);
+  min-height: calc(100dvh - 20px);
+  padding: clamp(14px, 1vw, 22px);
+  gap: clamp(10px, 0.8vw, 16px);
+}
+
+.tv-mode .brand-mark-display .brand-logo-image {
+  width: clamp(84px, 5vw, 114px);
+  height: clamp(84px, 5vw, 114px);
+}
+
+.tv-mode .brand-copy h1 {
+  font-size: clamp(2.6rem, 3.9vw, 4.6rem);
+}
+
+.tv-mode .brand-subtitle {
+  font-size: clamp(0.8rem, 0.95vw, 0.98rem);
+}
+
+.tv-mode .display-clock {
+  font-size: clamp(1rem, 1.3vw, 1.34rem);
+  padding: 14px 18px;
+}
+
+.tv-mode .display-hero {
+  padding: clamp(18px, 1.2vw, 24px);
+  grid-template-columns: minmax(0, 1.18fr) minmax(220px, 0.72fr);
+  gap: clamp(14px, 1vw, 20px);
+}
+
+.tv-mode .display-hero h2 {
+  font-size: clamp(2.8rem, 4.3vw, 4.9rem);
+}
+
+.tv-mode .display-banner {
+  font-size: clamp(0.98rem, 1.28vw, 1.42rem);
+}
+
+.tv-mode .display-note,
+.tv-mode .side-card p,
+.tv-mode .display-meta,
+.tv-mode .display-waiting-cell,
+.tv-mode .display-footer-banner,
+.tv-mode .display-footer-note {
+  font-size: clamp(0.92rem, 1vw, 1.08rem);
+}
+
+.tv-mode .display-hero-stage {
+  min-height: clamp(180px, 17vw, 250px);
+}
+
+.tv-mode .display-stats-grid {
+  gap: 12px;
+}
+
+.tv-mode .display-stat {
+  padding: 16px 18px;
+}
+
+.tv-mode .display-stat strong {
+  font-size: clamp(2.5rem, 3.2vw, 3.8rem);
+}
+
+.tv-mode .display-board {
+  gap: 12px;
+}
+
+.tv-mode .display-waiting-panel,
+.tv-mode .side-card,
+.tv-mode .priority-card {
+  padding: 16px 18px;
+}
+
+.tv-mode .display-waiting-row,
+.tv-mode .display-waiting-cell {
+  min-height: 58px;
+}
+
+.tv-mode .display-waiting-cell {
+  padding: 14px 16px;
+}
+
+.tv-mode .priority-primary {
+  font-size: clamp(1.4rem, 1.8vw, 2rem);
+}
+
+.tv-mode .side-card h4,
+.tv-mode .display-waiting-head h3 {
+  font-size: clamp(1.35rem, 1.5vw, 1.8rem);
+}
+
+@media (max-height: 980px) {
+  .display-shell {
+    padding: 18px;
+    gap: 14px;
+  }
+
+  .display-hero {
+    padding: 20px;
+  }
+
+  .display-hero h2 {
+    font-size: clamp(2.5rem, 4.3vw, 4.4rem);
+  }
+
+  .display-hero-stage {
+    min-height: 210px;
+  }
+
+  .display-stat {
+    padding: 16px 18px;
+  }
+
+  .display-stat strong {
+    font-size: clamp(2.4rem, 3vw, 3.5rem);
+  }
+
+  .display-waiting-panel,
+  .side-card,
+  .priority-card {
+    padding: 16px 18px;
+  }
+
+  .display-waiting-row,
+  .display-waiting-cell {
+    min-height: 58px;
+  }
+
+  .display-waiting-cell {
+    padding: 14px 16px;
+  }
+}
