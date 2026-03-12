@@ -399,6 +399,30 @@
     }
   }
 
+  function renderHeroInfoCard() {
+    const next = waitingList()[0];
+    const nextNumber = document.getElementById("hero-next-number");
+    const nextWait = document.getElementById("hero-next-wait");
+    const freeTables = document.getElementById("hero-free-tables");
+    const note = document.getElementById("hero-info-note");
+
+    if (!nextNumber || !nextWait || !freeTables || !note) return;
+
+    freeTables.textContent = state.freeTables;
+
+    if (!next) {
+      nextNumber.textContent = "-";
+      nextWait.textContent = "Keine Warteliste";
+      note.textContent = state.freeTables > 0
+        ? "Freie Tische sind verfügbar. Gäste können sich direkt an der Rezeption melden."
+        : "Zurzeit liegt keine Warteliste vor.";
+      return;
+    }
+
+    nextNumber.textContent = next.waitNo;
+    nextWait.textContent = formatWaitDuration(next.createdAt);
+      note.textContent = `${waitingList().length} Gruppen warten derzeit auf einen freien Tisch.`;
+  }
   function renderDisplay() {
     renderDisplayHero();
     renderDisplayStats();
@@ -528,6 +552,7 @@
     }
   });
 })();
+
 
 
 
