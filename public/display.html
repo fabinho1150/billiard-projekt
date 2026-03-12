@@ -26,28 +26,14 @@
           <div id="display-subline" class="display-banner">BITTE MELDET EUCH AN DER REZEPTION FÜR DIE WARTELISTE AN</div>
           <p id="display-note" class="display-note">Sobald ein Tisch frei wird, ruft das Personal die nächste Wartenummer manuell auf.</p>
         </div>
-        <div class="display-hero-stage">
-          <div class="hero-info-card">
-            <div class="hero-info-header">
-              <p class="eyebrow">Live-Information</p>
-              <h3>Now / Next</h3>
-            </div>
-            <div class="hero-info-grid">
-              <div class="hero-info-item hero-info-highlight">
-                <span>N&auml;chste Nummer</span>
-                <strong id="hero-next-number">-</strong>
-              </div>
-              <div class="hero-info-item">
-                <span>Wartezeit</span>
-                <strong id="hero-next-wait">-</strong>
-              </div>
-              <div class="hero-info-item">
-                <span>Freie Tische</span>
-                <strong id="hero-free-tables">0</strong>
-              </div>
-            </div>
-            <p id="hero-info-note" class="hero-info-note">Zurzeit liegt keine Warteliste vor.</p>
-          </div>
+        <div class="display-hero-stage" aria-hidden="true">
+          <div class="hero-surface hero-surface-main"></div>
+          <div class="hero-surface hero-surface-glass"></div>
+          <div class="hero-surface hero-surface-accent"></div>
+          <div class="hero-surface hero-surface-line hero-surface-line-a"></div>
+          <div class="hero-surface hero-surface-line hero-surface-line-b"></div>
+          <div class="hero-surface hero-surface-orb hero-surface-orb-a"></div>
+          <div class="hero-surface hero-surface-orb hero-surface-orb-b"></div>
         </div>
       </section>
 
@@ -121,6 +107,7 @@
     <script src="/script.js"></script>
   </body>
 </html>
+
 
 
 
