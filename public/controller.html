@@ -12,7 +12,7 @@
         <div>
           <p class="eyebrow">K&Ouml;&Ouml; Revenue Bar</p>
           <h1>K&Ouml;&Ouml; Revenue Bar / Rezeption</h1>
-          <p class="lead">Schnelle Bedienung fuer das iPad. Klar, gross und touchfreundlich.</p>
+          <p class="lead">Uebersichtlich, modern und nur manuell steuerbar. Aenderungen passieren ausschliesslich ueber deine Buttons.</p>
         </div>
         <div id="controller-stats" class="controller-stats"></div>
       </header>
@@ -20,14 +20,14 @@
       <section class="controller-grid">
         <section class="glass-card add-card">
           <div class="section-head">
-            <p class="eyebrow">Bereich A</p>
-            <h2>Neuen Gast hinzufuegen</h2>
+            <p class="eyebrow">Check-in</p>
+            <h2>Gast zur Warteliste aufnehmen</h2>
           </div>
           <form id="add-form" class="add-form">
             <input id="guest-name" type="text" placeholder="Name" maxlength="40" required />
             <div class="add-form-row">
               <input id="wait-no" type="text" placeholder="Wartenummer" maxlength="20" required />
-              <button type="submit" class="btn btn-primary">Zur Warteliste hinzufuegen</button>
+              <button type="submit" class="btn btn-primary">Gast aufnehmen</button>
             </div>
           </form>
           <p id="controller-message" class="message"></p>
@@ -35,8 +35,8 @@
 
         <section class="glass-card tables-card">
           <div class="section-head">
-            <p class="eyebrow">Bereich C</p>
-            <h2>Billardtisch-Status</h2>
+            <p class="eyebrow">Tische</p>
+            <h2>Tischbelegung manuell steuern</h2>
           </div>
           <div class="occupancy-hero">
             <div class="occupancy-count"><span id="occupied-count">17</span><small>/ 17 besetzt</small></div>
@@ -46,11 +46,11 @@
             </div>
           </div>
           <div class="occupancy-actions">
-            <button id="btn-occupied-plus" type="button" class="btn btn-secondary">+1 Tisch vergeben / besetzt</button>
+            <button id="btn-occupied-plus" type="button" class="btn btn-secondary">+1 Tisch wieder besetzt</button>
             <button id="btn-occupied-minus" type="button" class="btn btn-primary">-1 Tisch frei geworden</button>
           </div>
           <div class="call-next-bar">
-            <button id="btn-call-next" type="button" class="btn btn-success btn-call-next-emphasis">Naechste Gruppe jetzt aufrufen</button>
+            <button id="btn-call-next" type="button" class="btn btn-success btn-call-next-emphasis">Naechste Gruppe aufrufen</button>
           </div>
         </section>
       </section>
@@ -59,14 +59,14 @@
         <section class="glass-card waiting-card">
           <div class="section-head waiting-head">
             <div>
-              <p class="eyebrow">Bereich B</p>
+              <p class="eyebrow">Queue</p>
               <h2>Warteliste</h2>
             </div>
             <div class="waiting-columns">
               <span>Name</span>
               <span>Nummer</span>
-              <span>Timer</span>
-              <span>Korrektur</span>
+              <span>Angemeldet</span>
+              <span>Aktion</span>
             </div>
           </div>
           <div id="waiting-list" class="waiting-list"></div>
@@ -74,7 +74,7 @@
 
         <section class="glass-card call-card-panel">
           <div class="section-head">
-            <p class="eyebrow">Bereich D</p>
+            <p class="eyebrow">Aufruf</p>
             <h2>Aktueller Aufruf</h2>
           </div>
           <div id="active-call-card" class="active-call-card empty-card">Kein aktiver Aufruf</div>
@@ -90,4 +90,5 @@
     <script src="/script.js"></script>
   </body>
 </html>
+
 

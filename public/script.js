@@ -1,6 +1,6 @@
 (() => {
   const page = document.body.dataset.page;
-  const pollMs = page === "display" ? 700 : 1000;
+  const pollMs = page === "display" ? 1200 : 1500;
   let state = null;
   let lastVersion = -1;
   let lastCallKey = "";
@@ -25,16 +25,17 @@
     return (state.waitingList || []).slice().sort((a, b) => a.createdAt - b.createdAt);
   }
 
-  function timeSince(timestamp) {
-    const seconds = Math.max(0, Math.floor((Date.now() - timestamp) / 1000));
-    const minutes = String(Math.floor(seconds / 60)).padStart(2, "0");
-    const secs = String(seconds % 60).padStart(2, "0");
-    return `${minutes}:${secs}`;
+  function formatCheckIn(timestamp) {
+    return new Intl.DateTimeFormat("de-AT", {
+      hour: "2-digit",
+      minute: "2-digit",
+    }).format(new Date(timestamp));
   }
 
   function updateClock() {
     const node = document.getElementById("display-clock");
     if (!node) return;
+
     node.textContent = new Intl.DateTimeFormat("de-AT", {
       hour: "2-digit",
       minute: "2-digit",
@@ -43,7 +44,6 @@
       month: "long",
     }).format(new Date()).toUpperCase();
   }
-
 
   function configureDisplayMode() {
     if (page !== "display") return;
@@ -57,18 +57,33 @@
 
     document.body.classList.toggle("tv-mode", forcedTvMode || autoTvMode);
   }
+
   function showMessage(text, error = false) {
     const node = document.getElementById("controller-message");
     if (!node) return;
+
     node.textContent = text;
-    node.style.color = error ? "#ff8b95" : "#80f3a6";
+    node.style.color = error ? "#ff8b95" : "#d8c29a";
+
     setTimeout(() => {
       if (node.textContent === text) node.textContent = "";
-    }, 3000);
+    }, 3200);
   }
 
   function statBox(value, label) {
     return `<div class="stat-box"><strong>${value}</strong><span>${label}</span></div>`;
+  }
+
+  function commitState(nextState) {
+    state = nextState;
+    lastVersion = nextState.version;
+
+    if (page === "controller") {
+      renderController();
+      return;
+    }
+
+    renderDisplay();
   }
 
   function renderControllerStats() {
@@ -79,11 +94,11 @@
       statBox(state.occupiedTables, "Besetzt"),
       statBox(state.freeTables, "Frei"),
       statBox(waitingList().length, "Warteliste"),
-      statBox(state.activeCall ? state.activeCall.waitNo : "-", "Aktueller Aufruf"),
+      statBox(state.activeCall ? state.activeCall.waitNo : "-", "Aktiver Aufruf"),
     ].join("");
 
     document.getElementById("occupied-count").textContent = state.occupiedTables;
-    document.getElementById("occupancy-label").textContent = state.freeTables > 0 ? "Billardtische sind frei" : "Aktuell alle Tische besetzt";
+    document.getElementById("occupancy-label").textContent = state.freeTables > 0 ? "Billardtische sind verfuegbar" : "Aktuell sind alle Tische belegt";
     document.getElementById("free-count-label").textContent = `${state.freeTables} Tische frei`;
   }
 
@@ -104,7 +119,7 @@
       row.innerHTML = `
         <div class="waiting-row-cell waiting-row-name">${item.guestName}</div>
         <div class="waiting-row-cell">${item.waitNo}</div>
-        <div class="waiting-row-cell">${timeSince(item.createdAt)}</div>
+        <div class="waiting-row-cell">${formatCheckIn(item.createdAt)}</div>
         <button class="waiting-row-remove" data-id="${item.id}">Entfernen</button>
       `;
       host.appendChild(row);
@@ -113,8 +128,7 @@
     host.querySelectorAll(".waiting-row-remove").forEach((button) => {
       button.addEventListener("click", async () => {
         try {
-          state = await api("/api/waiting/remove", "POST", { id: button.dataset.id });
-          renderController();
+          commitState(await api("/api/waiting/remove", "POST", { id: button.dataset.id }));
           showMessage("Eintrag entfernt.");
         } catch (error) {
           showMessage(error.message, true);
@@ -144,7 +158,7 @@
     card.innerHTML = `
       <span class="call-waitno">${state.activeCall.waitNo}</span>
       <div class="call-main-name">${state.activeCall.guestName}</div>
-      <div class="lead">Aufruf seit ${timeSince(state.activeCall.createdAt)} | Wiederholt ${state.activeCall.repeatCount}x</div>
+      <div class="lead">Aufgerufen um ${formatCheckIn(state.activeCall.createdAt)} | Wiederholt ${state.activeCall.repeatCount}x</div>
     `;
     repeatBtn.disabled = false;
     confirmBtn.disabled = false;
@@ -159,19 +173,20 @@
 
   function renderDisplayHero() {
     const isFull = state.occupiedTables === state.totalTables;
+
     document.getElementById("display-headline").textContent = isFull
       ? "AKTUELL ALLE BILLARDTISCHE BESETZT"
       : "ES SIND BILLARDTISCHE FREI";
     document.getElementById("display-subline").textContent = isFull
-      ? "BITTE VORNE ZUR REZEPTION, UM SICH FUER DIE WARTELISTE ANZUMELDEN"
-      : "BITTE VORNE ZUR REZEPTION KOMMEN";
+      ? "Bitte vorne zur Rezeption kommen, um sich fuer die Warteliste anzumelden"
+      : "Bitte vorne zur Rezeption kommen";
     document.getElementById("display-note").textContent = isFull
-      ? "Sobald ein Tisch frei wird, wird die naechste Wartenummer aufgerufen."
+      ? "Sobald ein Tisch frei wird, wird die naechste Wartenummer manuell aufgerufen."
       : "Freie Tische sind verfuegbar. Die naechste Gruppe kann direkt zur Rezeption kommen.";
 
-    document.getElementById("side-status-title").textContent = isFull ? "Alle Tische besetzt" : "Tische frei";
+    document.getElementById("side-status-title").textContent = isFull ? "Alle Tische belegt" : "Tische verfuegbar";
     document.getElementById("side-status-copy").textContent = isFull
-      ? "Bitte vorne zur Rezeption kommen."
+      ? "Anmeldung und Ausgabe der Wartenummer an der Rezeption."
       : `${state.freeTables} freie Tische stehen aktuell zur Verfuegung.`;
   }
 
@@ -183,7 +198,7 @@
 
     const estimate = document.getElementById("display-estimate");
     if (state.estimatedWait && state.occupiedTables === state.totalTables) {
-      estimate.textContent = `CA. ${state.estimatedWait.min}-${state.estimatedWait.max} MINUTEN`;
+      estimate.textContent = `Ca. ${state.estimatedWait.min}-${state.estimatedWait.max} Minuten`;
       estimate.classList.remove("hidden");
     } else {
       estimate.classList.add("hidden");
@@ -197,13 +212,13 @@
     if (!next) {
       host.innerHTML = `
         <div class="priority-card">
-          <div class="priority-label">NAECHSTER AUFRUF</div>
+          <div class="priority-label">Naechster Aufruf</div>
           <div class="priority-main">
             <div class="priority-left">
-              <span class="priority-chip">POSITION 1</span>
+              <span class="priority-chip">Position 1</span>
               <span class="priority-primary">Zurzeit keine Warteliste</span>
             </div>
-            <div class="priority-time">--:--</div>
+            <div class="priority-time">-</div>
           </div>
         </div>
       `;
@@ -212,14 +227,14 @@
 
     host.innerHTML = `
       <div class="priority-card">
-        <div class="priority-label">NAECHSTER AUFRUF</div>
+        <div class="priority-label">Naechster Aufruf</div>
         <div class="priority-main">
           <div class="priority-left">
-            <span class="priority-chip">POSITION 1</span>
+            <span class="priority-chip">Position 1</span>
             <span class="priority-primary">${next.guestName}</span>
             <span class="priority-primary">${next.waitNo}</span>
           </div>
-          <div class="priority-time">${timeSince(next.createdAt)}</div>
+          <div class="priority-time">Angemeldet ${formatCheckIn(next.createdAt)}</div>
         </div>
       </div>
     `;
@@ -248,7 +263,7 @@
       row.innerHTML = `
         <div class="display-waiting-cell">${item.guestName}</div>
         <div class="display-waiting-cell">${item.waitNo}</div>
-        <div class="display-waiting-cell">${timeSince(item.createdAt)}</div>
+        <div class="display-waiting-cell">${formatCheckIn(item.createdAt)}</div>
       `;
       host.appendChild(row);
     });
@@ -349,6 +364,7 @@
       callAnimationTimer = setTimeout(() => {
         overlay.classList.remove("animate-flash");
       }, 700);
+
       const video = document.getElementById("call-video");
       if (video) {
         video.currentTime = 0;
@@ -357,12 +373,12 @@
           playAttempt.catch(() => {});
         }
       }
+
       playCallSound();
     }
   }
 
   function renderDisplay() {
-    updateClock();
     renderDisplayHero();
     renderDisplayStats();
     renderDisplayPriority();
@@ -372,23 +388,8 @@
 
   async function refreshState(force = false) {
     const nextState = await api("/api/state");
-    state = nextState;
-
-    if (force || state.version !== lastVersion) {
-      lastVersion = state.version;
-      if (page === "controller") {
-        renderController();
-      } else {
-        renderDisplay();
-      }
-      return;
-    }
-
-    if (page === "controller") {
-      renderWaitingListController();
-      renderActiveCallController();
-    } else {
-      renderDisplay();
+    if (force || nextState.version !== lastVersion) {
+      commitState(nextState);
     }
   }
 
@@ -398,10 +399,9 @@
     const waitNo = document.getElementById("wait-no").value;
 
     try {
-      state = await api("/api/waiting/add", "POST", { guestName, waitNo });
+      commitState(await api("/api/waiting/add", "POST", { guestName, waitNo }));
       document.getElementById("guest-name").value = "";
       document.getElementById("wait-no").value = "";
-      renderController();
       showMessage("Gast zur Warteliste hinzugefuegt.");
       document.getElementById("guest-name").focus();
     } catch (error) {
@@ -411,8 +411,7 @@
 
   async function handleOccupiedPlus() {
     try {
-      state = await api("/api/tables/increment", "POST");
-      renderController();
+      commitState(await api("/api/tables/increment", "POST"));
     } catch (error) {
       showMessage(error.message, true);
     }
@@ -420,8 +419,7 @@
 
   async function handleOccupiedMinus() {
     try {
-      state = await api("/api/tables/decrement", "POST");
-      renderController();
+      commitState(await api("/api/tables/decrement", "POST"));
     } catch (error) {
       showMessage(error.message, true);
     }
@@ -429,8 +427,7 @@
 
   async function handleCallNext() {
     try {
-      state = await api("/api/call/next", "POST");
-      renderController();
+      commitState(await api("/api/call/next", "POST"));
       showMessage(`Aufruf gestartet: ${state.activeCall.guestName} / ${state.activeCall.waitNo}`);
     } catch (error) {
       showMessage(error.message, true);
@@ -439,8 +436,7 @@
 
   async function handleRepeatCall() {
     try {
-      state = await api("/api/call/repeat", "POST");
-      renderController();
+      commitState(await api("/api/call/repeat", "POST"));
       showMessage("Aufruf wiederholt.");
     } catch (error) {
       showMessage(error.message, true);
@@ -449,8 +445,7 @@
 
   async function handleConfirmCall() {
     try {
-      state = await api("/api/call/confirm", "POST");
-      renderController();
+      commitState(await api("/api/call/confirm", "POST"));
       showMessage("Aufruf bestaetigt.");
     } catch (error) {
       showMessage(error.message, true);
@@ -459,8 +454,7 @@
 
   async function handleClearCall() {
     try {
-      state = await api("/api/call/clear", "POST");
-      renderController();
+      commitState(await api("/api/call/clear", "POST"));
       showMessage("Aufruf geloescht.");
     } catch (error) {
       showMessage(error.message, true);
@@ -479,12 +473,13 @@
 
   async function start() {
     await refreshState(true);
+
     if (page === "controller") {
       wireController();
     } else {
       configureDisplayMode();
       updateClock();
-      setInterval(updateClock, 1000);
+      setInterval(updateClock, 30000);
       window.addEventListener("resize", configureDisplayMode);
     }
 
@@ -499,9 +494,3 @@
     }
   });
 })();
-
-
-
-
-
-
