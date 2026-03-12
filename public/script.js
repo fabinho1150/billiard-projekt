@@ -256,8 +256,10 @@
       return;
     }
 
+    const visibleItems = document.body.classList.contains("tv-mode") ? list.slice(0, 6) : list.slice(0, 10);
+
     host.innerHTML = "";
-    list.slice(0, 10).forEach((item) => {
+    visibleItems.forEach((item) => {
       const row = document.createElement("div");
       row.className = "display-waiting-row";
       row.innerHTML = `
@@ -494,3 +496,4 @@
     }
   });
 })();
+
