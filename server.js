@@ -110,7 +110,7 @@ app.post("/api/tables/increment", (_req, res) => {
 
 app.post("/api/tables/decrement", (_req, res) => {
   if (activeCall) {
-    return res.status(400).json({ error: "Aktiven Aufruf erst bestaetigen oder loeschen." });
+    return res.status(400).json({ error: "Aktiven Aufruf erst bestätigen oder löschen." });
   }
   if (occupiedTables <= 0) {
     return res.status(400).json({ error: "Es sind bereits 0 Tische als besetzt markiert." });
@@ -131,7 +131,7 @@ app.post("/api/call/next", (_req, res) => {
 
   const nextGuest = getSortedWaitingList()[0];
   if (!nextGuest) {
-    return res.status(400).json({ error: "Keine wartenden Gaeste vorhanden." });
+    return res.status(400).json({ error: "Keine wartenden Gäste vorhanden." });
   }
 
   callSeq += 1;
@@ -191,3 +191,4 @@ app.post("/api/call/clear", (_req, res) => {
 app.listen(PORT, () => {
   console.log(`Billiard waiting system running on http://localhost:${PORT}`);
 });
+
