@@ -256,7 +256,7 @@
       return;
     }
 
-    const visibleItems = document.body.classList.contains("tv-mode") ? list.slice(0, 6) : list.slice(0, 10);
+    const visibleItems = document.body.classList.contains("tv-mode") ? list.slice(0, 4) : list.slice(0, 10);
 
     host.innerHTML = "";
     visibleItems.forEach((item) => {
@@ -496,4 +496,5 @@
     }
   });
 })();
+
 
