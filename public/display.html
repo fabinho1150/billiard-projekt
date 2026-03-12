@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="de">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>K&Ouml;&Ouml; Revenue Bar Display</title>
+    <link rel="stylesheet" href="/style.css" />
+  </head>
+  <body data-page="display" class="display-body">
+    <main class="display-shell glass-card">
+      <header class="display-topbar">
+        <div class="display-brand display-brand-koo">
+          <div class="koo-logo" aria-hidden="true">
+            <span class="koo-triangle"></span>
+            <span class="koo-word-mark">
+              <span class="koo-k">K</span>
+              <span class="koo-o-wrap">
+                <span class="koo-o">O</span>
+                <span class="koo-dots"><i></i><i></i></span>
+              </span>
+              <span class="koo-o-wrap">
+                <span class="koo-o">O</span>
+                <span class="koo-dots"><i></i><i></i></span>
+              </span>
+            </span>
+            <span class="koo-sub">REVENUE BAR</span>
+          </div>
+          <div>
+            <p class="eyebrow">Premium Billiard Lounge</p>
+            <h1>K&Ouml;&Ouml; <span>Revenue Bar</span></h1>
+          </div>
+        </div>
+        <div id="display-clock" class="display-clock">--:--</div>
+      </header>
+
+      <section class="display-hero">
+        <div class="display-hero-copy">
+          <h2 id="display-headline">AKTUELL ALLE BILLARDTISCHE BESETZT</h2>
+          <div id="display-subline" class="display-banner">BITTE VORNE ZUR REZEPTION, UM SICH FUER DIE WARTELISTE ANZUMELDEN</div>
+          <p id="display-note" class="display-note">Sobald ein Tisch frei wird, wird die naechste Wartenummer aufgerufen.</p>
+        </div>
+        <div class="display-hero-stage" aria-hidden="true">
+          <div class="stage-lane stage-lane-1"></div>
+          <div class="stage-lane stage-lane-2"></div>
+          <div class="stage-table-glow"></div>
+          <div class="stage-cue"></div>
+          <div class="stage-ball ball-black">8</div>
+          <div class="stage-ball ball-green">6</div>
+          <div class="stage-ball ball-gold">1</div>
+          <div class="stage-ring stage-ring-a"></div>
+          <div class="stage-ring stage-ring-b"></div>
+          <div class="stage-shadow"></div>
+        </div>
+      </section>
+
+      <section class="display-stats-grid">
+        <article class="display-stat free-stat">
+          <strong id="stat-free">0</strong>
+          <span>Tische frei</span>
+        </article>
+        <article class="display-stat occupied-stat">
+          <strong id="stat-occupied">17</strong>
+          <span>Besetzt</span>
+        </article>
+        <article class="display-stat total-stat">
+          <strong>17</strong>
+          <span>Gesamt</span>
+        </article>
+        <article class="display-stat queue-stat">
+          <strong id="stat-queue">0</strong>
+          <span>Gruppen warten</span>
+        </article>
+      </section>
+
+      <section class="display-board">
+        <div class="display-waiting-panel">
+          <div class="display-waiting-head">
+            <h3>WARTELISTE</h3>
+            <div class="display-meta">
+              <span id="display-groups">0 Gruppen warten</span>
+              <span id="display-estimate" class="estimate-badge hidden">CA. 10-20 MINUTEN</span>
+            </div>
+          </div>
+          <div id="display-priority" class="display-priority"></div>
+          <div id="display-waiting-list" class="display-waiting-list"></div>
+        </div>
+        <aside class="display-side-panel">
+          <div class="side-card">
+            <p class="eyebrow">Status</p>
+            <h4 id="side-status-title">Alle Tische besetzt</h4>
+            <p id="side-status-copy">Bitte vorne zur Rezeption kommen.</p>
+          </div>
+          <div class="side-card side-card-accent">
+            <p class="eyebrow">Brand</p>
+            <h4>K&Ouml;&Ouml; Revenue Bar</h4>
+            <p>Wartenummer an der Rezeption erhalten.</p>
+          </div>
+        </aside>
+      </section>
+
+      <footer class="display-footer">
+        <div class="display-footer-banner">BITTE HOLT EUCH EURE <strong>WARTENUMMER</strong> AN DER <strong>REZEPTION</strong></div>
+        <div class="display-footer-note">VIEL SPASS!</div>
+      </footer>
+    </main>
+
+    <div id="call-overlay" class="call-overlay hidden">
+      <div class="call-overlay-card call-overlay-video-card">
+        <video id="call-video" class="call-video" src="/assets/call-animation.mp4" preload="auto" muted playsinline></video>
+        <div class="call-video-vignette"></div>
+        <div class="call-video-cover-brand" aria-hidden="true">
+          <span class="cover-brand-title">K&Ouml;&Ouml;</span>
+          <span class="cover-brand-sub">REVENUE BAR</span>
+        </div>
+        <div class="call-content call-content-video">
+          <div class="call-chip">JETZT AUFRUF</div>
+          <div id="call-name" class="call-name">Name</div>
+          <div id="call-number" class="call-number">W21</div>
+          <div id="call-copy" class="call-copy">Bitte vorkommen zur Rezeption</div>
+        </div>
+      </div>
+    </div>
+
+    <script src="/script.js"></script>
+  </body>
+</html>
