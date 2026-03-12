@@ -4870,13 +4870,13 @@ input:focus {
   content: "";
   display: block !important;
   position: absolute;
-  inset: 12% 11% 12% 13%;
+  inset: 11% 10% 11% 10%;
   background:
     radial-gradient(circle at 50% 50%, rgba(115, 210, 201, 0.12), transparent 28%),
     radial-gradient(circle at 40% 64%, rgba(244, 45, 151, 0.06), transparent 18%),
-    url('/assets/logo.png') center center / 76% auto no-repeat;
+    url('/assets/logo.png') center center / 78% auto no-repeat;
   opacity: 0.98;
-  filter: drop-shadow(0 18px 34px rgba(4, 12, 20, 0.34));
+  filter: drop-shadow(0 18px 34px rgba(4, 12, 20, 0.30));
   z-index: 3;
 }
 
@@ -4890,7 +4890,7 @@ input:focus {
 }
 
 .tv-mode .display-hero-stage::before {
-  inset: 11% 9% 11% 11%;
-  background-size: 80% auto;
+  inset: 10% 9% 10% 9%;
+  background-size: 82% auto;
   opacity: 1;
 }
