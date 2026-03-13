@@ -5563,3 +5563,220 @@ input:focus {
   padding: 10px 14px;
   font-size: clamp(0.92rem, 1vw, 1.04rem);
 }
+
+/* Promo controls and food advertising overlay */
+.promo-bar {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  margin-top: 12px;
+}
+
+.btn-promo {
+  color: #120c05;
+  background: linear-gradient(135deg, #ffd9a8, #ff9f5a 52%, #f06c3f);
+  box-shadow: 0 16px 32px rgba(240, 108, 63, 0.18);
+}
+
+.promo-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 70;
+  display: grid;
+  place-items: center;
+  padding: 28px;
+  background:
+    radial-gradient(circle at 18% 18%, rgba(255, 132, 58, 0.14), transparent 22%),
+    radial-gradient(circle at 84% 16%, rgba(255, 219, 126, 0.12), transparent 24%),
+    rgba(5, 8, 12, 0.86);
+  backdrop-filter: blur(18px);
+}
+
+.promo-overlay-card {
+  position: relative;
+  width: min(92vw, 1680px);
+  min-height: min(88vh, 920px);
+  overflow: hidden;
+  border-radius: 34px;
+  border: 1px solid rgba(255, 190, 128, 0.24);
+  background:
+    linear-gradient(135deg, rgba(17, 14, 13, 0.96), rgba(10, 17, 24, 0.92)),
+    rgba(10, 17, 24, 0.94);
+  box-shadow:
+    0 34px 90px rgba(0, 0, 0, 0.42),
+    inset 0 1px 0 rgba(255, 255, 255, 0.04);
+}
+
+.promo-shell {
+  position: relative;
+  z-index: 2;
+  display: grid;
+  grid-template-rows: auto 1fr auto;
+  min-height: inherit;
+  padding: 34px;
+  gap: 22px;
+}
+
+.promo-header,
+.promo-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 18px;
+}
+
+.promo-brand {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+}
+
+.promo-brand-logo {
+  width: 74px;
+  height: 74px;
+  object-fit: contain;
+  filter: drop-shadow(0 16px 28px rgba(0, 0, 0, 0.24));
+}
+
+.promo-brand h2,
+.promo-title {
+  margin: 0;
+  font-family: "Aptos Display", "Segoe UI Variable Display", "Bahnschrift", sans-serif;
+  font-weight: 900;
+  letter-spacing: -0.03em;
+  color: #fff3e3;
+}
+
+.promo-brand h2 {
+  font-size: clamp(2rem, 3vw, 3.2rem);
+}
+
+.promo-counter {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 110px;
+  padding: 10px 16px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 190, 128, 0.16);
+  color: #ffdeb9;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+}
+
+.promo-visual {
+  position: relative;
+  overflow: hidden;
+  border-radius: 30px;
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.02), transparent 16%),
+    linear-gradient(135deg, rgba(28, 22, 18, 0.92), rgba(11, 17, 24, 0.9));
+  border: 1px solid rgba(255, 190, 128, 0.12);
+  min-height: 0;
+}
+
+.promo-visual::after {
+  content: "";
+  position: absolute;
+  inset: auto 0 0 0;
+  height: 8px;
+  background: linear-gradient(90deg, #ffb26b, #ffd59a 52%, #ffb26b);
+  transform: scaleX(var(--promo-progress, 0));
+  transform-origin: left center;
+}
+
+.promo-image {
+  display: block;
+  width: 100%;
+  height: 100%;
+  max-height: 64vh;
+  object-fit: contain;
+  padding: 24px;
+  filter: drop-shadow(0 24px 40px rgba(0, 0, 0, 0.28));
+}
+
+.promo-title {
+  font-size: clamp(2.2rem, 3.4vw, 4rem);
+}
+
+.promo-copy {
+  color: #c8b8a3;
+  font-size: clamp(1rem, 1.2vw, 1.3rem);
+}
+
+.promo-stage-glow {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(22px);
+  opacity: 0.56;
+}
+
+.promo-stage-glow-a {
+  width: 240px;
+  height: 240px;
+  top: -40px;
+  right: 10%;
+  background: rgba(255, 159, 90, 0.24);
+}
+
+.promo-stage-glow-b {
+  width: 320px;
+  height: 320px;
+  bottom: -90px;
+  left: -40px;
+  background: rgba(255, 215, 153, 0.18);
+}
+
+.promo-animate .promo-image,
+.promo-overlay:not(.hidden) .promo-image {
+  animation: promoImageIn 700ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.promo-animate .promo-title,
+.promo-overlay:not(.hidden) .promo-title {
+  animation: promoCopyRise 650ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+@keyframes promoImageIn {
+  from {
+    opacity: 0;
+    transform: scale(0.94) translateY(18px);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
+
+@keyframes promoCopyRise {
+  from {
+    opacity: 0;
+    transform: translateY(16px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@media (max-width: 1220px) {
+  .promo-bar {
+    grid-template-columns: 1fr;
+  }
+
+  .promo-shell {
+    padding: 22px;
+  }
+
+  .promo-header,
+  .promo-footer {
+    display: grid;
+    justify-content: stretch;
+  }
+
+  .promo-image {
+    max-height: 54vh;
+    padding: 14px;
+  }
+}
