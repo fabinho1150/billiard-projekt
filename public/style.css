@@ -5154,9 +5154,13 @@ input:focus {
 
 /* TV fit refinement: keep upcoming queue visible */
 .tv-mode .display-shell {
+  display: grid;
+  grid-template-rows: auto auto minmax(0, 1fr) auto;
   min-height: calc(100vh - 10px);
+  height: calc(100vh - 10px);
   padding: 12px 14px 10px;
   gap: 10px;
+  overflow: hidden;
 }
 
 .tv-mode .display-topbar {
@@ -5212,14 +5216,19 @@ input:focus {
 }
 
 .tv-mode .display-queue-signage {
+  min-height: 0;
+  grid-template-rows: minmax(0, 1.1fr) minmax(0, 0.9fr);
   margin-top: 10px;
   gap: 12px;
+  overflow: hidden;
 }
 
 .tv-mode .display-primary-panel,
 .tv-mode .display-upcoming-panel {
+  min-height: 0;
   padding: 16px 18px;
   border-radius: 24px;
+  overflow: hidden;
 }
 
 .tv-mode .display-section-head {
@@ -5240,6 +5249,7 @@ input:focus {
   gap: 8px;
   padding: 16px 18px;
   border-radius: 22px;
+  min-height: 0;
 }
 
 .tv-mode .priority-label {
@@ -5259,6 +5269,7 @@ input:focus {
 }
 
 .tv-mode .display-upcoming-list {
+  min-height: 0;
   gap: 10px;
 }
 
@@ -5283,6 +5294,7 @@ input:focus {
 }
 
 .tv-mode .display-footer {
+  display: none;
   margin-top: 8px;
   gap: 8px;
 }
