@@ -116,7 +116,12 @@ function getFoodSlides() {
     .sort((a, b) => a.localeCompare(b, "de", { sensitivity: "base", numeric: true }))
     .map((fileName) => ({
       src: `${FOOD_ASSET_URL_BASE}/${encodeURIComponent(fileName)}`,
-      name: path.parse(fileName).name.replace(/[_-]+/g, " ").trim(),
+      name: path
+        .parse(fileName)
+        .name
+        .replace(/[_-]+/g, " ")
+        .replace(/\b\w/g, (char) => char.toUpperCase())
+        .trim(),
     }));
 }
 

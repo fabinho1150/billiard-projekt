@@ -5573,9 +5573,23 @@ input:focus {
 }
 
 .btn-promo {
-  color: #120c05;
-  background: linear-gradient(135deg, #ffd9a8, #ff9f5a 52%, #f06c3f);
-  box-shadow: 0 16px 32px rgba(240, 108, 63, 0.18);
+  position: relative;
+  overflow: hidden;
+  color: #140c06;
+  background: linear-gradient(135deg, #ffe3bd, #ffb56d 44%, #f17842);
+  border: 1px solid rgba(255, 214, 166, 0.34);
+  box-shadow:
+    0 16px 32px rgba(240, 108, 63, 0.18),
+    inset 0 1px 0 rgba(255, 255, 255, 0.32);
+}
+
+.btn-promo::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(120deg, transparent 18%, rgba(255, 255, 255, 0.24) 42%, transparent 62%);
+  transform: translateX(-120%);
+  animation: promoButtonSweep 3.2s linear infinite;
 }
 
 .promo-overlay {
@@ -5600,11 +5614,22 @@ input:focus {
   border-radius: 34px;
   border: 1px solid rgba(255, 190, 128, 0.24);
   background:
-    linear-gradient(135deg, rgba(17, 14, 13, 0.96), rgba(10, 17, 24, 0.92)),
+    linear-gradient(135deg, rgba(23, 17, 13, 0.98), rgba(10, 17, 24, 0.92)),
     rgba(10, 17, 24, 0.94);
   box-shadow:
     0 34px 90px rgba(0, 0, 0, 0.42),
     inset 0 1px 0 rgba(255, 255, 255, 0.04);
+}
+
+.promo-overlay-card::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(circle at 18% 16%, rgba(255, 185, 108, 0.12), transparent 26%),
+    radial-gradient(circle at 86% 18%, rgba(255, 232, 180, 0.08), transparent 22%),
+    linear-gradient(180deg, rgba(255, 255, 255, 0.03), transparent 18%);
+  pointer-events: none;
 }
 
 .promo-shell {
@@ -5635,7 +5660,7 @@ input:focus {
   width: 74px;
   height: 74px;
   object-fit: contain;
-  filter: drop-shadow(0 16px 28px rgba(0, 0, 0, 0.24));
+  filter: drop-shadow(0 18px 32px rgba(0, 0, 0, 0.28));
 }
 
 .promo-brand h2,
@@ -5663,6 +5688,7 @@ input:focus {
   color: #ffdeb9;
   font-weight: 800;
   letter-spacing: 0.08em;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.04);
 }
 
 .promo-visual {
@@ -5670,10 +5696,24 @@ input:focus {
   overflow: hidden;
   border-radius: 30px;
   background:
-    linear-gradient(180deg, rgba(255, 255, 255, 0.02), transparent 16%),
-    linear-gradient(135deg, rgba(28, 22, 18, 0.92), rgba(11, 17, 24, 0.9));
-  border: 1px solid rgba(255, 190, 128, 0.12);
+    radial-gradient(circle at 50% 30%, rgba(255, 206, 138, 0.1), transparent 28%),
+    linear-gradient(180deg, rgba(255, 255, 255, 0.03), transparent 16%),
+    linear-gradient(135deg, rgba(34, 24, 18, 0.96), rgba(11, 17, 24, 0.9));
+  border: 1px solid rgba(255, 190, 128, 0.14);
   min-height: 0;
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.03),
+    0 20px 40px rgba(0, 0, 0, 0.18);
+}
+
+.promo-visual::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(circle at 24% 18%, rgba(255, 255, 255, 0.08), transparent 22%),
+    linear-gradient(135deg, rgba(255, 255, 255, 0.06), transparent 22%);
+  pointer-events: none;
 }
 
 .promo-visual::after {
@@ -5681,7 +5721,7 @@ input:focus {
   position: absolute;
   inset: auto 0 0 0;
   height: 8px;
-  background: linear-gradient(90deg, #ffb26b, #ffd59a 52%, #ffb26b);
+  background: linear-gradient(90deg, #ffb26b, #ffe0ac 52%, #ffb26b);
   transform: scaleX(var(--promo-progress, 0));
   transform-origin: left center;
 }
@@ -5692,17 +5732,21 @@ input:focus {
   height: 100%;
   max-height: 64vh;
   object-fit: contain;
-  padding: 24px;
-  filter: drop-shadow(0 24px 40px rgba(0, 0, 0, 0.28));
+  padding: 28px;
+  filter:
+    drop-shadow(0 26px 40px rgba(0, 0, 0, 0.3))
+    drop-shadow(0 0 20px rgba(255, 173, 98, 0.1));
 }
 
 .promo-title {
   font-size: clamp(2.2rem, 3.4vw, 4rem);
+  text-shadow: 0 3px 18px rgba(255, 182, 107, 0.08);
 }
 
 .promo-copy {
   color: #c8b8a3;
   font-size: clamp(1rem, 1.2vw, 1.3rem);
+  max-width: 60ch;
 }
 
 .promo-stage-glow {
@@ -5717,7 +5761,7 @@ input:focus {
   height: 240px;
   top: -40px;
   right: 10%;
-  background: rgba(255, 159, 90, 0.24);
+  background: rgba(255, 159, 90, 0.18);
 }
 
 .promo-stage-glow-b {
@@ -5725,7 +5769,7 @@ input:focus {
   height: 320px;
   bottom: -90px;
   left: -40px;
-  background: rgba(255, 215, 153, 0.18);
+  background: rgba(255, 215, 153, 0.14);
 }
 
 .promo-animate .promo-image,
@@ -5757,6 +5801,15 @@ input:focus {
   to {
     opacity: 1;
     transform: translateY(0);
+  }
+}
+
+@keyframes promoButtonSweep {
+  0% {
+    transform: translateX(-120%);
+  }
+  100% {
+    transform: translateX(120%);
   }
 }
 
