@@ -5340,43 +5340,45 @@ input:focus {
 
 .tv-mode .display-hero {
   margin-top: 6px;
-  padding: 8px 12px;
-  gap: 8px;
-  grid-template-columns: minmax(0, 2.2fr) minmax(72px, 0.1fr);
-  border-radius: 18px;
+  padding: 6px 10px;
+  gap: 6px;
+  grid-template-columns: minmax(0, 1fr) 88px;
+  border-radius: 16px;
 }
 
 .tv-mode .display-hero h2 {
-  max-width: 20ch;
-  font-size: clamp(1.7rem, 2.1vw, 2.35rem);
-  line-height: 0.92;
+  max-width: none;
+  font-size: clamp(1.1rem, 1.35vw, 1.5rem);
+  line-height: 0.95;
+  letter-spacing: -0.02em;
 }
 
 .tv-mode .display-banner {
-  max-width: min(100%, 640px);
-  padding: 7px 12px;
-  font-size: clamp(0.72rem, 0.78vw, 0.86rem);
+  max-width: min(100%, 520px);
+  padding: 5px 10px;
+  font-size: clamp(0.62rem, 0.68vw, 0.74rem);
   border-radius: 999px;
 }
 
 .tv-mode .display-note {
-  max-width: 700px;
-  font-size: clamp(0.66rem, 0.7vw, 0.78rem);
+  max-width: 620px;
+  font-size: clamp(0.56rem, 0.6vw, 0.66rem);
 }
 
 .tv-mode .display-hero-stage {
-  min-height: 56px;
-  border-radius: 14px;
+  min-height: 52px;
+  max-height: 52px;
+  border-radius: 12px;
 }
 
 .tv-mode .hero-stage-logo {
-  width: 44%;
+  width: 34%;
 }
 
 .tv-mode .display-queue-signage {
   grid-template-rows: minmax(0, 1.55fr) minmax(0, 1fr);
-  gap: 8px;
-  margin-top: 4px;
+  gap: 6px;
+  margin-top: 2px;
 }
 
 .tv-mode .display-primary-panel,
