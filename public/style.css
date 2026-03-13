@@ -5402,12 +5402,12 @@ input:focus {
 }
 
 .tv-mode .display-section-head h3 {
-  font-size: clamp(1.12rem, 1.24vw, 1.36rem);
+  font-size: clamp(1.4rem, 1.6vw, 1.8rem);
 }
 
 .tv-mode .display-meta,
 .tv-mode .display-upcoming-copy {
-  font-size: clamp(0.8rem, 0.84vw, 0.92rem);
+  font-size: clamp(1rem, 1.08vw, 1.16rem);
 }
 
 .tv-mode .priority-card {
@@ -5419,21 +5419,21 @@ input:focus {
 }
 
 .tv-mode .priority-label {
-  font-size: 0.76rem;
+  font-size: 0.98rem;
 }
 
 .tv-mode .priority-queue-number {
-  font-size: clamp(5.2rem, 7vw, 7.4rem);
+  font-size: clamp(6.2rem, 8vw, 8.8rem);
   line-height: 0.85;
 }
 
 .tv-mode .priority-primary {
-  font-size: clamp(1.7rem, 2.15vw, 2.35rem);
+  font-size: clamp(2.2rem, 2.7vw, 3rem);
   line-height: 1;
 }
 
 .tv-mode .priority-time {
-  font-size: clamp(0.88rem, 0.92vw, 0.98rem);
+  font-size: clamp(1.1rem, 1.18vw, 1.28rem);
 }
 
 .tv-mode .display-upcoming-list {
@@ -5454,21 +5454,21 @@ input:focus {
 }
 
 .tv-mode .display-upcoming-position {
-  font-size: 0.7rem;
+  font-size: 0.88rem;
 }
 
 .tv-mode .display-upcoming-number {
-  font-size: clamp(1.72rem, 2vw, 2.2rem);
+  font-size: clamp(2.4rem, 2.8vw, 3rem);
   line-height: 0.92;
 }
 
 .tv-mode .display-upcoming-name {
-  font-size: clamp(0.86rem, 0.92vw, 1rem);
+  font-size: clamp(1.05rem, 1.1vw, 1.18rem);
 }
 
 .tv-mode .display-upcoming-time,
 .tv-mode .display-upcoming-empty {
-  font-size: clamp(0.76rem, 0.82vw, 0.9rem);
+  font-size: clamp(0.96rem, 1vw, 1.08rem);
 }
 
 .tv-mode .display-upcoming-empty {
