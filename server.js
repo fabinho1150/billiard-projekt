@@ -1,11 +1,13 @@
 const express = require("express");
 const fs = require("fs");
+const os = require("os");
 const path = require("path");
 
 const app = express();
 const PORT = process.env.PORT || 3000;
 const TOTAL_TABLES = 17;
-const DATA_DIR = path.join(__dirname, "data");
+const IS_VERCEL = Boolean(process.env.VERCEL);
+const DATA_DIR = IS_VERCEL ? path.join(os.tmpdir(), "billiard-display-state") : path.join(__dirname, "data");
 const STATE_FILE = path.join(DATA_DIR, "state.json");
 
 app.use(express.json());
@@ -121,13 +123,17 @@ let {
 } = loadState();
 
 function saveCurrentState() {
-  writeStateFile({
-    occupiedTables,
-    callSeq,
-    stateVersion,
-    waitingList,
-    activeCall,
-  });
+  try {
+    writeStateFile({
+      occupiedTables,
+      callSeq,
+      stateVersion,
+      waitingList,
+      activeCall,
+    });
+  } catch (error) {
+    console.error("State persistence failed:", error.message);
+  }
 }
 
 function commitMutation() {
