@@ -5338,6 +5338,9 @@ input:focus {
 .tv-mode .display-clock {
   padding: 8px 12px;
   font-size: clamp(0.86rem, 0.92vw, 1rem);
+  color: #f2e5d1;
+  background: linear-gradient(180deg, rgba(18, 19, 23, 0.94), rgba(10, 15, 21, 0.9));
+  border-color: rgba(211, 180, 136, 0.14);
 }
 
 .tv-mode .display-hero {
@@ -5347,7 +5350,10 @@ input:focus {
   grid-template-columns: minmax(0, 1fr) 88px;
   border-radius: 18px;
   align-items: center;
-  background: linear-gradient(180deg, rgba(8, 18, 28, 0.96), rgba(8, 18, 28, 0.82));
+  background:
+    linear-gradient(120deg, rgba(25, 20, 17, 0.86), rgba(9, 18, 28, 0.92) 62%, rgba(12, 16, 24, 0.9)),
+    rgba(9, 18, 28, 0.9);
+  border-color: rgba(205, 177, 137, 0.1);
 }
 
 .tv-mode .display-hero-copy {
@@ -5362,6 +5368,7 @@ input:focus {
   font-size: clamp(1.08rem, 1.24vw, 1.34rem);
   line-height: 0.94;
   letter-spacing: -0.01em;
+  color: #f4eadc;
 }
 
 .tv-mode .display-banner {
@@ -5370,7 +5377,9 @@ input:focus {
   padding: 6px 10px;
   font-size: clamp(0.68rem, 0.72vw, 0.8rem);
   border-radius: 999px;
-  background: rgba(23, 72, 52, 0.64);
+  background: linear-gradient(180deg, rgba(48, 58, 41, 0.72), rgba(28, 42, 31, 0.6));
+  border: 1px solid rgba(201, 181, 138, 0.08);
+  color: #efe3d1;
 }
 
 .tv-mode .display-note {
@@ -5381,11 +5390,14 @@ input:focus {
   min-height: 48px;
   max-height: 48px;
   border-radius: 12px;
+  background: linear-gradient(180deg, rgba(20, 17, 18, 0.86), rgba(11, 17, 24, 0.9));
+  border: 1px solid rgba(205, 177, 137, 0.08);
 }
 
 .tv-mode .hero-stage-logo {
   width: 32%;
-  opacity: 0.88;
+  opacity: 0.76;
+  filter: drop-shadow(0 8px 18px rgba(0, 0, 0, 0.28));
 }
 
 .tv-mode .display-queue-signage {
@@ -5401,8 +5413,13 @@ input:focus {
   align-self: start;
   padding: 14px 16px;
   border-radius: 24px;
-  background: linear-gradient(180deg, rgba(7, 15, 23, 0.98), rgba(8, 16, 24, 0.88));
-  border-color: rgba(115, 210, 201, 0.1);
+  background:
+    linear-gradient(180deg, rgba(18, 16, 15, 0.48), transparent 14%),
+    linear-gradient(180deg, rgba(9, 16, 23, 0.98), rgba(10, 17, 24, 0.9));
+  border-color: rgba(205, 177, 137, 0.1);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.03),
+    0 10px 26px rgba(0, 0, 0, 0.14);
 }
 
 .tv-mode .display-primary-panel {
@@ -5429,11 +5446,13 @@ input:focus {
 .tv-mode .display-section-head h3 {
   font-size: clamp(1.26rem, 1.42vw, 1.56rem);
   letter-spacing: 0.06em;
+  color: #f2e8db;
 }
 
 .tv-mode .display-meta,
 .tv-mode .display-upcoming-copy {
   font-size: clamp(0.92rem, 0.98vw, 1.04rem);
+  color: #afaa9f;
 }
 
 .tv-mode .display-meta {
@@ -5447,8 +5466,9 @@ input:focus {
 .tv-mode .estimate-badge {
   border-radius: 999px;
   padding: 6px 12px;
-  background: rgba(255, 255, 255, 0.03);
-  border: 1px solid rgba(115, 210, 201, 0.12);
+  background: linear-gradient(180deg, rgba(22, 22, 23, 0.92), rgba(13, 18, 24, 0.82));
+  border: 1px solid rgba(205, 177, 137, 0.12);
+  color: #e8dbc8;
 }
 
 .tv-mode .priority-card {
@@ -5458,28 +5478,36 @@ input:focus {
   min-height: 0;
   place-content: center;
   background:
-    radial-gradient(circle at 50% 32%, rgba(104, 242, 208, 0.08), transparent 24%),
-    linear-gradient(135deg, rgba(8, 41, 34, 0.92), rgba(8, 15, 22, 0.98));
+    radial-gradient(circle at 50% 28%, rgba(202, 175, 132, 0.08), transparent 24%),
+    linear-gradient(135deg, rgba(24, 30, 23, 0.94), rgba(8, 15, 22, 0.98));
+  border: 1px solid rgba(205, 177, 137, 0.12);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.03),
+    0 14px 34px rgba(0, 0, 0, 0.14);
 }
 
 .tv-mode .priority-label {
   font-size: 0.9rem;
+  color: #b7afa1;
 }
 
 .tv-mode .priority-queue-number {
   font-size: clamp(6.8rem, 8.8vw, 9.4rem);
   line-height: 0.8;
   letter-spacing: -0.05em;
+  color: #f3eadb;
+  text-shadow: 0 6px 22px rgba(199, 178, 137, 0.08);
 }
 
 .tv-mode .priority-primary {
   font-size: clamp(1.9rem, 2.2vw, 2.5rem);
   line-height: 0.98;
+  color: #efe4d4;
 }
 
 .tv-mode .priority-time {
   font-size: clamp(1rem, 1.04vw, 1.12rem);
-  color: #a8bbc8;
+  color: #b1ac9f;
 }
 
 .tv-mode .display-upcoming-list {
@@ -5498,25 +5526,32 @@ input:focus {
   padding: 10px 12px 12px;
   min-height: 0;
   border-radius: 18px;
-  background: linear-gradient(180deg, rgba(16, 23, 33, 0.94), rgba(15, 22, 31, 0.78));
+  background:
+    linear-gradient(180deg, rgba(20, 19, 18, 0.36), transparent 14%),
+    linear-gradient(180deg, rgba(15, 21, 29, 0.96), rgba(15, 21, 29, 0.82));
+  border: 1px solid rgba(205, 177, 137, 0.08);
 }
 
 .tv-mode .display-upcoming-position {
   font-size: 0.82rem;
+  color: #a79f94;
 }
 
 .tv-mode .display-upcoming-number {
   font-size: clamp(2.8rem, 3.1vw, 3.4rem);
   line-height: 0.92;
+  color: #f0e6d8;
 }
 
 .tv-mode .display-upcoming-name {
   font-size: clamp(1rem, 1.04vw, 1.1rem);
+  color: #e7dccb;
 }
 
 .tv-mode .display-upcoming-time,
 .tv-mode .display-upcoming-empty {
   font-size: clamp(0.84rem, 0.88vw, 0.96rem);
+  color: #a8a294;
 }
 
 .tv-mode .display-upcoming-empty {
