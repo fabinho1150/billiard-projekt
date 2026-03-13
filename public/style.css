@@ -5341,24 +5341,32 @@ input:focus {
 
 .tv-mode .display-hero {
   margin-top: 2px;
-  padding: 4px 8px;
-  gap: 4px;
-  grid-template-columns: minmax(0, 1fr) 64px;
-  border-radius: 14px;
+  padding: 10px 14px;
+  gap: 10px;
+  grid-template-columns: minmax(0, 1fr) 96px;
+  border-radius: 18px;
   align-items: center;
+}
+
+.tv-mode .display-hero-copy {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
 }
 
 .tv-mode .display-hero h2 {
   max-width: none;
-  font-size: clamp(0.9rem, 1.08vw, 1.18rem);
-  line-height: 0.92;
-  letter-spacing: -0.02em;
+  font-size: clamp(1.18rem, 1.38vw, 1.5rem);
+  line-height: 0.94;
+  letter-spacing: -0.01em;
 }
 
 .tv-mode .display-banner {
-  max-width: min(100%, 420px);
-  padding: 4px 8px;
-  font-size: clamp(0.54rem, 0.58vw, 0.62rem);
+  max-width: none;
+  margin-top: 0;
+  padding: 7px 12px;
+  font-size: clamp(0.72rem, 0.8vw, 0.88rem);
   border-radius: 999px;
 }
 
@@ -5367,13 +5375,13 @@ input:focus {
 }
 
 .tv-mode .display-hero-stage {
-  min-height: 38px;
-  max-height: 38px;
-  border-radius: 10px;
+  min-height: 56px;
+  max-height: 56px;
+  border-radius: 14px;
 }
 
 .tv-mode .hero-stage-logo {
-  width: 24%;
+  width: 36%;
 }
 
 .tv-mode .display-queue-signage {
