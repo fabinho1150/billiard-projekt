@@ -5301,7 +5301,8 @@ input:focus {
 
 /* TV priority refinement: next call and queue order dominate */
 .tv-mode .display-shell {
-  grid-template-rows: auto auto minmax(0, 1fr);
+  grid-template-rows: auto auto auto;
+  align-content: start;
   padding: 10px 12px;
   gap: 8px;
 }
@@ -5378,23 +5379,32 @@ input:focus {
 .tv-mode .display-queue-signage {
   grid-template-rows: auto auto;
   align-content: start;
+  height: auto;
   gap: 4px;
   margin-top: 0;
 }
 
 .tv-mode .display-primary-panel,
 .tv-mode .display-upcoming-panel {
+  align-self: start;
   padding: 14px 16px;
   border-radius: 22px;
 }
 
 .tv-mode .display-primary-panel {
   padding-bottom: 12px;
+  max-height: 34vh;
+  overflow: hidden;
 }
 
 .tv-mode .display-upcoming-panel.panel-empty {
   padding-top: 12px;
   padding-bottom: 12px;
+}
+
+.tv-mode .display-upcoming-panel {
+  max-height: 20vh;
+  overflow: hidden;
 }
 
 .tv-mode .display-section-head {
@@ -5412,9 +5422,9 @@ input:focus {
 
 .tv-mode .priority-card {
   gap: 6px;
-  padding: 14px 18px;
+  padding: 10px 14px;
   border-radius: 20px;
-  min-height: 180px;
+  min-height: 0;
   place-content: center;
 }
 
