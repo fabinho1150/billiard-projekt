@@ -25,11 +25,13 @@
     return (state.waitingList || []).slice().sort((a, b) => a.createdAt - b.createdAt);
   }
 
-  function formatCheckIn(timestamp) {
-    return new Intl.DateTimeFormat("de-AT", {
-      hour: "2-digit",
-      minute: "2-digit",
-    }).format(new Date(timestamp));
+  function escapeHtml(value) {
+    return String(value)
+      .replace(/&/g, "&amp;")
+      .replace(/</g, "&lt;")
+      .replace(/>/g, "&gt;")
+      .replace(/\"/g, "&quot;")
+      .replace(/'/g, "&#39;");
   }
 
   function formatWaitDuration(timestamp) {
@@ -113,12 +115,12 @@
       statBox(state.occupiedTables, "Besetzt"),
       statBox(state.freeTables, "Frei"),
       statBox(waitingList().length, "Warteliste"),
-      statBox(state.activeCall ? state.activeCall.waitNo : "-", "Aktiver Aufruf"),
+      statBox(state.activeCall ? escapeHtml(state.activeCall.waitNo) : "-", "Aktiver Aufruf"),
     ].join("");
 
     document.getElementById("occupied-count").textContent = state.occupiedTables;
-    document.getElementById("occupancy-label").textContent = state.freeTables > 0 ? "Billardtische sind verf\u00fcgbar" : "Aktuell sind alle Tische belegt";
-    document.getElementById("free-count-label").textContent = `${state.freeTables} Tische verf\u00fcgbar`;
+    document.getElementById("occupancy-label").textContent = state.freeTables > 0 ? "Billardtische sind verfügbar" : "Aktuell sind alle Tische belegt";
+    document.getElementById("free-count-label").textContent = `${state.freeTables} Tische verfügbar`;
   }
 
   function renderWaitingListController() {
@@ -127,7 +129,7 @@
 
     const list = waitingList();
     if (!list.length) {
-      host.innerHTML = '<div class="waiting-empty">Derzeit befinden sich keine G\u00e4ste auf der Warteliste</div>';
+      host.innerHTML = '<div class="waiting-empty">Derzeit befinden sich keine Gäste auf der Warteliste</div>';
       return;
     }
 
@@ -136,8 +138,8 @@
       const row = document.createElement("div");
       row.className = "waiting-row";
       row.innerHTML = `
-        <div class="waiting-row-cell waiting-row-name">${item.guestName}</div>
-        <div class="waiting-row-cell">${item.waitNo}</div>
+        <div class="waiting-row-cell waiting-row-name">${escapeHtml(item.guestName)}</div>
+        <div class="waiting-row-cell">${escapeHtml(item.waitNo)}</div>
         <div class="waiting-row-cell">${formatWaitDuration(item.createdAt)}</div>
         <button class="waiting-row-remove" data-id="${item.id}">Entfernen</button>
       `;
@@ -175,8 +177,8 @@
 
     card.className = "active-call-card";
     card.innerHTML = `
-      <span class="call-waitno">${state.activeCall.waitNo}</span>
-      <div class="call-main-name">${state.activeCall.guestName}</div>
+      <span class="call-waitno">${escapeHtml(state.activeCall.waitNo)}</span>
+      <div class="call-main-name">${escapeHtml(state.activeCall.guestName)}</div>
       <div class="lead">Wartet seit ${formatWaitDuration(state.activeCall.createdAt)} | Wiederholt ${state.activeCall.repeatCount}x</div>
     `;
     repeatBtn.disabled = false;
@@ -195,18 +197,18 @@
 
     document.getElementById("display-headline").textContent = isFull
       ? "ALLE TISCHE BELEGT"
-      : "BILLARDTISCHE SIND VERF\u00dcGBAR";
+      : "BILLARDTISCHE SIND VERFÜGBAR";
     document.getElementById("display-subline").textContent = isFull
-      ? "Bitte an der Rezeption f\u00fcr die Warteliste anmelden"
+      ? "Bitte an der Rezeption für die Warteliste anmelden"
       : "Bitte an der Rezeption melden";
     document.getElementById("display-note").textContent = isFull
-      ? "Sobald ein Tisch frei wird, ruft das Personal die n\u00e4chste Wartenummer manuell auf."
-      : "Freie Tische sind verf\u00fcgbar. Die n\u00e4chste Gruppe kann sich direkt an der Rezeption melden.";
+      ? "Sobald ein Tisch frei wird, ruft das Personal die nächste Wartenummer manuell auf."
+      : "Freie Tische sind verfügbar. Die nächste Gruppe kann sich direkt an der Rezeption melden.";
 
-    document.getElementById("side-status-title").textContent = isFull ? "Alle Tische belegt" : "Tische verf\u00fcgbar";
+    document.getElementById("side-status-title").textContent = isFull ? "Alle Tische belegt" : "Tische verfügbar";
     document.getElementById("side-status-copy").textContent = isFull
       ? "Anmeldung und Ausgabe der Wartenummer erfolgen an der Rezeption."
-      : `${state.freeTables} freie Tische stehen aktuell zur Verf\u00fcgung.`;
+      : `${state.freeTables} freie Tische stehen aktuell zur Verfügung.`;
   }
 
   function renderDisplayStats() {
@@ -231,7 +233,7 @@
     if (!next) {
       host.innerHTML = `
         <div class="priority-card">
-          <div class="priority-label">N\u00e4chster Aufruf</div>
+          <div class="priority-label">Nächster Aufruf</div>
           <div class="priority-main">
             <div class="priority-left">
               <span class="priority-chip">Position 1</span>
@@ -246,12 +248,12 @@
 
     host.innerHTML = `
       <div class="priority-card">
-        <div class="priority-label">N\u00e4chster Aufruf</div>
+        <div class="priority-label">Nächster Aufruf</div>
         <div class="priority-main">
           <div class="priority-left">
             <span class="priority-chip">Position 1</span>
-            <span class="priority-primary">${next.guestName}</span>
-            <span class="priority-primary">${next.waitNo}</span>
+            <span class="priority-primary">${escapeHtml(next.guestName)}</span>
+            <span class="priority-primary">${escapeHtml(next.waitNo)}</span>
           </div>
           <div class="priority-time">Wartet seit ${formatWaitDuration(next.createdAt)}</div>
         </div>
@@ -267,7 +269,7 @@
     if (!list.length) {
       host.innerHTML = `
         <div class="display-waiting-row">
-          <div class="display-waiting-cell">Zurzeit keine wartenden G\u00e4ste</div>
+          <div class="display-waiting-cell">Zurzeit keine wartenden Gäste</div>
           <div class="display-waiting-cell">-</div>
           <div class="display-waiting-cell">-</div>
         </div>
@@ -282,8 +284,8 @@
       const row = document.createElement("div");
       row.className = "display-waiting-row";
       row.innerHTML = `
-        <div class="display-waiting-cell">${item.guestName}</div>
-        <div class="display-waiting-cell">${item.waitNo}</div>
+        <div class="display-waiting-cell">${escapeHtml(item.guestName)}</div>
+        <div class="display-waiting-cell">${escapeHtml(item.waitNo)}</div>
         <div class="display-waiting-cell">${formatWaitDuration(item.createdAt)}</div>
       `;
       host.appendChild(row);
@@ -399,30 +401,6 @@
     }
   }
 
-  function renderHeroInfoCard() {
-    const next = waitingList()[0];
-    const nextNumber = document.getElementById("hero-next-number");
-    const nextWait = document.getElementById("hero-next-wait");
-    const freeTables = document.getElementById("hero-free-tables");
-    const note = document.getElementById("hero-info-note");
-
-    if (!nextNumber || !nextWait || !freeTables || !note) return;
-
-    freeTables.textContent = state.freeTables;
-
-    if (!next) {
-      nextNumber.textContent = "-";
-      nextWait.textContent = "Keine Warteliste";
-      note.textContent = state.freeTables > 0
-        ? "Freie Tische sind verfügbar. Gäste können sich direkt an der Rezeption melden."
-        : "Zurzeit liegt keine Warteliste vor.";
-      return;
-    }
-
-    nextNumber.textContent = next.waitNo;
-    nextWait.textContent = formatWaitDuration(next.createdAt);
-      note.textContent = `${waitingList().length} Gruppen warten derzeit auf einen freien Tisch.`;
-  }
   function renderDisplay() {
     renderDisplayHero();
     renderDisplayStats();
@@ -447,7 +425,7 @@
       commitState(await api("/api/waiting/add", "POST", { guestName, waitNo }));
       document.getElementById("guest-name").value = "";
       document.getElementById("wait-no").value = "";
-      showMessage("Gast erfolgreich zur Warteliste hinzugef\u00fcgt.");
+      showMessage("Gast erfolgreich zur Warteliste hinzugefügt.");
       document.getElementById("guest-name").focus();
     } catch (error) {
       showMessage(error.message, true);
@@ -491,7 +469,7 @@
   async function handleConfirmCall() {
     try {
       commitState(await api("/api/call/confirm", "POST"));
-      showMessage("Aufruf best\u00e4tigt.");
+      showMessage("Aufruf bestätigt.");
     } catch (error) {
       showMessage(error.message, true);
     }
@@ -552,10 +530,3 @@
     }
   });
 })();
-
-
-
-
-
-
-

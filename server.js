@@ -1,21 +1,138 @@
 const express = require("express");
+const fs = require("fs");
 const path = require("path");
 
 const app = express();
 const PORT = process.env.PORT || 3000;
 const TOTAL_TABLES = 17;
+const DATA_DIR = path.join(__dirname, "data");
+const STATE_FILE = path.join(DATA_DIR, "state.json");
 
 app.use(express.json());
 app.use(express.static(path.join(__dirname, "public")));
 
-let occupiedTables = TOTAL_TABLES;
-let callSeq = 0;
-let stateVersion = 1;
-const waitingList = [];
-let activeCall = null;
+function defaultState() {
+  return {
+    occupiedTables: TOTAL_TABLES,
+    callSeq: 0,
+    stateVersion: 1,
+    waitingList: [],
+    activeCall: null,
+  };
+}
 
-function bumpVersion() {
+function clampNumber(value, min, max, fallback) {
+  if (!Number.isFinite(value)) return fallback;
+  return Math.max(min, Math.min(max, value));
+}
+
+function normalizeWaitingEntry(entry, index) {
+  if (!entry || typeof entry !== "object") return null;
+
+  const guestName = String(entry.guestName || "").trim();
+  const waitNo = String(entry.waitNo || "").trim();
+  if (!guestName || !waitNo) return null;
+
+  const createdAt = Number.isFinite(entry.createdAt) ? entry.createdAt : Date.now();
+  const id = String(entry.id || `w_restored_${createdAt}_${index}`).trim();
+
+  return {
+    id,
+    guestName,
+    waitNo,
+    createdAt,
+  };
+}
+
+function normalizeActiveCall(activeCall) {
+  if (!activeCall || typeof activeCall !== "object") return null;
+
+  const guestId = String(activeCall.guestId || "").trim();
+  const guestName = String(activeCall.guestName || "").trim();
+  const waitNo = String(activeCall.waitNo || "").trim();
+  if (!guestId || !guestName || !waitNo) return null;
+
+  const seq = Number.isFinite(activeCall.seq) ? activeCall.seq : 0;
+  const createdAt = Number.isFinite(activeCall.createdAt) ? activeCall.createdAt : Date.now();
+  const repeatCount = Number.isFinite(activeCall.repeatCount) ? activeCall.repeatCount : 0;
+
+  return {
+    id: String(activeCall.id || `call_${seq || 0}`),
+    seq,
+    guestId,
+    guestName,
+    waitNo,
+    createdAt,
+    repeatCount,
+  };
+}
+
+function loadState() {
+  if (!fs.existsSync(STATE_FILE)) {
+    return defaultState();
+  }
+
+  try {
+    const raw = JSON.parse(fs.readFileSync(STATE_FILE, "utf8"));
+    const waitingList = Array.isArray(raw.waitingList)
+      ? raw.waitingList
+          .map((entry, index) => normalizeWaitingEntry(entry, index))
+          .filter(Boolean)
+      : [];
+
+    const uniqueWaitNos = new Set();
+    const dedupedWaitingList = waitingList.filter((entry) => {
+      const key = entry.waitNo.toLowerCase();
+      if (uniqueWaitNos.has(key)) return false;
+      uniqueWaitNos.add(key);
+      return true;
+    });
+
+    const activeCall = normalizeActiveCall(raw.activeCall);
+    const occupiedTables = clampNumber(raw.occupiedTables, 0, TOTAL_TABLES, TOTAL_TABLES);
+    const callSeq = clampNumber(raw.callSeq, 0, Number.MAX_SAFE_INTEGER, 0);
+    const stateVersion = clampNumber(raw.stateVersion, 1, Number.MAX_SAFE_INTEGER, 1);
+
+    return {
+      occupiedTables,
+      callSeq,
+      stateVersion,
+      waitingList: dedupedWaitingList,
+      activeCall,
+    };
+  } catch {
+    return defaultState();
+  }
+}
+
+function writeStateFile(snapshot) {
+  fs.mkdirSync(DATA_DIR, { recursive: true });
+  const tempFile = `${STATE_FILE}.tmp`;
+  fs.writeFileSync(tempFile, JSON.stringify(snapshot, null, 2), "utf8");
+  fs.renameSync(tempFile, STATE_FILE);
+}
+
+let {
+  occupiedTables,
+  callSeq,
+  stateVersion,
+  waitingList,
+  activeCall,
+} = loadState();
+
+function saveCurrentState() {
+  writeStateFile({
+    occupiedTables,
+    callSeq,
+    stateVersion,
+    waitingList,
+    activeCall,
+  });
+}
+
+function commitMutation() {
   stateVersion += 1;
+  saveCurrentState();
 }
 
 function getSortedWaitingList() {
@@ -70,6 +187,12 @@ app.post("/api/waiting/add", (req, res) => {
   if (!waitNo) {
     return res.status(400).json({ error: "Wartenummer darf nicht leer sein." });
   }
+  if (guestName.length > 40) {
+    return res.status(400).json({ error: "Name darf maximal 40 Zeichen lang sein." });
+  }
+  if (waitNo.length > 20) {
+    return res.status(400).json({ error: "Wartenummer darf maximal 20 Zeichen lang sein." });
+  }
   if (waitingList.some((item) => item.waitNo.toLowerCase() === waitNo.toLowerCase())) {
     return res.status(400).json({ error: "Diese Wartenummer ist bereits in der Warteliste." });
   }
@@ -81,7 +204,7 @@ app.post("/api/waiting/add", (req, res) => {
     createdAt: Date.now(),
   });
 
-  bumpVersion();
+  commitMutation();
   return res.json(getState());
 });
 
@@ -92,9 +215,12 @@ app.post("/api/waiting/remove", (req, res) => {
   if (index === -1) {
     return res.status(404).json({ error: "Eintrag nicht gefunden." });
   }
+  if (activeCall && activeCall.guestId === id) {
+    return res.status(400).json({ error: "Der aktuell aufgerufene Eintrag kann nicht manuell entfernt werden." });
+  }
 
   waitingList.splice(index, 1);
-  bumpVersion();
+  commitMutation();
   return res.json(getState());
 });
 
@@ -104,7 +230,7 @@ app.post("/api/tables/increment", (_req, res) => {
   }
 
   occupiedTables += 1;
-  bumpVersion();
+  commitMutation();
   return res.json(getState());
 });
 
@@ -117,7 +243,7 @@ app.post("/api/tables/decrement", (_req, res) => {
   }
 
   occupiedTables -= 1;
-  bumpVersion();
+  commitMutation();
   return res.json(getState());
 });
 
@@ -146,7 +272,7 @@ app.post("/api/call/next", (_req, res) => {
     repeatCount: 0,
   };
 
-  bumpVersion();
+  commitMutation();
   return res.json(getState());
 });
 
@@ -157,7 +283,7 @@ app.post("/api/call/repeat", (_req, res) => {
 
   activeCall.repeatCount += 1;
   activeCall.createdAt = Date.now();
-  bumpVersion();
+  commitMutation();
   return res.json(getState());
 });
 
@@ -172,7 +298,7 @@ app.post("/api/call/confirm", (_req, res) => {
   }
   activeCall = null;
 
-  bumpVersion();
+  commitMutation();
   return res.json(getState());
 });
 
@@ -184,11 +310,12 @@ app.post("/api/call/clear", (_req, res) => {
   occupiedTables = Math.max(0, occupiedTables - 1);
   activeCall = null;
 
-  bumpVersion();
+  commitMutation();
   return res.json(getState());
 });
+
+saveCurrentState();
 
 app.listen(PORT, () => {
   console.log(`Billiard waiting system running on http://localhost:${PORT}`);
 });
-
