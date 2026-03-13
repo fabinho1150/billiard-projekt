@@ -5151,3 +5151,143 @@ input:focus {
   max-width: 860px;
   font-size: clamp(1rem, 1.08vw, 1.16rem);
 }
+
+/* TV fit refinement: keep upcoming queue visible */
+.tv-mode .display-shell {
+  min-height: calc(100vh - 10px);
+  padding: 12px 14px 10px;
+  gap: 10px;
+}
+
+.tv-mode .display-topbar {
+  padding: 2px 2px 10px;
+  gap: 12px;
+  align-items: center;
+}
+
+.tv-mode .brand-mark-display .brand-logo-image {
+  width: 84px;
+  height: 84px;
+}
+
+.tv-mode .brand-copy h1 {
+  font-size: clamp(2.8rem, 3.8vw, 4.2rem);
+}
+
+.tv-mode .display-clock {
+  min-width: 0;
+  padding: 12px 16px;
+  font-size: clamp(1rem, 1.18vw, 1.28rem);
+}
+
+.tv-mode .display-hero {
+  margin-top: 10px;
+  padding: 16px 18px;
+  gap: 12px;
+  grid-template-columns: minmax(0, 1.72fr) minmax(120px, 0.24fr);
+}
+
+.tv-mode .display-hero h2 {
+  max-width: 16ch;
+  font-size: clamp(2.9rem, 3.9vw, 4.6rem);
+}
+
+.tv-mode .display-banner {
+  max-width: min(100%, 980px);
+  padding: 12px 18px;
+  font-size: clamp(0.98rem, 1.18vw, 1.26rem);
+}
+
+.tv-mode .display-note {
+  max-width: 920px;
+  font-size: clamp(0.88rem, 0.92vw, 0.98rem);
+}
+
+.tv-mode .display-hero-stage {
+  min-height: 120px;
+}
+
+.tv-mode .hero-stage-logo {
+  width: 68%;
+}
+
+.tv-mode .display-queue-signage {
+  margin-top: 10px;
+  gap: 12px;
+}
+
+.tv-mode .display-primary-panel,
+.tv-mode .display-upcoming-panel {
+  padding: 16px 18px;
+  border-radius: 24px;
+}
+
+.tv-mode .display-section-head {
+  gap: 10px;
+  margin-bottom: 12px;
+}
+
+.tv-mode .display-section-head h3 {
+  font-size: clamp(1.2rem, 1.38vw, 1.55rem);
+}
+
+.tv-mode .display-meta,
+.tv-mode .display-upcoming-copy {
+  font-size: clamp(0.88rem, 0.92vw, 0.98rem);
+}
+
+.tv-mode .priority-card {
+  gap: 8px;
+  padding: 16px 18px;
+  border-radius: 22px;
+}
+
+.tv-mode .priority-label {
+  font-size: 0.84rem;
+}
+
+.tv-mode .priority-queue-number {
+  font-size: clamp(3.9rem, 5.4vw, 5.8rem);
+}
+
+.tv-mode .priority-primary {
+  font-size: clamp(1.45rem, 1.85vw, 2rem);
+}
+
+.tv-mode .priority-time {
+  font-size: clamp(0.9rem, 0.94vw, 1rem);
+}
+
+.tv-mode .display-upcoming-list {
+  gap: 10px;
+}
+
+.tv-mode .display-upcoming-card {
+  gap: 8px;
+  padding: 14px 14px 16px;
+  border-radius: 18px;
+}
+
+.tv-mode .display-upcoming-position {
+  font-size: 0.76rem;
+}
+
+.tv-mode .display-upcoming-number {
+  font-size: clamp(2rem, 2.6vw, 2.7rem);
+}
+
+.tv-mode .display-upcoming-name,
+.tv-mode .display-upcoming-time,
+.tv-mode .display-upcoming-empty {
+  font-size: clamp(0.86rem, 0.9vw, 0.96rem);
+}
+
+.tv-mode .display-footer {
+  margin-top: 8px;
+  gap: 8px;
+}
+
+.tv-mode .display-footer-banner {
+  padding: 10px 14px;
+  font-size: clamp(0.92rem, 1vw, 1.04rem);
+}
