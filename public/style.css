@@ -5376,7 +5376,8 @@ input:focus {
 }
 
 .tv-mode .display-queue-signage {
-  grid-template-rows: minmax(0, 1.7fr) minmax(0, 1fr);
+  grid-template-rows: auto auto;
+  align-content: start;
   gap: 4px;
   margin-top: 0;
 }
@@ -5385,6 +5386,15 @@ input:focus {
 .tv-mode .display-upcoming-panel {
   padding: 14px 16px;
   border-radius: 22px;
+}
+
+.tv-mode .display-primary-panel {
+  padding-bottom: 12px;
+}
+
+.tv-mode .display-upcoming-panel.panel-empty {
+  padding-top: 12px;
+  padding-bottom: 12px;
 }
 
 .tv-mode .display-section-head {
@@ -5404,6 +5414,8 @@ input:focus {
   gap: 6px;
   padding: 14px 18px;
   border-radius: 20px;
+  min-height: 180px;
+  place-content: center;
 }
 
 .tv-mode .priority-label {
@@ -5429,6 +5441,12 @@ input:focus {
   gap: 8px;
 }
 
+.tv-mode .display-upcoming-list.is-empty {
+  display: flex;
+  align-items: center;
+  min-height: 48px;
+}
+
 .tv-mode .display-upcoming-card {
   gap: 6px;
   padding: 12px 12px 14px;
@@ -5451,6 +5469,11 @@ input:focus {
 .tv-mode .display-upcoming-time,
 .tv-mode .display-upcoming-empty {
   font-size: clamp(0.76rem, 0.82vw, 0.9rem);
+}
+
+.tv-mode .display-upcoming-empty {
+  padding: 0;
+  color: #8ea0b2;
 }
 
 .tv-mode .display-footer-banner {

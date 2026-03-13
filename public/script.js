@@ -247,13 +247,18 @@
   function renderDisplayWaitingList() {
     const host = document.getElementById("display-waiting-list");
     if (!host) return;
+    const panel = host.closest(".display-upcoming-panel");
 
     const list = waitingList().slice(1);
     if (!list.length) {
+      host.classList.add("is-empty");
+      panel?.classList.add("panel-empty");
       host.innerHTML = '<div class="display-upcoming-empty">Derzeit keine weiteren Positionen in der Warteliste.</div>';
       return;
     }
 
+    host.classList.remove("is-empty");
+    panel?.classList.remove("panel-empty");
     const visibleItems = document.body.classList.contains("tv-mode") ? list.slice(0, 4) : list.slice(0, 5);
 
     host.innerHTML = "";
