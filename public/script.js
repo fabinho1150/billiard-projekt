@@ -259,7 +259,7 @@
 
     host.classList.remove("is-empty");
     panel?.classList.remove("panel-empty");
-    const visibleItems = document.body.classList.contains("tv-mode") ? list.slice(0, 4) : list.slice(0, 5);
+    const visibleItems = document.body.classList.contains("tv-mode") ? list.slice(0, 3) : list.slice(0, 5);
 
     host.innerHTML = "";
     visibleItems.forEach((item, index) => {
