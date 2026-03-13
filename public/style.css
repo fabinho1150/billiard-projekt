@@ -5349,7 +5349,7 @@ input:focus {
 
 .tv-mode .display-hero h2 {
   max-width: none;
-  font-size: clamp(0.62rem, 0.74vw, 0.8rem);
+  font-size: clamp(0.9rem, 1.08vw, 1.18rem);
   line-height: 0.92;
   letter-spacing: -0.02em;
 }
