@@ -392,7 +392,7 @@ app.post("/api/call/clear", (_req, res) => {
   return res.json(getState());
 });
 
-app.post("/api/promo/start", (_req, res) => {
+app.post("/api/promo/start", (req, res) => {
   const type = String(req.body.type || "pizza").trim().toLowerCase();
   if (type !== "pizza") {
     return res.status(400).json({ error: "Unbekannter Werbetyp." });
