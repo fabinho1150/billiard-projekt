@@ -5108,3 +5108,46 @@ input:focus {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 }
+
+/* Compact hero spacing for queue signage */
+.display-hero {
+  padding: 24px 28px;
+  gap: 16px;
+}
+
+.display-hero h2 {
+  max-width: 13.5ch;
+  font-size: clamp(2.8rem, 4.1vw, 4.8rem);
+  line-height: 0.94;
+}
+
+.display-banner {
+  max-width: min(100%, 820px);
+  padding: 14px 22px;
+  font-size: clamp(1.05rem, 1.35vw, 1.45rem);
+}
+
+.display-note {
+  max-width: 760px;
+  font-size: clamp(0.98rem, 1.15vw, 1.18rem);
+}
+
+.tv-mode .display-hero {
+  padding: 22px 24px;
+  gap: 14px;
+}
+
+.tv-mode .display-hero h2 {
+  max-width: 14ch;
+  font-size: clamp(3.4rem, 4.2vw, 5.1rem);
+}
+
+.tv-mode .display-banner {
+  max-width: min(100%, 940px);
+  font-size: clamp(1.1rem, 1.3vw, 1.55rem);
+}
+
+.tv-mode .display-note {
+  max-width: 860px;
+  font-size: clamp(1rem, 1.08vw, 1.16rem);
+}
