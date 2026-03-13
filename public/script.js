@@ -197,24 +197,16 @@
 
     document.getElementById("display-headline").textContent = isFull
       ? "ALLE TISCHE BELEGT"
-      : "BILLARDTISCHE SIND VERFÜGBAR";
+      : "TISCHE VERFUEGBAR";
     document.getElementById("display-subline").textContent = isFull
-      ? "Bitte an der Rezeption für die Warteliste anmelden"
+      ? "Bitte an der Rezeption fuer die Warteliste anmelden"
       : "Bitte an der Rezeption melden";
     document.getElementById("display-note").textContent = isFull
-      ? "Sobald ein Tisch frei wird, ruft das Personal die nächste Wartenummer manuell auf."
-      : "Freie Tische sind verfügbar. Die nächste Gruppe kann sich direkt an der Rezeption melden.";
-
-    document.getElementById("side-status-title").textContent = isFull ? "Alle Tische belegt" : "Tische verfügbar";
-    document.getElementById("side-status-copy").textContent = isFull
-      ? "Anmeldung und Ausgabe der Wartenummer erfolgen an der Rezeption."
-      : `${state.freeTables} freie Tische stehen aktuell zur Verfügung.`;
+      ? "Sobald ein Tisch frei wird, ruft das Personal die naechste Wartenummer manuell auf."
+      : `${state.freeTables} Tische sind im Moment frei.`;
   }
 
   function renderDisplayStats() {
-    document.getElementById("stat-free").textContent = state.freeTables;
-    document.getElementById("stat-occupied").textContent = state.occupiedTables;
-    document.getElementById("stat-queue").textContent = waitingList().length;
     document.getElementById("display-groups").textContent = `${waitingList().length} Gruppen warten`;
 
     const estimate = document.getElementById("display-estimate");
@@ -232,15 +224,11 @@
 
     if (!next) {
       host.innerHTML = `
-        <div class="priority-card">
-          <div class="priority-label">Nächster Aufruf</div>
-          <div class="priority-main">
-            <div class="priority-left">
-              <span class="priority-chip">Position 1</span>
-              <span class="priority-primary">Zurzeit liegt keine Warteliste vor</span>
-            </div>
-            <div class="priority-time">-</div>
-          </div>
+        <div class="priority-card priority-card-empty">
+          <div class="priority-label">Position 1</div>
+          <div class="priority-queue-number">-</div>
+          <div class="priority-primary">Zurzeit liegt keine Warteliste vor</div>
+          <div class="priority-time">Neue Gruppen melden sich an der Rezeption.</div>
         </div>
       `;
       return;
@@ -248,15 +236,10 @@
 
     host.innerHTML = `
       <div class="priority-card">
-        <div class="priority-label">Nächster Aufruf</div>
-        <div class="priority-main">
-          <div class="priority-left">
-            <span class="priority-chip">Position 1</span>
-            <span class="priority-primary">${escapeHtml(next.guestName)}</span>
-            <span class="priority-primary">${escapeHtml(next.waitNo)}</span>
-          </div>
-          <div class="priority-time">Wartet seit ${formatWaitDuration(next.createdAt)}</div>
-        </div>
+        <div class="priority-label">Position 1</div>
+        <div class="priority-queue-number">${escapeHtml(next.waitNo)}</div>
+        <div class="priority-primary">${escapeHtml(next.guestName)}</div>
+        <div class="priority-time">Wartet seit ${formatWaitDuration(next.createdAt)}</div>
       </div>
     `;
   }
@@ -265,30 +248,25 @@
     const host = document.getElementById("display-waiting-list");
     if (!host) return;
 
-    const list = waitingList();
+    const list = waitingList().slice(1);
     if (!list.length) {
-      host.innerHTML = `
-        <div class="display-waiting-row">
-          <div class="display-waiting-cell">Zurzeit keine wartenden Gäste</div>
-          <div class="display-waiting-cell">-</div>
-          <div class="display-waiting-cell">-</div>
-        </div>
-      `;
+      host.innerHTML = '<div class="display-upcoming-empty">Derzeit keine weiteren Positionen in der Warteliste.</div>';
       return;
     }
 
-    const visibleItems = document.body.classList.contains("tv-mode") ? list.slice(0, 4) : list.slice(0, 10);
+    const visibleItems = document.body.classList.contains("tv-mode") ? list.slice(0, 4) : list.slice(0, 5);
 
     host.innerHTML = "";
-    visibleItems.forEach((item) => {
-      const row = document.createElement("div");
-      row.className = "display-waiting-row";
-      row.innerHTML = `
-        <div class="display-waiting-cell">${escapeHtml(item.guestName)}</div>
-        <div class="display-waiting-cell">${escapeHtml(item.waitNo)}</div>
-        <div class="display-waiting-cell">${formatWaitDuration(item.createdAt)}</div>
+    visibleItems.forEach((item, index) => {
+      const card = document.createElement("article");
+      card.className = "display-upcoming-card";
+      card.innerHTML = `
+        <div class="display-upcoming-position">Position ${index + 2}</div>
+        <div class="display-upcoming-number">${escapeHtml(item.waitNo)}</div>
+        <div class="display-upcoming-name">${escapeHtml(item.guestName)}</div>
+        <div class="display-upcoming-time">${formatWaitDuration(item.createdAt)}</div>
       `;
-      host.appendChild(row);
+      host.appendChild(card);
     });
   }
 

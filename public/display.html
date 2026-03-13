@@ -38,54 +38,30 @@
         </div>
       </section>
 
-      <section class="display-stats-grid">
-        <article class="display-stat free-stat">
-          <strong id="stat-free">0</strong>
-          <span>Freie Tische</span>
-        </article>
-        <article class="display-stat occupied-stat">
-          <strong id="stat-occupied">17</strong>
-          <span>Belegte Tische</span>
-        </article>
-        <article class="display-stat total-stat">
-          <strong>17</strong>
-          <span>Tische gesamt</span>
-        </article>
-        <article class="display-stat queue-stat">
-          <strong id="stat-queue">0</strong>
-          <span>Wartende Gruppen</span>
-        </article>
-      </section>
-
-      <section class="display-board">
-        <div class="display-waiting-panel">
-          <div class="display-waiting-head">
-            <h3>WARTELISTE</h3>
+      <section class="display-queue-signage">
+        <section class="display-primary-panel">
+          <div class="display-section-head">
+            <h3>N&auml;chster Aufruf</h3>
             <div class="display-meta">
               <span id="display-groups">0 Gruppen warten</span>
               <span id="display-estimate" class="estimate-badge hidden">CA. 10-20 MINUTEN</span>
             </div>
           </div>
           <div id="display-priority" class="display-priority"></div>
-          <div id="display-waiting-list" class="display-waiting-list"></div>
-        </div>
-        <aside class="display-side-panel">
-          <div class="side-card">
-            <p class="eyebrow">Status</p>
-            <h4 id="side-status-title">Alle Tische besetzt</h4>
-            <p id="side-status-copy">Anmeldung und Ausgabe der Wartenummer erfolgen an der Rezeption.</p>
+        </section>
+
+        <section class="display-upcoming-panel">
+          <div class="display-section-head">
+            <h3>Danach folgen</h3>
+            <p class="display-upcoming-copy">Die n&auml;chsten Positionen in der aktuellen Reihenfolge.</p>
           </div>
-          <div class="side-card side-card-accent">
-            <p class="eyebrow">Billardcafe</p>
-            <h4>K&Ouml;&Ouml; Billardcafe</h4>
-            <p>Wartenummern werden an der Rezeption ausgegeben.</p>
-          </div>
-        </aside>
+          <div id="display-waiting-list" class="display-upcoming-list"></div>
+        </section>
       </section>
 
-      <footer class="display-footer">
+      <footer class="display-footer display-footer-signage">
         <div class="display-footer-banner">BITTE HOLT EURE <strong>WARTENUMMER</strong> AN DER <strong>REZEPTION</strong> AB</div>
-        <div class="display-footer-note">Wir w&uuml;nschen euch einen angenehmen Aufenthalt.</div>
+        <div class="display-footer-note">Sobald ein Tisch frei wird, wird die n&auml;chste Nummer manuell aufgerufen.</div>
       </footer>
     </main>
 
