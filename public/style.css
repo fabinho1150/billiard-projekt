@@ -5564,283 +5564,183 @@ input:focus {
   font-size: clamp(0.92rem, 1vw, 1.04rem);
 }
 
-/* Promo controls and food advertising overlay */
-.promo-bar {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 12px;
+/* Simplified controller layout */
+.controller-shell {
+  width: min(1320px, 100%);
+  gap: 14px;
+}
+
+.controller-header {
+  grid-template-columns: minmax(0, 1.2fr) minmax(320px, 0.8fr);
+  padding: 22px 24px;
+}
+
+.controller-header h1 {
+  font-size: clamp(2rem, 3.1vw, 3rem);
+}
+
+.controller-stats {
+  gap: 10px;
+}
+
+.stat-box {
+  border-radius: 18px;
+  padding: 14px 16px;
+}
+
+.stat-box strong {
+  font-size: 1.55rem;
+}
+
+.controller-grid {
+  grid-template-columns: minmax(0, 1fr) minmax(360px, 0.88fr);
+  gap: 14px;
+}
+
+.controller-grid-bottom {
+  grid-template-columns: minmax(0, 1fr) minmax(340px, 0.8fr);
+  align-items: start;
+}
+
+.add-card,
+.tables-card,
+.waiting-card,
+.call-card-panel {
+  padding: 18px;
+  border-radius: 24px;
+}
+
+.section-head {
+  margin-bottom: 14px;
+}
+
+.section-head h2 {
+  font-size: 1.4rem;
+}
+
+.lead {
+  max-width: 56ch;
+}
+
+.add-form {
+  gap: 10px;
+}
+
+.add-form input,
+.btn {
+  min-height: 62px;
+  border-radius: 18px;
+}
+
+.add-form input {
+  padding: 14px 16px;
+  font-size: 1.12rem;
+}
+
+.btn {
+  padding: 14px 18px;
+  font-size: 0.98rem;
+}
+
+.occupancy-hero {
+  min-height: 136px;
+  padding: 16px 18px;
+  border-radius: 20px;
+  gap: 14px;
+}
+
+.occupancy-count span {
+  font-size: clamp(2.5rem, 5vw, 4.2rem);
+}
+
+.occupancy-copy strong {
+  font-size: 1.22rem;
+}
+
+.occupancy-copy span {
+  font-size: 0.98rem;
+}
+
+.occupancy-actions,
+.call-panel-actions {
+  gap: 10px;
   margin-top: 12px;
 }
 
-.btn-promo {
-  position: relative;
-  overflow: hidden;
-  color: #140c06;
-  background: linear-gradient(135deg, #ffe3bd, #ffb56d 44%, #f17842);
-  border: 1px solid rgba(255, 214, 166, 0.34);
-  box-shadow:
-    0 16px 32px rgba(240, 108, 63, 0.18),
-    inset 0 1px 0 rgba(255, 255, 255, 0.32);
+.call-next-bar {
+  margin-top: 10px;
 }
 
-.btn-promo::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(120deg, transparent 18%, rgba(255, 255, 255, 0.24) 42%, transparent 62%);
-  transform: translateX(-120%);
-  animation: promoButtonSweep 3.2s linear infinite;
+.waiting-head {
+  gap: 12px;
 }
 
-.promo-overlay {
-  position: fixed;
-  inset: 0;
-  z-index: 70;
-  display: grid;
-  place-items: center;
-  padding: 0;
-  background:
-    radial-gradient(circle at 50% 50%, rgba(255, 160, 92, 0.04), transparent 34%),
-    #04060a;
-  backdrop-filter: none;
+.waiting-columns {
+  min-width: 460px;
+  font-size: 0.8rem;
 }
 
-.promo-overlay-card {
-  position: relative;
-  width: 100vw;
-  height: 100vh;
-  min-height: 100vh;
-  overflow: hidden;
-  border-radius: 0;
-  border: 0;
-  background:
-    linear-gradient(180deg, rgba(0, 0, 0, 0.04), transparent 12%),
-    #04060a;
-  box-shadow: none;
+.waiting-list {
+  gap: 10px;
 }
 
-.promo-shell {
-  position: relative;
-  z-index: 2;
-  display: block;
-  min-height: 100vh;
-  padding: 0;
+.waiting-row,
+.waiting-columns {
+  grid-template-columns: 1.25fr 0.5fr 0.55fr 0.42fr;
 }
 
-.promo-brand {
-  display: flex;
-  align-items: center;
-  gap: 18px;
+.waiting-row-cell,
+.waiting-row-remove,
+.active-call-card {
+  min-height: 62px;
+  border-radius: 18px;
+  padding: 10px 12px;
+  font-size: 0.98rem;
 }
 
-.promo-brand-logo {
-  width: 74px;
-  height: 74px;
-  object-fit: contain;
-  filter: drop-shadow(0 18px 32px rgba(0, 0, 0, 0.28));
+.active-call-card {
+  min-height: 170px;
+  padding: 18px;
+  gap: 10px;
 }
 
-.promo-brand h2,
-.promo-title {
-  margin: 0;
-  font-family: "Aptos Display", "Segoe UI Variable Display", "Bahnschrift", sans-serif;
-  font-weight: 900;
-  letter-spacing: -0.03em;
-  color: #fff3e3;
+.active-call-card .call-main-name {
+  font-size: 1.65rem;
 }
 
-.promo-brand h2 {
-  font-size: clamp(2rem, 3vw, 3.2rem);
-}
-
-.promo-counter {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  min-width: 110px;
-  padding: 10px 16px;
-  border-radius: 999px;
-  background: rgba(255, 255, 255, 0.04);
-  border: 1px solid rgba(255, 190, 128, 0.16);
-  color: #ffdeb9;
-  font-weight: 800;
-  letter-spacing: 0.08em;
-  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.04);
-}
-
-.promo-visual {
-  position: relative;
-  overflow: hidden;
-  width: 100vw;
-  height: 100vh;
-  border-radius: 0;
-  background:
-    radial-gradient(circle at 50% 22%, rgba(255, 198, 130, 0.05), transparent 22%),
-    #04060a;
-  min-height: 0;
-  box-shadow: none;
-  transform-style: preserve-3d;
-  display: grid;
-  place-items: center;
-  transform: perspective(1600px) rotateX(var(--promo-rotate-x, 0deg)) rotateY(var(--promo-rotate-y, 0deg));
-  transition: transform 260ms ease, box-shadow 260ms ease;
-  animation: promoIdleFloat 7s ease-in-out infinite;
-}
-
-.promo-visual::before {
-  content: none;
-}
-
-.promo-visual::after {
-  content: "";
-  position: absolute;
-  inset: auto 0 0 0;
-  height: 10px;
-  background: linear-gradient(90deg, #ffb26b, #ffe0ac 52%, #ffb26b);
-  transform: scaleX(var(--promo-progress, 0));
-  transform-origin: left center;
-  z-index: 3;
-}
-
-.promo-visual::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background:
-    linear-gradient(180deg, rgba(0, 0, 0, 0.28), transparent 22%, transparent 78%, rgba(0, 0, 0, 0.32)),
-    radial-gradient(circle at 50% 48%, transparent 58%, rgba(0, 0, 0, 0.24) 100%);
-  pointer-events: none;
-  z-index: 2;
-}
-
-.promo-image {
-  display: block;
-  width: 100%;
-  height: 100%;
-  max-width: none;
-  max-height: none;
-  object-fit: cover;
-  padding: 0;
-  border-radius: 0;
-  border: 0;
-  background: transparent;
-  filter:
-    drop-shadow(0 12px 24px rgba(0, 0, 0, 0.18));
-  transform: scale(0.96) translateZ(0);
-}
-
-.promo-title {
-  font-size: clamp(2.2rem, 3.4vw, 4rem);
-  text-shadow: 0 3px 18px rgba(255, 182, 107, 0.08);
-}
-
-.promo-copy {
-  color: #c8b8a3;
-  font-size: clamp(1rem, 1.2vw, 1.3rem);
-  max-width: 60ch;
-}
-
-.promo-header,
-.promo-footer,
-.promo-brand,
-.promo-counter,
-.promo-title,
-.promo-copy {
-  display: none !important;
-}
-
-.promo-stage-glow {
-  position: absolute;
-  border-radius: 50%;
-  filter: blur(22px);
-  opacity: 0.56;
-}
-
-.promo-stage-glow-a {
-  width: 240px;
-  height: 240px;
-  top: -40px;
-  right: 10%;
-  background: rgba(255, 159, 90, 0.18);
-}
-
-.promo-stage-glow-b {
-  width: 320px;
-  height: 320px;
-  bottom: -90px;
-  left: -40px;
-  background: rgba(255, 215, 153, 0.14);
-}
-
-.promo-animate .promo-image,
-.promo-overlay:not(.hidden) .promo-image {
-  animation: promoImageIn 900ms cubic-bezier(0.22, 1, 0.36, 1);
-}
-
-.promo-animate .promo-title,
-.promo-overlay:not(.hidden) .promo-title {
-  animation: promoCopyRise 650ms cubic-bezier(0.22, 1, 0.36, 1);
-}
-
-@keyframes promoImageIn {
-  from {
-    opacity: 0;
-    transform: scale(1) translateY(10px);
-  }
-  to {
-    opacity: 1;
-    transform: scale(0.96) translateY(0);
-  }
-}
-
-@keyframes promoCopyRise {
-  from {
-    opacity: 0;
-    transform: translateY(16px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-@keyframes promoButtonSweep {
-  0% {
-    transform: translateX(-120%);
-  }
-  100% {
-    transform: translateX(120%);
-  }
-}
-
-@keyframes promoIdleFloat {
-  0%, 100% {
-    transform: perspective(1600px) rotateX(var(--promo-rotate-x, 0deg)) rotateY(var(--promo-rotate-y, 0deg)) translateY(0);
-  }
-  50% {
-    transform: perspective(1600px) rotateX(calc(var(--promo-rotate-x, 0deg) + 1.2deg)) rotateY(calc(var(--promo-rotate-y, 0deg) - 1.4deg)) translateY(-6px);
-  }
+.message {
+  min-height: 18px;
+  margin-top: 8px;
 }
 
 @media (max-width: 1220px) {
-  .promo-bar {
+  .controller-header,
+  .controller-grid,
+  .controller-grid-bottom {
     grid-template-columns: 1fr;
   }
 
-  .promo-shell {
-    padding: 0;
+  .controller-stats,
+  .add-form-row,
+  .occupancy-actions,
+  .call-panel-actions,
+  .waiting-columns,
+  .waiting-row {
+    grid-template-columns: 1fr;
+    min-width: 0;
   }
 
-  .promo-image {
-    max-height: none;
+  .controller-header,
+  .add-card,
+  .tables-card,
+  .waiting-card,
+  .call-card-panel {
+    padding: 18px;
   }
 
-  .promo-visual {
-    height: 100vh;
-    border-radius: 0;
-  }
-
-  .promo-image {
-    border-radius: 0;
+  .waiting-head {
+    align-items: start;
   }
 }
+
+

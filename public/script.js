@@ -5,9 +5,6 @@
   let lastVersion = -1;
   let lastCallKey = "";
   let callAnimationTimer = null;
-  let promoRaf = null;
-  let lastPromoKey = "";
-  let promoMotionBound = false;
 
   async function api(url, method = "GET", body) {
     const response = await fetch(url, {
@@ -193,14 +190,6 @@
     renderControllerStats();
     renderWaitingListController();
     renderActiveCallController();
-    renderPromoControls();
-  }
-
-  function renderPromoControls() {
-    const stopBtn = document.getElementById("btn-promo-stop");
-    if (!stopBtn) return;
-
-    stopBtn.disabled = !state.activePromo;
   }
 
   function renderDisplayHero() {
@@ -208,12 +197,12 @@
 
     document.getElementById("display-headline").textContent = isFull
       ? "ALLE TISCHE BELEGT"
-      : "TISCHE VERFUEGBAR";
+      : "TISCHE VERFÜGBAR";
     document.getElementById("display-subline").textContent = isFull
-      ? "Bitte an der Rezeption fuer die Warteliste anmelden"
+      ? "Bitte an der Rezeption für die Warteliste anmelden"
       : "Bitte an der Rezeption melden";
     document.getElementById("display-note").textContent = isFull
-      ? "Sobald ein Tisch frei wird, ruft das Personal die naechste Wartenummer manuell auf."
+      ? "Sobald ein Tisch frei wird, ruft das Personal die nächste Wartenummer manuell auf."
       : `${state.freeTables} Tische sind im Moment frei.`;
   }
 
@@ -284,107 +273,6 @@
       `;
       host.appendChild(card);
     });
-  }
-
-  function stopPromoLoop() {
-    if (promoRaf) {
-      cancelAnimationFrame(promoRaf);
-      promoRaf = null;
-    }
-  }
-
-  function updatePromoFrame() {
-    const overlay = document.getElementById("promo-overlay");
-    if (!overlay) return;
-
-    const promo = state?.activePromo;
-    if (!promo || !Array.isArray(promo.images) || !promo.images.length) {
-      overlay.classList.add("hidden");
-      stopPromoLoop();
-      lastPromoKey = "";
-      return;
-    }
-
-    const slideMs = promo.slideMs || 5000;
-    const elapsed = Math.max(0, Date.now() - promo.startedAt);
-    const totalDuration = promo.images.length * slideMs;
-
-    if (elapsed >= totalDuration) {
-      overlay.classList.add("hidden");
-      stopPromoLoop();
-      return;
-    }
-
-    const currentIndex = Math.min(promo.images.length - 1, Math.floor(elapsed / slideMs));
-    const currentImage = promo.images[currentIndex];
-    const progress = Math.max(0, Math.min(1, (elapsed % slideMs) / slideMs));
-    const imageNode = document.getElementById("promo-image");
-    const titleNode = document.getElementById("promo-title");
-    const counterNode = document.getElementById("promo-counter");
-    const frameKey = `${promo.id}:${currentIndex}`;
-
-    if (frameKey !== lastPromoKey) {
-      lastPromoKey = frameKey;
-      overlay.classList.remove("promo-animate");
-      void overlay.offsetWidth;
-      overlay.classList.add("promo-animate");
-      imageNode.src = currentImage.src;
-      imageNode.alt = currentImage.name;
-      titleNode.textContent = currentImage.name;
-      counterNode.textContent = `${currentIndex + 1} / ${promo.images.length}`;
-    }
-
-    overlay.style.setProperty("--promo-progress", `${progress}`);
-    overlay.classList.remove("hidden");
-    promoRaf = requestAnimationFrame(updatePromoFrame);
-  }
-
-  function wirePromoMotion() {
-    if (promoMotionBound || page !== "display") return;
-
-    const visual = document.querySelector(".promo-visual");
-    if (!visual) return;
-
-    const updateTilt = (event) => {
-      const rect = visual.getBoundingClientRect();
-      const px = (event.clientX - rect.left) / rect.width;
-      const py = (event.clientY - rect.top) / rect.height;
-      const rotateY = (px - 0.5) * 8;
-      const rotateX = (0.5 - py) * 8;
-
-      visual.style.setProperty("--promo-rotate-x", `${rotateX.toFixed(2)}deg`);
-      visual.style.setProperty("--promo-rotate-y", `${rotateY.toFixed(2)}deg`);
-      visual.style.setProperty("--promo-glow-x", `${(px * 100).toFixed(2)}%`);
-      visual.style.setProperty("--promo-glow-y", `${(py * 100).toFixed(2)}%`);
-    };
-
-    const resetTilt = () => {
-      visual.style.setProperty("--promo-rotate-x", "0deg");
-      visual.style.setProperty("--promo-rotate-y", "0deg");
-      visual.style.setProperty("--promo-glow-x", "50%");
-      visual.style.setProperty("--promo-glow-y", "30%");
-    };
-
-    visual.addEventListener("pointermove", updateTilt);
-    visual.addEventListener("pointerleave", resetTilt);
-    resetTilt();
-    promoMotionBound = true;
-  }
-
-  function renderPromoOverlay() {
-    const overlay = document.getElementById("promo-overlay");
-    if (!overlay) return;
-
-    if (!state.activePromo) {
-      overlay.classList.add("hidden");
-      stopPromoLoop();
-      lastPromoKey = "";
-      return;
-    }
-
-    if (!promoRaf) {
-      updatePromoFrame();
-    }
   }
 
   function playCallSound() {
@@ -502,7 +390,6 @@
     renderDisplayPriority();
     renderDisplayWaitingList();
     renderCallOverlay();
-    renderPromoOverlay();
   }
 
   async function refreshState(force = false) {
@@ -580,31 +467,11 @@
     }
   }
 
-  async function handlePromoStart() {
-    try {
-      commitState(await api("/api/promo/start", "POST", { type: "pizza" }));
-      showMessage("Pizza-Werbung gestartet.");
-    } catch (error) {
-      showMessage(error.message, true);
-    }
-  }
-
-  async function handlePromoStop() {
-    try {
-      commitState(await api("/api/promo/clear", "POST"));
-      showMessage("Werbung gestoppt.");
-    } catch (error) {
-      showMessage(error.message, true);
-    }
-  }
-
   function wireController() {
     document.getElementById("add-form").addEventListener("submit", handleAddGuest);
     document.getElementById("btn-occupied-plus").addEventListener("click", handleOccupiedPlus);
     document.getElementById("btn-occupied-minus").addEventListener("click", handleOccupiedMinus);
     document.getElementById("btn-call-next").addEventListener("click", handleCallNext);
-    document.getElementById("btn-promo-pizza").addEventListener("click", handlePromoStart);
-    document.getElementById("btn-promo-stop").addEventListener("click", handlePromoStop);
     document.getElementById("btn-repeat-call").addEventListener("click", handleRepeatCall);
     document.getElementById("btn-confirm-call").addEventListener("click", handleConfirmCall);
     document.getElementById("btn-clear-call").addEventListener("click", handleClearCall);
@@ -628,7 +495,6 @@
       wireController();
     } else {
       configureDisplayMode();
-      wirePromoMotion();
       updateClock();
       setInterval(updateClock, 30000);
       window.addEventListener("resize", configureDisplayMode);
@@ -647,3 +513,4 @@
     }
   });
 })();
+

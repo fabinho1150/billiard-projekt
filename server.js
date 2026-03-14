@@ -9,9 +9,6 @@ const TOTAL_TABLES = 17;
 const IS_VERCEL = Boolean(process.env.VERCEL);
 const DATA_DIR = IS_VERCEL ? path.join(os.tmpdir(), "billiard-display-state") : path.join(__dirname, "data");
 const STATE_FILE = path.join(DATA_DIR, "state.json");
-const FOOD_ASSET_DIR = path.join(__dirname, "public", "assets", "koo-essen");
-const FOOD_ASSET_URL_BASE = "/assets/koo-essen";
-const FOOD_SLIDE_MS = 5000;
 
 app.use(express.json());
 app.use(express.static(path.join(__dirname, "public")));
@@ -23,7 +20,6 @@ function defaultState() {
     stateVersion: 1,
     waitingList: [],
     activeCall: null,
-    activePromo: null,
   };
 }
 
@@ -73,68 +69,6 @@ function normalizeActiveCall(activeCall) {
   };
 }
 
-function normalizeActivePromo(activePromo) {
-  if (!activePromo || typeof activePromo !== "object") return null;
-
-  const type = String(activePromo.type || "").trim();
-  const startedAt = Number(activePromo.startedAt);
-  const slideMs = Number(activePromo.slideMs);
-  const images = Array.isArray(activePromo.images)
-    ? activePromo.images
-        .map((image) => {
-          if (!image || typeof image !== "object") return null;
-          const src = String(image.src || "").trim();
-          const name = String(image.name || "").trim();
-          return src && name ? { src, name } : null;
-        })
-        .filter(Boolean)
-    : [];
-
-  if (!type || !Number.isFinite(startedAt) || !Number.isFinite(slideMs) || !images.length) {
-    return null;
-  }
-
-  return {
-    id: String(activePromo.id || `promo_${startedAt}`),
-    type,
-    startedAt,
-    slideMs,
-    images,
-  };
-}
-
-function getFoodSlides() {
-  if (!fs.existsSync(FOOD_ASSET_DIR)) {
-    return [];
-  }
-
-  return fs
-    .readdirSync(FOOD_ASSET_DIR, { withFileTypes: true })
-    .filter((entry) => entry.isFile())
-    .map((entry) => entry.name)
-    .filter((fileName) => /\.(png|jpe?g|webp|avif)$/i.test(fileName))
-    .sort((a, b) => a.localeCompare(b, "de", { sensitivity: "base", numeric: true }))
-    .map((fileName) => ({
-      src: `${FOOD_ASSET_URL_BASE}/${encodeURIComponent(fileName)}`,
-      name: path
-        .parse(fileName)
-        .name
-        .replace(/[_-]+/g, " ")
-        .replace(/\b\w/g, (char) => char.toUpperCase())
-        .trim(),
-    }));
-}
-
-function clearExpiredPromo() {
-  if (!activePromo) return;
-
-  const durationMs = activePromo.images.length * activePromo.slideMs;
-  if (Date.now() >= activePromo.startedAt + durationMs) {
-    activePromo = null;
-    commitMutation();
-  }
-}
-
 function loadState() {
   if (!fs.existsSync(STATE_FILE)) {
     return defaultState();
@@ -160,15 +94,12 @@ function loadState() {
     const occupiedTables = clampNumber(raw.occupiedTables, 0, TOTAL_TABLES, TOTAL_TABLES);
     const callSeq = clampNumber(raw.callSeq, 0, Number.MAX_SAFE_INTEGER, 0);
     const stateVersion = clampNumber(raw.stateVersion, 1, Number.MAX_SAFE_INTEGER, 1);
-    const activePromo = normalizeActivePromo(raw.activePromo);
-
     return {
       occupiedTables,
       callSeq,
       stateVersion,
       waitingList: dedupedWaitingList,
       activeCall,
-      activePromo,
     };
   } catch {
     return defaultState();
@@ -188,7 +119,6 @@ let {
   stateVersion,
   waitingList,
   activeCall,
-  activePromo,
 } = loadState();
 
 function saveCurrentState() {
@@ -199,7 +129,6 @@ function saveCurrentState() {
       stateVersion,
       waitingList,
       activeCall,
-      activePromo,
     });
   } catch (error) {
     console.error("State persistence failed:", error.message);
@@ -227,8 +156,6 @@ function estimateWaitRange() {
 }
 
 function getState() {
-  clearExpiredPromo();
-
   return {
     version: stateVersion,
     totalTables: TOTAL_TABLES,
@@ -238,7 +165,6 @@ function getState() {
     activeCall,
     callActive: Boolean(activeCall),
     callSeq,
-    activePromo,
     estimatedWait: estimateWaitRange(),
     serverTime: Date.now(),
   };
@@ -254,10 +180,6 @@ app.get("/display", (_req, res) => {
 
 app.get("/api/state", (_req, res) => {
   res.json(getState());
-});
-
-app.get("/api/promo/slides", (_req, res) => {
-  res.json({ slides: getFoodSlides(), slideMs: FOOD_SLIDE_MS });
 });
 
 app.post("/api/waiting/add", (req, res) => {
@@ -393,41 +315,6 @@ app.post("/api/call/clear", (_req, res) => {
   occupiedTables = Math.max(0, occupiedTables - 1);
   activeCall = null;
 
-  commitMutation();
-  return res.json(getState());
-});
-
-app.post("/api/promo/start", (req, res) => {
-  const type = String(req.body.type || "pizza").trim().toLowerCase();
-  if (type !== "pizza") {
-    return res.status(400).json({ error: "Unbekannter Werbetyp." });
-  }
-
-  const images = getFoodSlides();
-  if (!images.length) {
-    return res.status(400).json({
-      error: 'Keine Bilder gefunden. Bitte Bilder in "public/assets/koo-essen" ablegen.',
-    });
-  }
-
-  activePromo = {
-    id: `promo_${Date.now()}`,
-    type,
-    startedAt: Date.now(),
-    slideMs: FOOD_SLIDE_MS,
-    images,
-  };
-
-  commitMutation();
-  return res.json(getState());
-});
-
-app.post("/api/promo/clear", (_req, res) => {
-  if (!activePromo) {
-    return res.status(404).json({ error: "Keine aktive Werbung vorhanden." });
-  }
-
-  activePromo = null;
   commitMutation();
   return res.json(getState());
 });
