@@ -7,6 +7,7 @@
   let callAnimationTimer = null;
   let promoRaf = null;
   let lastPromoKey = "";
+  let promoMotionBound = false;
 
   async function api(url, method = "GET", body) {
     const response = await fetch(url, {
@@ -338,6 +339,38 @@
     promoRaf = requestAnimationFrame(updatePromoFrame);
   }
 
+  function wirePromoMotion() {
+    if (promoMotionBound || page !== "display") return;
+
+    const visual = document.querySelector(".promo-visual");
+    if (!visual) return;
+
+    const updateTilt = (event) => {
+      const rect = visual.getBoundingClientRect();
+      const px = (event.clientX - rect.left) / rect.width;
+      const py = (event.clientY - rect.top) / rect.height;
+      const rotateY = (px - 0.5) * 8;
+      const rotateX = (0.5 - py) * 8;
+
+      visual.style.setProperty("--promo-rotate-x", `${rotateX.toFixed(2)}deg`);
+      visual.style.setProperty("--promo-rotate-y", `${rotateY.toFixed(2)}deg`);
+      visual.style.setProperty("--promo-glow-x", `${(px * 100).toFixed(2)}%`);
+      visual.style.setProperty("--promo-glow-y", `${(py * 100).toFixed(2)}%`);
+    };
+
+    const resetTilt = () => {
+      visual.style.setProperty("--promo-rotate-x", "0deg");
+      visual.style.setProperty("--promo-rotate-y", "0deg");
+      visual.style.setProperty("--promo-glow-x", "50%");
+      visual.style.setProperty("--promo-glow-y", "30%");
+    };
+
+    visual.addEventListener("pointermove", updateTilt);
+    visual.addEventListener("pointerleave", resetTilt);
+    resetTilt();
+    promoMotionBound = true;
+  }
+
   function renderPromoOverlay() {
     const overlay = document.getElementById("promo-overlay");
     if (!overlay) return;
@@ -595,6 +628,7 @@
       wireController();
     } else {
       configureDisplayMode();
+      wirePromoMotion();
       updateClock();
       setInterval(updateClock, 30000);
       window.addEventListener("resize", configureDisplayMode);
