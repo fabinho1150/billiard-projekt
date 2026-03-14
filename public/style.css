@@ -5599,36 +5599,20 @@ input:focus {
   display: grid;
   place-items: center;
   padding: 0;
-  background:
-    radial-gradient(circle at 18% 18%, rgba(255, 132, 58, 0.1), transparent 22%),
-    radial-gradient(circle at 84% 16%, rgba(255, 219, 126, 0.08), transparent 24%),
-    rgba(4, 7, 11, 0.94);
-  backdrop-filter: blur(8px);
+  background: #05070b;
+  backdrop-filter: none;
 }
 
 .promo-overlay-card {
   position: relative;
   width: 100vw;
+  height: 100vh;
   min-height: 100vh;
   overflow: hidden;
   border-radius: 0;
   border: 0;
-  background:
-    linear-gradient(135deg, rgba(23, 17, 13, 0.98), rgba(10, 17, 24, 0.92)),
-    rgba(10, 17, 24, 0.94);
-  box-shadow:
-    inset 0 1px 0 rgba(255, 255, 255, 0.04);
-}
-
-.promo-overlay-card::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background:
-    radial-gradient(circle at 18% 16%, rgba(255, 185, 108, 0.12), transparent 26%),
-    radial-gradient(circle at 86% 18%, rgba(255, 232, 180, 0.08), transparent 22%),
-    linear-gradient(180deg, rgba(255, 255, 255, 0.03), transparent 18%);
-  pointer-events: none;
+  background: #05070b;
+  box-shadow: none;
 }
 
 .promo-shell {
@@ -5636,7 +5620,7 @@ input:focus {
   z-index: 2;
   display: block;
   min-height: 100vh;
-  padding: 20px;
+  padding: 0;
 }
 
 .promo-brand {
@@ -5683,16 +5667,12 @@ input:focus {
 .promo-visual {
   position: relative;
   overflow: hidden;
-  height: calc(100vh - 40px);
-  border-radius: 34px;
-  background:
-    linear-gradient(180deg, rgba(255, 255, 255, 0.03), transparent 14%),
-    linear-gradient(135deg, rgba(22, 18, 17, 0.96), rgba(11, 17, 24, 0.9));
-  border: 1px solid rgba(255, 190, 128, 0.1);
+  width: 100vw;
+  height: 100vh;
+  border-radius: 0;
+  background: #05070b;
   min-height: 0;
-  box-shadow:
-    inset 0 1px 0 rgba(255, 255, 255, 0.03),
-    0 30px 60px rgba(0, 0, 0, 0.3);
+  box-shadow: none;
   transform-style: preserve-3d;
   display: grid;
   place-items: center;
@@ -5702,42 +5682,34 @@ input:focus {
 }
 
 .promo-visual::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background:
-    radial-gradient(circle at var(--promo-glow-x, 50%) var(--promo-glow-y, 30%), rgba(255, 255, 255, 0.16), transparent 20%),
-    linear-gradient(135deg, rgba(255, 255, 255, 0.06), transparent 22%);
-  pointer-events: none;
-  mix-blend-mode: screen;
+  content: none;
 }
 
 .promo-visual::after {
   content: "";
   position: absolute;
   inset: auto 0 0 0;
-  height: 8px;
+  height: 10px;
   background: linear-gradient(90deg, #ffb26b, #ffe0ac 52%, #ffb26b);
   transform: scaleX(var(--promo-progress, 0));
   transform-origin: left center;
+  z-index: 3;
 }
 
 .promo-image {
   display: block;
-  width: auto;
-  height: auto;
-  max-width: calc(100% - 28px);
+  width: 100%;
+  height: 100%;
+  max-width: none;
   max-height: none;
-  max-height: calc(100% - 28px);
-  object-fit: contain;
+  object-fit: cover;
   padding: 0;
-  border-radius: 34px;
-  border: 1px solid rgba(255, 208, 156, 0.1);
-  background: rgba(12, 12, 14, 0.28);
+  border-radius: 0;
+  border: 0;
+  background: transparent;
   filter:
-    drop-shadow(0 26px 40px rgba(0, 0, 0, 0.3))
-    drop-shadow(0 0 20px rgba(255, 173, 98, 0.1));
-  transform: scale(1) translateZ(0);
+    drop-shadow(0 12px 24px rgba(0, 0, 0, 0.18));
+  transform: scale(1.01) translateZ(0);
 }
 
 .promo-title {
@@ -5839,7 +5811,7 @@ input:focus {
   }
 
   .promo-shell {
-    padding: 12px;
+    padding: 0;
   }
 
   .promo-image {
@@ -5847,13 +5819,11 @@ input:focus {
   }
 
   .promo-visual {
-    height: calc(100vh - 24px);
-    border-radius: 24px;
+    height: 100vh;
+    border-radius: 0;
   }
 
   .promo-image {
-    max-width: calc(100% - 20px);
-    max-height: calc(100% - 20px);
-    border-radius: 24px;
+    border-radius: 0;
   }
 }
