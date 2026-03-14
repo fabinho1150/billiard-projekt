@@ -5743,4 +5743,209 @@ input:focus {
   }
 }
 
+/* Display focus: next call must dominate */
+.display-primary-panel {
+  padding: 20px 24px;
+}
+
+.display-upcoming-panel {
+  padding: 16px 22px 18px;
+}
+
+.display-section-head {
+  margin-bottom: 14px;
+}
+
+.display-section-head h3 {
+  letter-spacing: 0.05em;
+}
+
+.display-meta {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.priority-card {
+  grid-template-columns: 1fr;
+  justify-items: center;
+  text-align: center;
+  gap: 8px;
+  padding: 22px 24px 24px;
+}
+
+.priority-label {
+  font-size: 1rem;
+  color: #d8c5a0;
+}
+
+.priority-queue-number {
+  font-size: clamp(6.8rem, 16vw, 11rem);
+  line-height: 0.82;
+  letter-spacing: -0.05em;
+  text-shadow: 0 0 28px rgba(126, 240, 207, 0.18);
+}
+
+.priority-primary {
+  font-size: clamp(1.5rem, 2.1vw, 2.15rem);
+}
+
+.priority-time {
+  font-size: clamp(1rem, 1.15vw, 1.15rem);
+}
+
+.display-upcoming-list {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 12px;
+}
+
+.display-upcoming-card {
+  gap: 6px;
+  padding: 14px 16px 16px;
+}
+
+.display-upcoming-position {
+  font-size: 0.78rem;
+}
+
+.display-upcoming-number {
+  font-size: clamp(2.8rem, 4.2vw, 4.4rem);
+  line-height: 0.88;
+}
+
+.display-upcoming-name {
+  font-size: clamp(0.98rem, 1.1vw, 1.15rem);
+}
+
+.display-upcoming-time,
+.display-upcoming-empty {
+  font-size: 0.92rem;
+}
+
+.display-hero {
+  padding: 14px 18px;
+  gap: 12px;
+}
+
+.display-hero h2 {
+  font-size: clamp(1.9rem, 2.6vw, 2.8rem);
+}
+
+.display-banner {
+  padding: 10px 16px;
+  font-size: clamp(0.92rem, 1vw, 1.08rem);
+}
+
+.display-note {
+  font-size: 0.94rem;
+}
+
+.display-hero-stage {
+  min-height: 84px;
+}
+
+.hero-stage-logo {
+  width: 42%;
+  max-width: 180px;
+}
+
+.tv-mode .display-primary-panel {
+  padding: 14px 16px 16px;
+  max-height: none;
+}
+
+.tv-mode .display-upcoming-panel {
+  padding: 12px 16px 14px;
+  max-height: none;
+}
+
+.tv-mode .display-section-head {
+  margin-bottom: 8px;
+}
+
+.tv-mode .display-section-head h3 {
+  font-size: clamp(1.16rem, 1.28vw, 1.34rem);
+}
+
+.tv-mode .display-meta {
+  gap: 8px;
+}
+
+.tv-mode .display-groups,
+.tv-mode .estimate-badge {
+  padding: 5px 10px;
+  font-size: 0.84rem;
+}
+
+.tv-mode .priority-card {
+  padding: 14px 18px 16px;
+  gap: 4px;
+}
+
+.tv-mode .priority-label {
+  font-size: 0.88rem;
+}
+
+.tv-mode .priority-queue-number {
+  font-size: clamp(7.6rem, 13vw, 11rem);
+}
+
+.tv-mode .priority-primary {
+  font-size: clamp(1.7rem, 2vw, 2.3rem);
+}
+
+.tv-mode .priority-time {
+  font-size: 0.96rem;
+}
+
+.tv-mode .display-upcoming-list {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 10px;
+}
+
+.tv-mode .display-upcoming-card {
+  padding: 12px 14px 14px;
+}
+
+.tv-mode .display-upcoming-number {
+  font-size: clamp(3rem, 4.8vw, 4.8rem);
+}
+
+.tv-mode .display-upcoming-name {
+  font-size: 1rem;
+}
+
+.tv-mode .display-upcoming-time,
+.tv-mode .display-upcoming-empty {
+  font-size: 0.9rem;
+}
+
+.tv-mode .display-hero {
+  padding: 10px 14px;
+  grid-template-columns: minmax(0, 1fr) 72px;
+}
+
+.tv-mode .display-hero h2 {
+  font-size: clamp(1.2rem, 1.45vw, 1.5rem);
+}
+
+.tv-mode .display-banner {
+  padding: 6px 10px;
+  font-size: 0.76rem;
+}
+
+.tv-mode .display-note {
+  display: none;
+}
+
+.tv-mode .display-hero-stage {
+  min-height: 40px;
+  max-height: 40px;
+}
+
+.tv-mode .hero-stage-logo {
+  width: 30%;
+  max-width: 96px;
+}
+
 

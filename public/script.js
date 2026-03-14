@@ -225,7 +225,7 @@
     if (!next) {
       host.innerHTML = `
         <div class="priority-card priority-card-empty">
-          <div class="priority-label">Position 1</div>
+          <div class="priority-label">Als Nächstes dran</div>
           <div class="priority-queue-number">-</div>
           <div class="priority-primary">Zurzeit liegt keine Warteliste vor</div>
           <div class="priority-time">Neue Gruppen melden sich an der Rezeption.</div>
@@ -236,7 +236,7 @@
 
     host.innerHTML = `
       <div class="priority-card">
-        <div class="priority-label">Position 1</div>
+        <div class="priority-label">Als Nächstes dran</div>
         <div class="priority-queue-number">${escapeHtml(next.waitNo)}</div>
         <div class="priority-primary">${escapeHtml(next.guestName)}</div>
         <div class="priority-time">Wartet seit ${formatWaitDuration(next.createdAt)}</div>
