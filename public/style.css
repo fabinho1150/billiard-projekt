@@ -5635,19 +5635,9 @@ input:focus {
 .promo-shell {
   position: relative;
   z-index: 2;
-  display: grid;
-  grid-template-rows: auto 1fr auto;
+  display: block;
   min-height: inherit;
-  padding: 34px;
-  gap: 22px;
-}
-
-.promo-header,
-.promo-footer {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 18px;
+  padding: 18px;
 }
 
 .promo-brand {
@@ -5696,10 +5686,9 @@ input:focus {
   overflow: hidden;
   border-radius: 30px;
   background:
-    radial-gradient(circle at 50% 30%, rgba(255, 206, 138, 0.1), transparent 28%),
-    linear-gradient(180deg, rgba(255, 255, 255, 0.03), transparent 16%),
-    linear-gradient(135deg, rgba(34, 24, 18, 0.96), rgba(11, 17, 24, 0.9));
-  border: 1px solid rgba(255, 190, 128, 0.14);
+    linear-gradient(180deg, rgba(255, 255, 255, 0.03), transparent 14%),
+    linear-gradient(135deg, rgba(22, 18, 17, 0.96), rgba(11, 17, 24, 0.9));
+  border: 1px solid rgba(255, 190, 128, 0.1);
   min-height: 0;
   box-shadow:
     inset 0 1px 0 rgba(255, 255, 255, 0.03),
@@ -5730,9 +5719,10 @@ input:focus {
   display: block;
   width: 100%;
   height: 100%;
-  max-height: 64vh;
+  max-height: 78vh;
   object-fit: contain;
-  padding: 28px;
+  padding: 0;
+  border-radius: 26px;
   filter:
     drop-shadow(0 26px 40px rgba(0, 0, 0, 0.3))
     drop-shadow(0 0 20px rgba(255, 173, 98, 0.1));
@@ -5747,6 +5737,15 @@ input:focus {
   color: #c8b8a3;
   font-size: clamp(1rem, 1.2vw, 1.3rem);
   max-width: 60ch;
+}
+
+.promo-header,
+.promo-footer,
+.promo-brand,
+.promo-counter,
+.promo-title,
+.promo-copy {
+  display: none !important;
 }
 
 .promo-stage-glow {
@@ -5819,17 +5818,10 @@ input:focus {
   }
 
   .promo-shell {
-    padding: 22px;
-  }
-
-  .promo-header,
-  .promo-footer {
-    display: grid;
-    justify-content: stretch;
+    padding: 12px;
   }
 
   .promo-image {
-    max-height: 54vh;
-    padding: 14px;
+    max-height: 72vh;
   }
 }
