@@ -5726,7 +5726,7 @@ input:focus {
   background: transparent;
   filter:
     drop-shadow(0 12px 24px rgba(0, 0, 0, 0.18));
-  transform: scale(1.015) translateZ(0);
+  transform: scale(0.96) translateZ(0);
 }
 
 .promo-title {
@@ -5785,11 +5785,11 @@ input:focus {
 @keyframes promoImageIn {
   from {
     opacity: 0;
-    transform: scale(1.045) translateY(10px);
+    transform: scale(1) translateY(10px);
   }
   to {
     opacity: 1;
-    transform: scale(1.015) translateY(0);
+    transform: scale(0.96) translateY(0);
   }
 }
 
