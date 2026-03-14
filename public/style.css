@@ -5694,6 +5694,8 @@ input:focus {
     inset 0 1px 0 rgba(255, 255, 255, 0.03),
     0 30px 60px rgba(0, 0, 0, 0.3);
   transform-style: preserve-3d;
+  display: grid;
+  place-items: center;
   transform: perspective(1600px) rotateX(var(--promo-rotate-x, 0deg)) rotateY(var(--promo-rotate-y, 0deg));
   transition: transform 260ms ease, box-shadow 260ms ease;
   animation: promoIdleFloat 7s ease-in-out infinite;
@@ -5722,16 +5724,20 @@ input:focus {
 
 .promo-image {
   display: block;
-  width: 100%;
-  height: 100%;
+  width: auto;
+  height: auto;
+  max-width: calc(100% - 28px);
   max-height: none;
-  object-fit: cover;
+  max-height: calc(100% - 28px);
+  object-fit: contain;
   padding: 0;
   border-radius: 34px;
+  border: 1px solid rgba(255, 208, 156, 0.1);
+  background: rgba(12, 12, 14, 0.28);
   filter:
     drop-shadow(0 26px 40px rgba(0, 0, 0, 0.3))
     drop-shadow(0 0 20px rgba(255, 173, 98, 0.1));
-  transform: scale(1.02) translateZ(0);
+  transform: scale(1) translateZ(0);
 }
 
 .promo-title {
@@ -5846,6 +5852,8 @@ input:focus {
   }
 
   .promo-image {
+    max-width: calc(100% - 20px);
+    max-height: calc(100% - 20px);
     border-radius: 24px;
   }
 }
