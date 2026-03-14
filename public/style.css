@@ -5772,26 +5772,36 @@ input:focus {
   text-align: center;
   gap: 8px;
   padding: 22px 24px 24px;
+  background:
+    radial-gradient(circle at 50% 18%, rgba(255, 214, 153, 0.18), transparent 28%),
+    linear-gradient(145deg, rgba(60, 37, 20, 0.96), rgba(24, 15, 10, 0.98) 52%, rgba(11, 9, 8, 1));
+  border: 1px solid rgba(255, 205, 140, 0.22);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 244, 220, 0.06),
+    0 18px 48px rgba(0, 0, 0, 0.24);
 }
 
 .priority-label {
   font-size: 1rem;
-  color: #d8c5a0;
+  color: #f1cf98;
 }
 
 .priority-queue-number {
   font-size: clamp(6.8rem, 16vw, 11rem);
   line-height: 0.82;
   letter-spacing: -0.05em;
-  text-shadow: 0 0 28px rgba(126, 240, 207, 0.18);
+  color: #ffd891;
+  text-shadow: 0 0 32px rgba(255, 189, 92, 0.18);
 }
 
 .priority-primary {
   font-size: clamp(1.5rem, 2.1vw, 2.15rem);
+  color: #fff4e5;
 }
 
 .priority-time {
   font-size: clamp(1rem, 1.15vw, 1.15rem);
+  color: #e3cdb1;
 }
 
 .display-upcoming-list {
@@ -5880,22 +5890,30 @@ input:focus {
 .tv-mode .priority-card {
   padding: 14px 18px 16px;
   gap: 4px;
+  background:
+    radial-gradient(circle at 50% 20%, rgba(255, 214, 153, 0.18), transparent 24%),
+    linear-gradient(145deg, rgba(56, 34, 19, 0.98), rgba(22, 14, 10, 0.98) 54%, rgba(10, 8, 8, 1));
+  border-color: rgba(255, 205, 140, 0.2);
 }
 
 .tv-mode .priority-label {
   font-size: 0.88rem;
+  color: #f1cf98;
 }
 
 .tv-mode .priority-queue-number {
   font-size: clamp(7.6rem, 13vw, 11rem);
+  color: #ffd891;
 }
 
 .tv-mode .priority-primary {
   font-size: clamp(1.7rem, 2vw, 2.3rem);
+  color: #fff4e5;
 }
 
 .tv-mode .priority-time {
   font-size: 0.96rem;
+  color: #e3cdb1;
 }
 
 .tv-mode .display-upcoming-list {
