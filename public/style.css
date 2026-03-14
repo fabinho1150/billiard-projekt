@@ -5966,4 +5966,81 @@ input:focus {
   max-width: 96px;
 }
 
+/* Empty state when no waiting list exists */
+.display-empty-state {
+  margin-top: 18px;
+}
+
+.display-empty-card {
+  display: grid;
+  justify-items: center;
+  gap: 16px;
+  padding: 42px 36px;
+  border-radius: 30px;
+  background:
+    radial-gradient(circle at 50% 18%, rgba(126, 240, 207, 0.16), transparent 26%),
+    linear-gradient(145deg, rgba(10, 44, 34, 0.98), rgba(8, 18, 24, 0.98) 62%, rgba(6, 11, 16, 1));
+  border: 1px solid rgba(126, 240, 207, 0.18);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.05),
+    0 18px 42px rgba(0, 0, 0, 0.22);
+  text-align: center;
+}
+
+.display-empty-chip {
+  padding: 8px 14px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  color: #d7e8e2;
+  font-size: 0.92rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.display-empty-card h2 {
+  margin: 0;
+  font-size: clamp(3.2rem, 6vw, 5.8rem);
+  line-height: 0.94;
+  color: #7ef0cf;
+  text-shadow: 0 0 30px rgba(126, 240, 207, 0.16);
+}
+
+.display-empty-copy {
+  max-width: 34ch;
+  margin: 0;
+  font-size: clamp(1.08rem, 1.4vw, 1.45rem);
+  color: #f2f6f1;
+}
+
+.display-no-waiting-list .display-queue-signage,
+.display-no-waiting-list .display-footer-signage {
+  display: none;
+}
+
+.tv-mode .display-empty-state {
+  margin-top: 10px;
+}
+
+.tv-mode .display-empty-card {
+  gap: 12px;
+  padding: 34px 26px;
+  border-radius: 24px;
+}
+
+.tv-mode .display-empty-chip {
+  padding: 6px 12px;
+  font-size: 0.82rem;
+}
+
+.tv-mode .display-empty-card h2 {
+  font-size: clamp(4.4rem, 7vw, 6.6rem);
+}
+
+.tv-mode .display-empty-copy {
+  max-width: 40ch;
+  font-size: clamp(1.05rem, 1.4vw, 1.34rem);
+}
+
 

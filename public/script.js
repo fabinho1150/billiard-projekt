@@ -195,15 +195,9 @@
   function renderDisplayHero() {
     const isFull = state.occupiedTables === state.totalTables;
 
-    document.getElementById("display-headline").textContent = isFull
-      ? "ALLE TISCHE BELEGT"
-      : "TISCHE VERFÜGBAR";
-    document.getElementById("display-subline").textContent = isFull
-      ? "Bitte an der Rezeption für die Warteliste anmelden"
-      : "Bitte an der Rezeption melden";
-    document.getElementById("display-note").textContent = isFull
-      ? "Sobald ein Tisch frei wird, ruft das Personal die nächste Wartenummer manuell auf."
-      : `${state.freeTables} Tische sind im Moment frei.`;
+    document.getElementById("display-headline").textContent = isFull ? "ALLE TISCHE BELEGT" : "TISCHE VERFÜGBAR";
+    document.getElementById("display-subline").textContent = isFull ? "Bitte an der Rezeption für die Warteliste anmelden" : "Bitte an der Rezeption melden";
+    document.getElementById("display-note").textContent = isFull ? "Sobald ein Tisch frei wird, ruft das Personal die nächste Wartenummer manuell auf." : `${state.freeTables} Tische sind im Moment frei.`;
   }
 
   function renderDisplayStats() {
@@ -216,6 +210,29 @@
     } else {
       estimate.classList.add("hidden");
     }
+  }
+
+  function renderDisplayEmptyState() {
+    const emptyState = document.getElementById("display-empty-state");
+    if (!emptyState) return;
+
+    const hasWaitingList = waitingList().length > 0;
+    const headline = document.getElementById("display-empty-headline");
+    const copy = document.getElementById("display-empty-copy");
+
+    document.body.classList.toggle("display-no-waiting-list", !hasWaitingList);
+    emptyState.classList.toggle("hidden", hasWaitingList);
+
+    if (hasWaitingList) return;
+
+    if (state.freeTables > 0) {
+      headline.textContent = `${state.freeTables} Tische frei`;
+      copy.textContent = "Zurzeit gibt es keine Warteliste. Bitte direkt an der Rezeption melden.";
+      return;
+    }
+
+    headline.textContent = "Derzeit keine Warteliste";
+    copy.textContent = "Aktuell wartet noch niemand. Neue Gruppen werden an der Rezeption aufgenommen.";
   }
 
   function renderDisplayPriority() {
@@ -387,6 +404,7 @@
   function renderDisplay() {
     renderDisplayHero();
     renderDisplayStats();
+    renderDisplayEmptyState();
     renderDisplayPriority();
     renderDisplayWaitingList();
     renderCallOverlay();
