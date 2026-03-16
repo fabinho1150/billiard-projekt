@@ -6043,4 +6043,211 @@ input:focus {
   font-size: clamp(1.05rem, 1.4vw, 1.34rem);
 }
 
+/* iPad controller fit */
+@media (min-width: 768px) and (max-width: 1180px) {
+  .controller-body {
+    height: 100dvh;
+    padding: 10px;
+    overflow: hidden;
+  }
+
+  .controller-shell {
+    width: 100%;
+    height: calc(100dvh - 20px);
+    gap: 10px;
+    align-content: start;
+    overflow: hidden;
+  }
+
+  .controller-header,
+  .add-card,
+  .tables-card,
+  .waiting-card,
+  .call-card-panel {
+    border-radius: 20px;
+    padding: 14px;
+  }
+
+  .controller-header {
+    grid-template-columns: minmax(0, 1fr) minmax(320px, 0.9fr);
+    gap: 12px;
+    align-items: start;
+  }
+
+  .brand-mark-controller {
+    gap: 12px;
+  }
+
+  .brand-mark-controller .brand-logo-image {
+    width: 62px;
+    height: 62px;
+  }
+
+  .controller-header h1 {
+    font-size: clamp(1.5rem, 3vw, 2.1rem);
+  }
+
+  .lead {
+    font-size: 0.92rem;
+    max-width: 48ch;
+  }
+
+  .controller-stats {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 8px;
+  }
+
+  .stat-box {
+    border-radius: 14px;
+    padding: 10px 12px;
+  }
+
+  .stat-box strong {
+    font-size: 1.25rem;
+  }
+
+  .stat-box span {
+    margin-top: 4px;
+    font-size: 0.76rem;
+  }
+
+  .controller-grid,
+  .controller-grid-bottom {
+    grid-template-columns: minmax(0, 1fr) minmax(300px, 0.88fr);
+    gap: 10px;
+  }
+
+  .section-head {
+    margin-bottom: 10px;
+  }
+
+  .section-head h2 {
+    font-size: 1.18rem;
+  }
+
+  .eyebrow {
+    margin-bottom: 4px;
+    font-size: 0.72rem;
+  }
+
+  .add-form,
+  .add-form-row,
+  .occupancy-actions,
+  .call-panel-actions {
+    gap: 8px;
+  }
+
+  .add-form input,
+  .btn,
+  .waiting-row-cell,
+  .waiting-row-remove {
+    min-height: 48px;
+    border-radius: 14px;
+    font-size: 0.92rem;
+  }
+
+  .add-form input {
+    padding: 10px 12px;
+  }
+
+  .btn {
+    padding: 10px 12px;
+  }
+
+  .occupancy-hero {
+    min-height: 102px;
+    padding: 12px 14px;
+    border-radius: 16px;
+    gap: 12px;
+  }
+
+  .occupancy-count span {
+    font-size: clamp(2.1rem, 4vw, 3rem);
+  }
+
+  .occupancy-count small {
+    font-size: 0.8rem;
+  }
+
+  .occupancy-copy strong {
+    font-size: 1rem;
+  }
+
+  .occupancy-copy span {
+    font-size: 0.82rem;
+  }
+
+  .call-next-bar {
+    margin-top: 8px;
+  }
+
+  .waiting-head {
+    gap: 8px;
+    align-items: center;
+  }
+
+  .waiting-columns {
+    min-width: 0;
+    font-size: 0.68rem;
+  }
+
+  .waiting-list {
+    gap: 8px;
+    max-height: calc(100dvh - 470px);
+    overflow: hidden;
+  }
+
+  .waiting-row,
+  .waiting-columns {
+    grid-template-columns: 1.2fr 0.45fr 0.5fr 0.38fr;
+  }
+
+  .waiting-row-cell,
+  .waiting-row-remove {
+    padding: 8px 10px;
+  }
+
+  .active-call-card {
+    min-height: 128px;
+    padding: 14px;
+    gap: 8px;
+    border-radius: 16px;
+  }
+
+  .active-call-card .call-waitno {
+    font-size: 2.3rem;
+  }
+
+  .active-call-card .call-main-name {
+    font-size: 1.22rem;
+  }
+
+  .message {
+    min-height: 16px;
+    margin-top: 6px;
+    font-size: 0.84rem;
+  }
+}
+
+@media (min-width: 768px) and (max-width: 980px) {
+  .controller-header,
+  .controller-grid,
+  .controller-grid-bottom {
+    grid-template-columns: 1fr;
+  }
+
+  .controller-body {
+    overflow: auto;
+  }
+
+  .controller-shell {
+    height: auto;
+    overflow: visible;
+  }
+
+  .waiting-list {
+    max-height: none;
+  }
+}
+
 
