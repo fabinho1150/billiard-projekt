@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>K&Ouml;&Ouml; Billardcafe Warteliste</title>
+    <title>K&Ouml;&Ouml; Billardcafe Wartenummer ziehen</title>
     <link rel="stylesheet" href="/style.css" />
   </head>
   <body data-page="join" class="join-body">
@@ -12,23 +12,21 @@
         <img class="brand-logo-image" src="/assets/logo.png" alt="K&Ouml;&Ouml; Billardcafe Logo" />
         <div>
           <p class="eyebrow">Selbstanmeldung</p>
-          <h1>Warteliste</h1>
-          <p class="lead">Name eingeben und direkt anmelden. Die Wartenummer wird automatisch vergeben.</p>
+          <h1>Wartenummer ziehen</h1>
+          <p class="lead">Hier wird direkt eine Wartenummer vergeben. Mit dieser Nummer bitte vorne an der Rezeption melden.</p>
         </div>
       </div>
 
       <section class="join-card">
         <form id="join-form" class="join-form">
-          <input id="join-name" type="text" maxlength="40" placeholder="Dein Name" required />
-          <button type="submit" class="btn btn-primary">Zur Warteliste anmelden</button>
+          <button type="submit" class="btn btn-primary">Wartenummer ziehen</button>
         </form>
         <p id="join-message" class="message"></p>
 
         <div id="join-success" class="join-success hidden">
-          <div class="join-success-chip">Anmeldung erfolgreich</div>
+          <div class="join-success-chip">Nummer erfolgreich gezogen</div>
           <div class="join-success-number" id="join-success-number">1</div>
-          <div class="join-success-name" id="join-success-name">Name</div>
-          <div class="join-success-copy" id="join-success-copy">Du bist auf der Warteliste.</div>
+          <div class="join-success-copy" id="join-success-copy">Bitte mit dieser Nummer an der Rezeption melden.</div>
         </div>
       </section>
     </main>

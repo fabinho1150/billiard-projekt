@@ -6441,4 +6441,37 @@ input:focus {
   }
 }
 
+/* Number-only flow */
+.qr-card,
+.qr-page-card,
+.qr-page-image,
+.qr-page-url,
+.qr-page-link {
+  display: none !important;
+}
+
+.join-form {
+  max-width: 420px;
+  margin: 0 auto;
+}
+
+.join-success-name {
+  display: none !important;
+}
+
+.waiting-columns,
+.waiting-row {
+  grid-template-columns: 0.9fr 0.8fr 0.6fr !important;
+  min-width: 0;
+}
+
+.waiting-row-cell,
+.waiting-row-remove {
+  width: 100%;
+}
+
+.display-upcoming-name {
+  display: none !important;
+}
+
 

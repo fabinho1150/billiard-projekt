@@ -32,16 +32,15 @@ function clampNumber(value, min, max, fallback) {
 function normalizeWaitingEntry(entry, index) {
   if (!entry || typeof entry !== "object") return null;
 
-  const guestName = String(entry.guestName || "").trim();
   const waitNo = String(entry.waitNo || "").trim();
-  if (!guestName || !waitNo) return null;
+  if (!waitNo) return null;
 
   const createdAt = Number.isFinite(entry.createdAt) ? entry.createdAt : Date.now();
   const id = String(entry.id || `w_restored_${createdAt}_${index}`).trim();
 
   return {
     id,
-    guestName,
+    guestName: "",
     waitNo,
     createdAt,
   };
@@ -51,9 +50,8 @@ function normalizeActiveCall(activeCall) {
   if (!activeCall || typeof activeCall !== "object") return null;
 
   const guestId = String(activeCall.guestId || "").trim();
-  const guestName = String(activeCall.guestName || "").trim();
   const waitNo = String(activeCall.waitNo || "").trim();
-  if (!guestId || !guestName || !waitNo) return null;
+  if (!guestId || !waitNo) return null;
 
   const seq = Number.isFinite(activeCall.seq) ? activeCall.seq : 0;
   const createdAt = Number.isFinite(activeCall.createdAt) ? activeCall.createdAt : Date.now();
@@ -63,7 +61,7 @@ function normalizeActiveCall(activeCall) {
     id: String(activeCall.id || `call_${seq || 0}`),
     seq,
     guestId,
-    guestName,
+    guestName: "",
     waitNo,
     createdAt,
     repeatCount,
@@ -96,6 +94,7 @@ function loadState() {
     const callSeq = clampNumber(raw.callSeq, 0, Number.MAX_SAFE_INTEGER, 0);
     const nextWaitNumber = clampNumber(raw.nextWaitNumber, 1, Number.MAX_SAFE_INTEGER, 1);
     const stateVersion = clampNumber(raw.stateVersion, 1, Number.MAX_SAFE_INTEGER, 1);
+
     return {
       occupiedTables,
       callSeq,
@@ -198,6 +197,10 @@ function getState() {
   };
 }
 
+function sanitizeWaitNo(value) {
+  return String(value || "").trim();
+}
+
 app.get("/controller", (_req, res) => {
   res.sendFile(path.join(__dirname, "public", "controller.html"));
 });
@@ -210,110 +213,18 @@ app.get("/join", (_req, res) => {
   res.sendFile(path.join(__dirname, "public", "join.html"));
 });
 
-app.get("/qr", (_req, res) => {
-  res.sendFile(path.join(__dirname, "public", "qr.html"));
-});
-
-const BLOCKED_WORDS = [
-  "arsch",
-  "arschloch",
-  "bastard",
-  "bitch",
-  "cock",
-  "cunt",
-  "drecksau",
-  "fotze",
-  "fuck",
-  "fucker",
-  "hurensohn",
-  "idiot",
-  "kanacke",
-  "miststück",
-  "nazi",
-  "nigger",
-  "nutte",
-  "opfer",
-  "penis",
-  "pisser",
-  "schlampe",
-  "scheiße",
-  "scheiße",
-  "shit",
-  "spast",
-  "spasti",
-  "trottel",
-  "wichser",
-];
-
-const BLOCKED_WORD_STEMS = [
-  "arsch",
-  "arschloch",
-  "bastard",
-  "bitch",
-  "cock",
-  "cunt",
-  "drecksau",
-  "fick",
-  "fotz",
-  "fuck",
-  "hurensohn",
-  "idiot",
-  "kanack",
-  "miststuck",
-  "nazi",
-  "nigger",
-  "nutte",
-  "opfer",
-  "penis",
-  "piss",
-  "schlamp",
-  "scheiss",
-  "shit",
-  "spast",
-  "trottel",
-  "wichs",
-];
-
-function normalizeText(value) {
-  return String(value || "")
-    .normalize("NFKD")
-    .replace(/[\u0300-\u036f]/g, "")
-    .toLowerCase();
-}
-
-function containsBlockedWord(value) {
-  const normalized = normalizeText(value).replace(/[^a-z0-9]/g, "");
-  return BLOCKED_WORD_STEMS.some((word) => normalized.includes(word));
-}
-
-function sanitizeGuestName(value) {
-  return String(value || "")
-    .replace(/\s+/g, " ")
-    .trim();
-}
-
 app.get("/api/state", (_req, res) => {
   res.json(getState());
 });
 
 app.post("/api/waiting/add", (req, res) => {
-  const guestName = sanitizeGuestName(req.body.guestName);
-  const waitNo = String(req.body.waitNo || "").trim();
+  const waitNo = sanitizeWaitNo(req.body.waitNo);
 
-  if (!guestName) {
-    return res.status(400).json({ error: "Name darf nicht leer sein." });
-  }
   if (!waitNo) {
     return res.status(400).json({ error: "Wartenummer darf nicht leer sein." });
   }
-  if (guestName.length > 40) {
-    return res.status(400).json({ error: "Name darf maximal 40 Zeichen lang sein." });
-  }
-  if (waitNo.length > 20) {
-    return res.status(400).json({ error: "Wartenummer darf maximal 20 Zeichen lang sein." });
-  }
-  if (containsBlockedWord(guestName)) {
-    return res.status(400).json({ error: "Bitte einen angemessenen Namen eingeben." });
+  if (!/^\d{1,6}$/.test(waitNo)) {
+    return res.status(400).json({ error: "Wartenummer darf nur aus Ziffern bestehen." });
   }
   if (waitingList.some((item) => item.waitNo.toLowerCase() === waitNo.toLowerCase())) {
     return res.status(400).json({ error: "Diese Wartenummer ist bereits in der Warteliste." });
@@ -323,7 +234,7 @@ app.post("/api/waiting/add", (req, res) => {
 
   waitingList.push({
     id: `w_${Date.now()}_${Math.random().toString(36).slice(2, 8)}`,
-    guestName,
+    guestName: "",
     waitNo,
     createdAt: Date.now(),
   });
@@ -332,24 +243,12 @@ app.post("/api/waiting/add", (req, res) => {
   return res.json(getState());
 });
 
-app.post("/api/public/join", (req, res) => {
-  const guestName = sanitizeGuestName(req.body.guestName);
-
-  if (!guestName) {
-    return res.status(400).json({ error: "Name darf nicht leer sein." });
-  }
-  if (guestName.length > 40) {
-    return res.status(400).json({ error: "Name darf maximal 40 Zeichen lang sein." });
-  }
-  if (containsBlockedWord(guestName)) {
-    return res.status(400).json({ error: "Bitte einen angemessenen Namen eingeben." });
-  }
-
+app.post("/api/public/join", (_req, res) => {
   const waitNo = allocateNextWaitNo();
 
   const entry = {
     id: `w_${Date.now()}_${Math.random().toString(36).slice(2, 8)}`,
-    guestName,
+    guestName: "",
     waitNo,
     createdAt: Date.now(),
   };
@@ -359,7 +258,6 @@ app.post("/api/public/join", (req, res) => {
 
   return res.status(201).json({
     ok: true,
-    guestName: entry.guestName,
     waitNo: entry.waitNo,
     position: getSortedWaitingList().findIndex((item) => item.id === entry.id) + 1,
   });
@@ -423,7 +321,7 @@ app.post("/api/call/next", (_req, res) => {
     id: `call_${callSeq}`,
     seq: callSeq,
     guestId: nextGuest.id,
-    guestName: nextGuest.guestName,
+    guestName: "",
     waitNo: nextGuest.waitNo,
     createdAt: Date.now(),
     repeatCount: 0,
