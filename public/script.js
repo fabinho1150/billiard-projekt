@@ -275,8 +275,8 @@
 
     host.classList.remove("is-empty");
     panel?.classList.remove("panel-empty");
-
-    const visibleItems = document.body.classList.contains("tv-mode") ? list.slice(0, 3) : list.slice(0, 5);
+    const visibleItems = list.slice(0, 15);
+    host.dataset.count = String(visibleItems.length);
     host.innerHTML = "";
 
     visibleItems.forEach((item, index) => {

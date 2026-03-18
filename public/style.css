@@ -6474,4 +6474,82 @@ input:focus {
   display: none !important;
 }
 
+/* Show all waiting numbers on display */
+.display-upcoming-list {
+  display: grid !important;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)) !important;
+  gap: 10px !important;
+  align-items: start;
+}
+
+.display-upcoming-card {
+  min-height: 0 !important;
+  padding: 12px 12px 14px !important;
+}
+
+.display-upcoming-position {
+  font-size: 0.78rem !important;
+}
+
+.display-upcoming-number {
+  font-size: clamp(2.2rem, 3vw, 3.4rem) !important;
+  line-height: 0.9;
+}
+
+.display-upcoming-time {
+  font-size: 0.82rem !important;
+}
+
+.tv-mode .display-upcoming-panel {
+  max-height: none !important;
+  overflow: visible !important;
+}
+
+.tv-mode .display-upcoming-list {
+  display: grid !important;
+  grid-template-columns: repeat(5, minmax(0, 1fr)) !important;
+  gap: 8px !important;
+}
+
+.tv-mode .display-upcoming-card {
+  padding: 8px 8px 10px !important;
+  min-height: 0 !important;
+}
+
+.tv-mode .display-upcoming-number {
+  font-size: clamp(1.8rem, 2.5vw, 2.5rem) !important;
+}
+
+.tv-mode .display-upcoming-position {
+  font-size: 0.68rem !important;
+}
+
+.tv-mode .display-upcoming-time {
+  display: none !important;
+}
+
+.tv-mode .display-primary-panel {
+  padding-bottom: 10px !important;
+}
+
+.tv-mode .priority-card {
+  padding: 10px 14px 12px !important;
+}
+
+.tv-mode .priority-queue-number {
+  font-size: clamp(5.2rem, 7vw, 6.8rem) !important;
+}
+
+.tv-mode .priority-time {
+  display: none !important;
+}
+
+.tv-mode .display-section-head {
+  margin-bottom: 6px !important;
+}
+
+.tv-mode .display-upcoming-panel .display-section-head {
+  margin-bottom: 8px !important;
+}
+
 
