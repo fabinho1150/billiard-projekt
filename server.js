@@ -210,6 +210,10 @@ app.get("/join", (_req, res) => {
   res.sendFile(path.join(__dirname, "public", "join.html"));
 });
 
+app.get("/qr", (_req, res) => {
+  res.sendFile(path.join(__dirname, "public", "qr.html"));
+});
+
 const BLOCKED_WORDS = [
   "arsch",
   "arschloch",

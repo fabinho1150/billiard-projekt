@@ -199,7 +199,8 @@
     if (!qrImage || !urlLabel) return;
 
     const joinUrl = `${window.location.origin}/join`;
-    qrImage.src = `https://quickchart.io/qr?text=${encodeURIComponent(joinUrl)}&size=280&margin=2&dark=0A1722&light=FFFFFF`;
+    const size = qrImage.dataset.size || "280";
+    qrImage.src = `https://quickchart.io/qr?text=${encodeURIComponent(joinUrl)}&size=${encodeURIComponent(size)}&margin=2&dark=0A1722&light=FFFFFF`;
     urlLabel.textContent = joinUrl.replace(/^https?:\/\//, "");
   }
 
@@ -548,6 +549,8 @@
       wireController();
     } else if (page === "join") {
       wireJoin();
+    } else if (page === "qr") {
+      renderJoinQr();
     } else {
       await refreshState(true);
       configureDisplayMode();
@@ -556,7 +559,7 @@
       window.addEventListener("resize", configureDisplayMode);
     }
 
-    if (page !== "join") {
+    if (page !== "join" && page !== "qr") {
       setInterval(refreshRelativeTimes, 30000);
 
       setInterval(() => {

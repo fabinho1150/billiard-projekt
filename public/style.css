@@ -266,6 +266,13 @@ p {
   word-break: break-word;
 }
 
+.qr-body {
+  background:
+    radial-gradient(circle at 20% 20%, rgba(126, 240, 207, 0.14), transparent 24%),
+    radial-gradient(circle at 80% 0%, rgba(255, 212, 112, 0.12), transparent 22%),
+    linear-gradient(180deg, #050a10, #09121b 46%, #050a10);
+}
+
 .join-body {
   display: grid;
   place-items: center;
@@ -301,6 +308,40 @@ p {
   border-radius: 24px;
   background: rgba(255, 255, 255, 0.03);
   border: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.qr-shell {
+  width: min(920px, 100%);
+}
+
+.qr-brand {
+  justify-content: center;
+  text-align: center;
+}
+
+.qr-page-card {
+  display: grid;
+  justify-items: center;
+  gap: 18px;
+  padding: 28px;
+  border-radius: 28px;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.qr-page-image {
+  width: min(420px, 100%);
+  height: auto;
+  padding: 14px;
+  border-radius: 28px;
+}
+
+.qr-page-url {
+  font-size: 1rem;
+}
+
+.qr-page-link {
+  min-width: 320px;
 }
 
 .join-form {
