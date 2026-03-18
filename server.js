@@ -245,6 +245,35 @@ const BLOCKED_WORDS = [
   "wichser",
 ];
 
+const BLOCKED_WORD_STEMS = [
+  "arsch",
+  "arschloch",
+  "bastard",
+  "bitch",
+  "cock",
+  "cunt",
+  "drecksau",
+  "fick",
+  "fotz",
+  "fuck",
+  "hurensohn",
+  "idiot",
+  "kanack",
+  "miststuck",
+  "nazi",
+  "nigger",
+  "nutte",
+  "opfer",
+  "penis",
+  "piss",
+  "schlamp",
+  "scheiss",
+  "shit",
+  "spast",
+  "trottel",
+  "wichs",
+];
+
 function normalizeText(value) {
   return String(value || "")
     .normalize("NFKD")
@@ -254,7 +283,7 @@ function normalizeText(value) {
 
 function containsBlockedWord(value) {
   const normalized = normalizeText(value).replace(/[^a-z0-9]/g, "");
-  return BLOCKED_WORDS.some((word) => normalized.includes(normalizeText(word).replace(/[^a-z0-9]/g, "")));
+  return BLOCKED_WORD_STEMS.some((word) => normalized.includes(word));
 }
 
 function sanitizeGuestName(value) {
