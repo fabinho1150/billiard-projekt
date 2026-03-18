@@ -17,6 +17,7 @@ function defaultState() {
   return {
     occupiedTables: TOTAL_TABLES,
     callSeq: 0,
+    nextWaitNumber: 1,
     stateVersion: 1,
     waitingList: [],
     activeCall: null,
@@ -93,10 +94,12 @@ function loadState() {
     const activeCall = normalizeActiveCall(raw.activeCall);
     const occupiedTables = clampNumber(raw.occupiedTables, 0, TOTAL_TABLES, TOTAL_TABLES);
     const callSeq = clampNumber(raw.callSeq, 0, Number.MAX_SAFE_INTEGER, 0);
+    const nextWaitNumber = clampNumber(raw.nextWaitNumber, 1, Number.MAX_SAFE_INTEGER, 1);
     const stateVersion = clampNumber(raw.stateVersion, 1, Number.MAX_SAFE_INTEGER, 1);
     return {
       occupiedTables,
       callSeq,
+      nextWaitNumber,
       stateVersion,
       waitingList: dedupedWaitingList,
       activeCall,
@@ -116,6 +119,7 @@ function writeStateFile(snapshot) {
 let {
   occupiedTables,
   callSeq,
+  nextWaitNumber,
   stateVersion,
   waitingList,
   activeCall,
@@ -126,6 +130,7 @@ function saveCurrentState() {
     writeStateFile({
       occupiedTables,
       callSeq,
+      nextWaitNumber,
       stateVersion,
       waitingList,
       activeCall,
@@ -142,6 +147,28 @@ function commitMutation() {
 
 function getSortedWaitingList() {
   return waitingList.slice().sort((a, b) => a.createdAt - b.createdAt);
+}
+
+function reserveNextWaitNumberIfNeeded(waitNo) {
+  const numeric = Number.parseInt(String(waitNo), 10);
+  if (Number.isFinite(numeric) && numeric >= nextWaitNumber) {
+    nextWaitNumber = numeric + 1;
+  }
+}
+
+function allocateNextWaitNo() {
+  const used = new Set(waitingList.map((item) => item.waitNo.toLowerCase()));
+  if (activeCall) {
+    used.add(String(activeCall.waitNo).toLowerCase());
+  }
+
+  while (used.has(String(nextWaitNumber).toLowerCase())) {
+    nextWaitNumber += 1;
+  }
+
+  const waitNo = String(nextWaitNumber);
+  nextWaitNumber += 1;
+  return waitNo;
 }
 
 function estimateWaitRange() {
@@ -161,6 +188,7 @@ function getState() {
     totalTables: TOTAL_TABLES,
     occupiedTables,
     freeTables: TOTAL_TABLES - occupiedTables,
+    nextWaitNumber,
     waitingList: getSortedWaitingList(),
     activeCall,
     callActive: Boolean(activeCall),
@@ -178,12 +206,65 @@ app.get("/display", (_req, res) => {
   res.sendFile(path.join(__dirname, "public", "display.html"));
 });
 
+app.get("/join", (_req, res) => {
+  res.sendFile(path.join(__dirname, "public", "join.html"));
+});
+
+const BLOCKED_WORDS = [
+  "arsch",
+  "arschloch",
+  "bastard",
+  "bitch",
+  "cock",
+  "cunt",
+  "drecksau",
+  "fotze",
+  "fuck",
+  "fucker",
+  "hurensohn",
+  "idiot",
+  "kanacke",
+  "miststück",
+  "nazi",
+  "nigger",
+  "nutte",
+  "opfer",
+  "penis",
+  "pisser",
+  "schlampe",
+  "scheiße",
+  "scheiße",
+  "shit",
+  "spast",
+  "spasti",
+  "trottel",
+  "wichser",
+];
+
+function normalizeText(value) {
+  return String(value || "")
+    .normalize("NFKD")
+    .replace(/[\u0300-\u036f]/g, "")
+    .toLowerCase();
+}
+
+function containsBlockedWord(value) {
+  const normalized = normalizeText(value).replace(/[^a-z0-9]/g, "");
+  return BLOCKED_WORDS.some((word) => normalized.includes(normalizeText(word).replace(/[^a-z0-9]/g, "")));
+}
+
+function sanitizeGuestName(value) {
+  return String(value || "")
+    .replace(/\s+/g, " ")
+    .trim();
+}
+
 app.get("/api/state", (_req, res) => {
   res.json(getState());
 });
 
 app.post("/api/waiting/add", (req, res) => {
-  const guestName = String(req.body.guestName || "").trim();
+  const guestName = sanitizeGuestName(req.body.guestName);
   const waitNo = String(req.body.waitNo || "").trim();
 
   if (!guestName) {
@@ -198,9 +279,14 @@ app.post("/api/waiting/add", (req, res) => {
   if (waitNo.length > 20) {
     return res.status(400).json({ error: "Wartenummer darf maximal 20 Zeichen lang sein." });
   }
+  if (containsBlockedWord(guestName)) {
+    return res.status(400).json({ error: "Bitte einen angemessenen Namen eingeben." });
+  }
   if (waitingList.some((item) => item.waitNo.toLowerCase() === waitNo.toLowerCase())) {
     return res.status(400).json({ error: "Diese Wartenummer ist bereits in der Warteliste." });
   }
+
+  reserveNextWaitNumberIfNeeded(waitNo);
 
   waitingList.push({
     id: `w_${Date.now()}_${Math.random().toString(36).slice(2, 8)}`,
@@ -211,6 +297,39 @@ app.post("/api/waiting/add", (req, res) => {
 
   commitMutation();
   return res.json(getState());
+});
+
+app.post("/api/public/join", (req, res) => {
+  const guestName = sanitizeGuestName(req.body.guestName);
+
+  if (!guestName) {
+    return res.status(400).json({ error: "Name darf nicht leer sein." });
+  }
+  if (guestName.length > 40) {
+    return res.status(400).json({ error: "Name darf maximal 40 Zeichen lang sein." });
+  }
+  if (containsBlockedWord(guestName)) {
+    return res.status(400).json({ error: "Bitte einen angemessenen Namen eingeben." });
+  }
+
+  const waitNo = allocateNextWaitNo();
+
+  const entry = {
+    id: `w_${Date.now()}_${Math.random().toString(36).slice(2, 8)}`,
+    guestName,
+    waitNo,
+    createdAt: Date.now(),
+  };
+
+  waitingList.push(entry);
+  commitMutation();
+
+  return res.status(201).json({
+    ok: true,
+    guestName: entry.guestName,
+    waitNo: entry.waitNo,
+    position: getSortedWaitingList().findIndex((item) => item.id === entry.id) + 1,
+  });
 });
 
 app.post("/api/waiting/remove", (req, res) => {

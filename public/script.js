@@ -80,7 +80,7 @@
   }
 
   function showMessage(text, error = false) {
-    const node = document.getElementById("controller-message");
+    const node = document.getElementById("controller-message") || document.getElementById("join-message");
     if (!node) return;
 
     node.textContent = text;
@@ -190,6 +190,17 @@
     renderControllerStats();
     renderWaitingListController();
     renderActiveCallController();
+    renderJoinQr();
+  }
+
+  function renderJoinQr() {
+    const qrImage = document.getElementById("join-qr-image");
+    const urlLabel = document.getElementById("join-url-label");
+    if (!qrImage || !urlLabel) return;
+
+    const joinUrl = `${window.location.origin}/join`;
+    qrImage.src = `https://quickchart.io/qr?text=${encodeURIComponent(joinUrl)}&size=280&margin=2&dark=0A1722&light=FFFFFF`;
+    urlLabel.textContent = joinUrl.replace(/^https?:\/\//, "");
   }
 
   function renderDisplayHero() {
@@ -485,6 +496,27 @@
     }
   }
 
+  async function handlePublicJoin(event) {
+    event.preventDefault();
+    const nameInput = document.getElementById("join-name");
+    const successBox = document.getElementById("join-success");
+    const successNumber = document.getElementById("join-success-number");
+    const successName = document.getElementById("join-success-name");
+    const successCopy = document.getElementById("join-success-copy");
+
+    try {
+      const result = await api("/api/public/join", "POST", { guestName: nameInput.value });
+      nameInput.value = "";
+      if (successBox) successBox.classList.remove("hidden");
+      if (successNumber) successNumber.textContent = result.waitNo;
+      if (successName) successName.textContent = result.guestName;
+      if (successCopy) successCopy.textContent = `Deine Position: ${result.position}`;
+      showMessage("Anmeldung erfolgreich.");
+    } catch (error) {
+      showMessage(error.message, true);
+    }
+  }
+
   function wireController() {
     document.getElementById("add-form").addEventListener("submit", handleAddGuest);
     document.getElementById("btn-occupied-plus").addEventListener("click", handleOccupiedPlus);
@@ -493,6 +525,10 @@
     document.getElementById("btn-repeat-call").addEventListener("click", handleRepeatCall);
     document.getElementById("btn-confirm-call").addEventListener("click", handleConfirmCall);
     document.getElementById("btn-clear-call").addEventListener("click", handleClearCall);
+  }
+
+  function wireJoin() {
+    document.getElementById("join-form").addEventListener("submit", handlePublicJoin);
   }
 
   function refreshRelativeTimes() {
@@ -507,22 +543,26 @@
   }
 
   async function start() {
-    await refreshState(true);
-
     if (page === "controller") {
+      await refreshState(true);
       wireController();
+    } else if (page === "join") {
+      wireJoin();
     } else {
+      await refreshState(true);
       configureDisplayMode();
       updateClock();
       setInterval(updateClock, 30000);
       window.addEventListener("resize", configureDisplayMode);
     }
 
-    setInterval(refreshRelativeTimes, 30000);
+    if (page !== "join") {
+      setInterval(refreshRelativeTimes, 30000);
 
-    setInterval(() => {
-      refreshState().catch(() => {});
-    }, pollMs);
+      setInterval(() => {
+        refreshState().catch(() => {});
+      }, pollMs);
+    }
   }
 
   start().catch(() => {
