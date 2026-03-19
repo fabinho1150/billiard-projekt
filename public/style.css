@@ -6552,4 +6552,118 @@ input:focus {
   margin-bottom: 8px !important;
 }
 
+/* Higher density TV queue layout */
+.tv-mode .display-shell {
+  padding: 10px 12px 12px !important;
+}
+
+.tv-mode .display-topbar {
+  gap: 10px !important;
+  margin-bottom: 6px !important;
+}
+
+.tv-mode .brand-mark-display .brand-logo-image {
+  width: 42px !important;
+  height: 42px !important;
+}
+
+.tv-mode .brand-copy h1 {
+  font-size: clamp(1.7rem, 2.3vw, 2.4rem) !important;
+}
+
+.tv-mode .brand-subtitle,
+.tv-mode .display-clock {
+  font-size: 0.78rem !important;
+}
+
+.tv-mode .display-clock {
+  padding: 6px 10px !important;
+}
+
+.tv-mode .display-hero {
+  margin-top: 0 !important;
+  padding: 8px 12px !important;
+  grid-template-columns: minmax(0, 1fr) 56px !important;
+  min-height: 0 !important;
+}
+
+.tv-mode .display-hero h2 {
+  font-size: clamp(0.98rem, 1.1vw, 1.2rem) !important;
+}
+
+.tv-mode .display-banner {
+  padding: 5px 8px !important;
+  font-size: 0.66rem !important;
+}
+
+.tv-mode .display-hero-stage {
+  min-height: 30px !important;
+  max-height: 30px !important;
+}
+
+.tv-mode .hero-stage-logo {
+  width: 22px !important;
+  max-width: 22px !important;
+}
+
+.tv-mode .display-queue-signage {
+  gap: 6px !important;
+}
+
+.tv-mode .display-primary-panel {
+  padding: 10px 12px !important;
+}
+
+.tv-mode .display-upcoming-panel {
+  padding: 10px 12px 12px !important;
+}
+
+.tv-mode .display-section-head h3 {
+  font-size: 1.02rem !important;
+}
+
+.tv-mode .display-meta,
+.tv-mode .display-upcoming-copy {
+  font-size: 0.76rem !important;
+}
+
+.tv-mode .display-groups,
+.tv-mode .display-estimate {
+  padding: 4px 8px !important;
+  font-size: 0.72rem !important;
+}
+
+.tv-mode .priority-card {
+  padding: 8px 12px 10px !important;
+  gap: 2px !important;
+}
+
+.tv-mode .priority-label {
+  font-size: 0.72rem !important;
+}
+
+.tv-mode .priority-queue-number {
+  font-size: clamp(4.3rem, 5.6vw, 5.8rem) !important;
+  line-height: 0.78 !important;
+}
+
+.tv-mode .display-upcoming-list {
+  grid-template-columns: repeat(var(--queue-columns, 7), minmax(0, 1fr)) !important;
+  gap: 6px !important;
+}
+
+.tv-mode .display-upcoming-card {
+  padding: 7px 6px 8px !important;
+  border-radius: 14px !important;
+}
+
+.tv-mode .display-upcoming-position {
+  display: none !important;
+}
+
+.tv-mode .display-upcoming-number {
+  font-size: clamp(1.45rem, 2vw, 2rem) !important;
+  text-align: center;
+}
+
 

@@ -276,9 +276,9 @@
     host.classList.remove("is-empty");
     panel?.classList.remove("panel-empty");
     const isTv = document.body.classList.contains("tv-mode");
-    const columns = isTv ? 6 : 4;
-    const reservedHeight = isTv ? 360 : 430;
-    const rowHeight = isTv ? 88 : 120;
+    const columns = isTv ? 7 : 4;
+    const reservedHeight = isTv ? 300 : 430;
+    const rowHeight = isTv ? 68 : 120;
     const rows = Math.max(2, Math.floor((window.innerHeight - reservedHeight) / rowHeight));
     const visibleItems = list.slice(0, columns * rows);
     host.style.setProperty("--queue-columns", String(columns));
