@@ -6477,7 +6477,7 @@ input:focus {
 /* Show all waiting numbers on display */
 .display-upcoming-list {
   display: grid !important;
-  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)) !important;
+  grid-template-columns: repeat(var(--queue-columns, 4), minmax(0, 1fr)) !important;
   gap: 10px !important;
   align-items: start;
 }
@@ -6507,7 +6507,7 @@ input:focus {
 
 .tv-mode .display-upcoming-list {
   display: grid !important;
-  grid-template-columns: repeat(5, minmax(0, 1fr)) !important;
+  grid-template-columns: repeat(var(--queue-columns, 6), minmax(0, 1fr)) !important;
   gap: 8px !important;
 }
 
